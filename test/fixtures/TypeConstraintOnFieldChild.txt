@@ -10,7 +10,7 @@ Element:  Simple
 Value:    string
 
 Element:  Simple2
-BasedOn:  Simple
+Based on: Simple
 Value:    string
 
 Element:  Complex

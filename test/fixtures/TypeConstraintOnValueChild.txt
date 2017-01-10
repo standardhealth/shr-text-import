@@ -1,7 +1,7 @@
 DataDefinitions:  shr.test
 
 EntryElement: TypeConstraintOnValueChild
-BasedOn:      ComplexBase
+Based on:     ComplexBase
 Description:  "It is a simple element based on SimpleBase and specializing the value's child"
 Value:        Complex
 1..1          Complex.Simple is Simple2
@@ -17,7 +17,7 @@ Element:        Simple
 Value:          string
 
 Element:        Simple2
-BasedOn:        Simple
+Based on:       Simple
 Value:          string
 
 Element:        CodedFromValueSet

@@ -1,6 +1,6 @@
 const {expect, assert} = require('chai');
 const {importFromFilePath} = require('../index');
-const {Namespace, DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, TypeConstraint, CardConstraint} = require('shr-models');
+const {Namespace, DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, TypeConstraint, CardConstraint} = require('shr-models');
 
 describe('#importFromFilePath()', () => {
   it('should correctly import a simple entry', () => {
@@ -415,6 +415,83 @@ describe('#importFromFilePath()', () => {
     expectConcept(el.constraints[1].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
+  it('should correctly import an entry with an includes code constraint on the value', () => {
+    const {namespaces, errors} = importFixtureFolder('includesCodeConstraints');
+    expect(errors).is.empty;
+    expect(namespaces).to.have.length(2);
+    const ns = expectAndGetNamespaceByName(namespaces, 'shr.test');
+    const entry = expectAndGetEntry(ns, 0, 'IncludesCodeConstraintOnValue');
+    expect(entry.description).to.equal('It is an entry with an includes code constraint on the value');
+    expectMinMax(entry.value, 1);
+    expectValue(entry.value, 'shr.core', 'Coding');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(IncludesCodeConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+  it('should correctly import an entry with an includes code constraint on the value\'s child', () => {
+    const {namespaces, errors} = importFixtureFolder('includesCodeConstraints');
+    expect(errors).is.empty;
+    expect(namespaces).to.have.length(2);
+    const ns = expectAndGetNamespaceByName(namespaces, 'shr.test');
+    const entry = expectAndGetEntry(ns, 1, 'IncludesCodeConstraintOnValueChild');
+    expect(entry.description).to.equal('It is an entry with an includes code constraint on the value\'s child');
+    expectCardOne(entry.value);
+    expectValue(entry.value, 'shr.test', 'MultiCodedFromValueSet');
+    expect(entry.value.constraints).to.have.length(2);
+    expect(entry.value.constraints[0]).to.be.instanceof(CardConstraint);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Coding')]);
+    expect(entry.value.constraints[0].card.min).to.equal(1);
+    expect(entry.value.constraints[0].card.max).to.be.undefined;
+    expect(entry.value.constraints[1]).to.be.instanceof(IncludesCodeConstraint);
+    expect(entry.value.constraints[1].path).to.eql([id('shr.core','Coding')]);
+    expectConcept(entry.value.constraints[1].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+  it('should correctly import a group with an includes code constraint on a field', () => {
+    const {namespaces, errors} = importFixtureFolder('includesCodeConstraints');
+    expect(errors).is.empty;
+    expect(namespaces).to.have.length(2);
+    const ns = expectAndGetNamespaceByName(namespaces, 'shr.test');
+    const group = expectAndGetEntry(ns, 2, 'IncludesCodeConstraintOnField');
+    expect(group.concepts).to.be.empty;
+    expect(group.description).to.equal('It is a group entry with an includes code constraint on a field');
+    expect(group.value).to.be.undefined;
+    expect(group.fields).to.have.length(2);
+    expectField(group, 0, 'shr.test', 'Simple', 0, 1);
+    expectNoConstraints(group.fields[0]);
+    expectField(group, 1, 'shr.core', 'Coding', 1);
+    const el = group.fields[1];
+    expect(el.constraints).to.have.length(1);
+    expect(el.constraints[0]).to.be.instanceof(IncludesCodeConstraint);
+    expect(el.constraints[0].path).to.be.empty;
+    expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+  it('should correctly import a group with an includes code constraint on a field\'s child', () => {
+    const {namespaces, errors} = importFixtureFolder('includesCodeConstraints');
+    expect(errors).is.empty;
+    expect(namespaces).to.have.length(2);
+    const ns = expectAndGetNamespaceByName(namespaces, 'shr.test');
+    const group = expectAndGetEntry(ns, 3, 'IncludesCodeConstraintOnFieldChild');
+    expect(group.concepts).to.be.empty;
+    expect(group.description).to.equal('It is a group entry with an includes code constraint on a field\'s child');
+    expect(group.value).to.be.undefined;
+    expect(group.fields).to.have.length(2); // 3rd listing in fixture is really constraint on 2nd field
+    expectField(group, 0, 'shr.test', 'Simple', 0, 1);
+    expectField(group, 1, 'shr.test', 'MultiCodedFromValueSet', 0, 1);
+    const el = group.fields[1];
+    expect(el.constraints).to.have.length(2);
+    expect(el.constraints[0]).to.be.instanceof(CardConstraint);
+    expect(el.constraints[0].path).to.eql([id('shr.core','Coding')]);
+    expect(el.constraints[0].card.min).to.equal(1);
+    expect(el.constraints[0].card.max).to.be.undefined;
+    expect(el.constraints[1]).to.be.instanceof(IncludesCodeConstraint);
+    expect(el.constraints[1].path).to.eql([id('shr.core','Coding')]);
+    expectConcept(el.constraints[1].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
   it('should correctly import an entry based on an element and specializing the value', () => {
     const {namespaces, errors} = importFixture('TypeConstraintOnValue');
     expect(errors).is.empty;
@@ -529,6 +606,20 @@ describe('#importFromFilePath()', () => {
     expect(coded.value.constraints).to.have.length(1);
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
     expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+  });
+
+  it('should correctly resolve URL, URN, and URN OID vocabularies', () => {
+    const {namespaces, errors} = importFixture('Vocabularies');
+    expect(errors).is.empty;
+    expect(namespaces).to.have.length(1);
+
+    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
+    expect(ns.definitions).to.have.length(1);
+    const simple = expectAndGetEntry(ns, 0, 'Simple');
+    expect(simple.concepts).to.have.length(3);
+    expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
+    expectConcept(simple.concepts[1], 'urn:iso:std:iso:4217', 'baz', 'Foobaz');
+    expectConcept(simple.concepts[2], 'urn:oid:2.16.840.1.114222.4.11.826', 'bam', 'Foobam');
   });
 
   it('should correctly resolve elements and vocabularies from other namespaces', () => {

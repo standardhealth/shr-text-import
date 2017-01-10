@@ -2,7 +2,7 @@ DataDefinitions:  shr.test
 
 EntryElement: TypeConstraintOnField
 Description:  "It is a group entry with a type constraint on a field"
-BasedOn:      GroupBase
+Based on:     GroupBase
 0..1          Simple is Simple2
 
 Element:      GroupBase
@@ -13,7 +13,7 @@ Element:      Simple
 Value:        string
 
 Element:      Simple2
-BasedOn:      Simple
+Based on:     Simple
 Value:        string
 
 Element:      CodedFromValueSet
