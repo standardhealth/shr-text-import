@@ -1,11 +1,13 @@
 const {expect, assert} = require('chai');
 const {importFromFilePath} = require('../index');
-const {Namespace, DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, TypeConstraint, CardConstraint} = require('shr-models');
+const {Namespace, DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint} = require('shr-models');
 
 describe('#importFromFilePath()', () => {
   it('should correctly import a simple entry', () => {
     const {namespaces, errors} = importFixture('Simple');
     expect(errors).is.empty;
+    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
+    expect(ns.description).to.equal('The SHR test namespace');
     const simple = expectAndGetSingleEntry(namespaces, 'shr.test', 'Simple');
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
@@ -284,14 +286,10 @@ describe('#importFromFilePath()', () => {
     expect(entry.description).to.equal('It is an entry with a code constraint on the value\'s child');
     expectCardOne(entry.value);
     expectValue(entry.value, 'shr.test', 'CodedFromValueSet');
-    expect(entry.value.constraints).to.have.length(2);
-    expect(entry.value.constraints[0]).to.be.instanceof(CardConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Coding')]);
-    expect(entry.value.constraints[0].card.min).to.equal(1);
-    expect(entry.value.constraints[0].card.max).to.equal(1);
-    expect(entry.value.constraints[1]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[1].path).to.eql([id('shr.core','Coding')]);
-    expectConcept(entry.value.constraints[1].code, 'http://foo.org', 'bar', 'FooBar');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.core','Coding')]);
+    expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
   });
 
   it('should correctly import a group with a code constraint on a field', () => {
@@ -327,14 +325,28 @@ describe('#importFromFilePath()', () => {
     expectField(group, 0, 'shr.test', 'Simple', 0, 1);
     expectField(group, 1, 'shr.test', 'CodedFromValueSet', 0, 1);
     const el = group.fields[1];
-    expect(el.constraints).to.have.length(2);
-    expect(el.constraints[0]).to.be.instanceof(CardConstraint);
+    expect(el.constraints).to.have.length(1);
+    expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
     expect(el.constraints[0].path).to.eql([id('shr.core','Coding')]);
-    expect(el.constraints[0].card.min).to.equal(1);
-    expect(el.constraints[0].card.max).to.equal(1);
-    expect(el.constraints[1]).to.be.instanceof(CodeConstraint);
-    expect(el.constraints[1].path).to.eql([id('shr.core','Coding')]);
-    expectConcept(el.constraints[1].code, 'http://foo.org', 'bar', 'FooBar');
+    expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+  it('should correctly import an entry with a system-less code constraint on the value', () => {
+    const {namespaces, errors} = importFixtureFolder('codeConstraints');
+    expect(errors).is.empty;
+    expect(namespaces).to.have.length(2);
+    const ns = expectAndGetNamespaceByName(namespaces, 'shr.test');
+    const entry = expectAndGetEntry(ns, 4, 'SystemlessCodeConstraintOnValue');
+    expect(entry.description).to.equal('It is an entry with a system-less code constraint on the value');
+    expect(entry.basedOn).to.have.length(1);
+    expect(entry.basedOn[0].namespace).to.equal('shr.test');
+    expect(entry.basedOn[0].name).to.equal('CodedFromValueSet');
+    expectCardOne(entry.value);
+    expectValue(entry.value, 'shr.core', 'Coding');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expectConcept(entry.value.constraints[0].code, null, 'bar');
   });
 
   // NOTE: Quantity with unit constraints are just syntactic sugar for a code constraint!
@@ -362,14 +374,10 @@ describe('#importFromFilePath()', () => {
     expect(entry.description).to.equal('It is an entry with a unit constraint on the value\'s child');
     expectCardOne(entry.value);
     expectValue(entry.value, 'shr.test', 'Volume');
-    expect(entry.value.constraints).to.have.length(2);
-    expect(entry.value.constraints[0]).to.be.instanceof(CardConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity')]);
-    expect(entry.value.constraints[0].card.min).to.equal(1);
-    expect(entry.value.constraints[0].card.max).to.equal(1);
-    expect(entry.value.constraints[1]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[1].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'UnitOfMeasure'), id('shr.core', 'Coding')]);
-    expectConcept(entry.value.constraints[1].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'UnitOfMeasure'), id('shr.core', 'Coding')]);
+    expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
   it('should correctly import a group with a unit constraint on a field', () => {
@@ -405,14 +413,10 @@ describe('#importFromFilePath()', () => {
     expectField(group, 0, 'shr.test', 'Simple', 0, 1);
     expectField(group, 1, 'shr.test', 'Volume', 0, 1);
     const el = group.fields[1];
-    expect(el.constraints).to.have.length(2);
-    expect(el.constraints[0]).to.be.instanceof(CardConstraint);
-    expect(el.constraints[0].path).to.eql([id('shr.core','Quantity')]);
-    expect(el.constraints[0].card.min).to.equal(1);
-    expect(el.constraints[0].card.max).to.equal(1);
-    expect(el.constraints[1]).to.be.instanceof(CodeConstraint);
-    expect(el.constraints[1].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'UnitOfMeasure'), id('shr.core', 'Coding')]);
-    expectConcept(el.constraints[1].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
+    expect(el.constraints).to.have.length(1);
+    expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
+    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'UnitOfMeasure'), id('shr.core', 'Coding')]);
+    expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
   it('should correctly import an entry with an includes code constraint on the value', () => {
@@ -439,14 +443,10 @@ describe('#importFromFilePath()', () => {
     expect(entry.description).to.equal('It is an entry with an includes code constraint on the value\'s child');
     expectCardOne(entry.value);
     expectValue(entry.value, 'shr.test', 'MultiCodedFromValueSet');
-    expect(entry.value.constraints).to.have.length(2);
-    expect(entry.value.constraints[0]).to.be.instanceof(CardConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Coding')]);
-    expect(entry.value.constraints[0].card.min).to.equal(1);
-    expect(entry.value.constraints[0].card.max).to.be.undefined;
-    expect(entry.value.constraints[1]).to.be.instanceof(IncludesCodeConstraint);
-    expect(entry.value.constraints[1].path).to.eql([id('shr.core','Coding')]);
-    expectConcept(entry.value.constraints[1].code, 'http://foo.org', 'bar', 'FooBar');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(IncludesCodeConstraint);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.core','Coding')]);
+    expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
   });
 
   it('should correctly import a group with an includes code constraint on a field', () => {
@@ -482,14 +482,56 @@ describe('#importFromFilePath()', () => {
     expectField(group, 0, 'shr.test', 'Simple', 0, 1);
     expectField(group, 1, 'shr.test', 'MultiCodedFromValueSet', 0, 1);
     const el = group.fields[1];
-    expect(el.constraints).to.have.length(2);
-    expect(el.constraints[0]).to.be.instanceof(CardConstraint);
+    expect(el.constraints).to.have.length(1);
+    expect(el.constraints[0]).to.be.instanceof(IncludesCodeConstraint);
     expect(el.constraints[0].path).to.eql([id('shr.core','Coding')]);
-    expect(el.constraints[0].card.min).to.equal(1);
-    expect(el.constraints[0].card.max).to.be.undefined;
-    expect(el.constraints[1]).to.be.instanceof(IncludesCodeConstraint);
-    expect(el.constraints[1].path).to.eql([id('shr.core','Coding')]);
-    expectConcept(el.constraints[1].code, 'http://foo.org', 'bar', 'FooBar');
+    expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+  it('should correctly import an entry with a boolean constraint on the value', () => {
+    const {namespaces, errors} = importFixture('BooleanConstraints');
+    expect(errors).is.empty;
+    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
+    const entry = expectAndGetEntry(ns, 0, 'BooleanConstraintOnValue');
+    expect(entry.description).to.equal('It is an entry with a boolean constraint on the value');
+    expectCardOne(entry.value);
+    expectPrimitiveValue(entry.value, 'boolean');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].value).to.be.true;
+  });
+
+  it('should correctly import an entry with a boolean constraint on the value\'s child', () => {
+    const {namespaces, errors} = importFixture('BooleanConstraints');
+    expect(errors).is.empty;
+    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
+    const entry = expectAndGetEntry(ns, 1, 'BooleanConstraintOnValueChild');
+    expect(entry.description).to.equal('It is an entry with a boolean constraint on the value\'s child');
+    expectCardOne(entry.value);
+    expectValue(entry.value, 'shr.test', 'SimpleBoolean');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
+    expect(entry.value.constraints[0].path).to.eql([pid('boolean')]);
+    expect(entry.value.constraints[0].value).to.be.false;
+  });
+
+  it('should correctly import a group with a boolean constraint on a field\'s child', () => {
+    const {namespaces, errors} = importFixture('BooleanConstraints');
+    expect(errors).is.empty;
+    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
+    const group = expectAndGetEntry(ns, 2, 'BooleanConstraintOnFieldChild');
+    expect(group.concepts).to.be.empty;
+    expect(group.description).to.equal('It is a group entry with a boolean constraint on a field\'s child');
+    expect(group.value).to.be.undefined;
+    expect(group.fields).to.have.length(2); // 3rd listing in fixture is really constraint on 2nd field
+    expectField(group, 0, 'shr.test', 'Simple', 0, 1);
+    expectField(group, 1, 'shr.test', 'SimpleBoolean', 0, 1);
+    const el = group.fields[1];
+    expect(el.constraints).to.have.length(1);
+    expect(el.constraints[0]).to.be.instanceof(BooleanConstraint);
+    expect(el.constraints[0].path).to.eql([pid('boolean')]);
+    expect(el.constraints[0].value).to.be.true;
   });
 
   it('should correctly import an entry based on an element and specializing the value', () => {
@@ -540,7 +582,7 @@ describe('#importFromFilePath()', () => {
     expect(group.description).to.equal('It is a group entry with a type constraint on a field');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
-    expectField(group, 0, 'shr.test', 'Simple', 0, 1);
+    expectField(group, 0, 'shr.test', 'Simple');
     expect(group.fields[0].constraints).to.have.length(1);
     expect(group.fields[0].constraints[0].path).to.be.empty;
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
@@ -569,6 +611,40 @@ describe('#importFromFilePath()', () => {
     expectIdentifier(cmplx.constraints[1].isA, 'shr.test', 'Simple2');
   });
 
+  it('should correctly import an entry with a card constraint on the value\'s child', () => {
+    const {namespaces, errors} = importFixture('CardConstraints');
+    expect(errors).is.empty;
+    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
+    const entry = expectAndGetEntry(ns, 0, 'CardConstraintOnValueChild');
+    expect(entry.description).to.equal('It is an entry with a card constraint on the value\'s child');
+    expectCardOne(entry.value);
+    expectValue(entry.value, 'shr.test', 'Simple');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(CardConstraint);
+    expect(entry.value.constraints[0].path).to.eql([pid('string')]);
+    expect(entry.value.constraints[0].card.min).to.equal(1);
+    expect(entry.value.constraints[0].card.max).to.equal(2);
+  });
+
+  it('should correctly import a group with a card constraint on a field\'s child', () => {
+    const {namespaces, errors} = importFixture('CardConstraints');
+    expect(errors).is.empty;
+    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
+    const group = expectAndGetEntry(ns, 1, 'CardConstraintOnFieldChild');
+    expect(group.concepts).to.be.empty;
+    expect(group.description).to.equal('It is a group entry with a card constraint on a field\'s child');
+    expect(group.value).to.be.undefined;
+    expect(group.fields).to.have.length(2); // 3rd listing in fixture is really constraint on 2nd field
+    expectField(group, 0, 'shr.test', 'Simple', 0, 1);
+    expectField(group, 1, 'shr.test', 'Simple2', 0, 1);
+    const el = group.fields[1];
+    expect(el.constraints).to.have.length(1);
+    expect(el.constraints[0]).to.be.instanceof(CardConstraint);
+    expect(el.constraints[0].path).to.eql([pid('string')]);
+    expect(el.constraints[0].card.min).to.equal(1);
+    expect(el.constraints[0].card.max).to.equal(2);
+  });
+
   it('should correctly import an entry based on an element', () => {
     const {namespaces, errors} = importFixture('BasedOn');
     expect(errors).is.empty;
@@ -583,8 +659,6 @@ describe('#importFromFilePath()', () => {
     expectCardOne(basedOn.value);
     expectValue(basedOn.value, 'shr.test', 'Simple');
     expectNoConstraints(basedOn.value);
-
-    // TODO: Actually pull in the fields from the base
   });
 
   it('should correctly import multiple elements in a single namespace', () => {
@@ -672,7 +746,7 @@ describe('#importFromFilePath()', () => {
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
     expect(simple.description).to.equal('It is a simple entry with invalid element reference');
     expectCardOne(simple.value);
-    expectValue(simple.value, 'shr.test', 'Complex'); // Defaults to current namespace
+    expectValue(simple.value, 'unknown', 'Complex');
     expectNoConstraints(simple.value);
   });
 
@@ -684,7 +758,7 @@ describe('#importFromFilePath()', () => {
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
     expect(simple.description).to.equal('It is a simple entry with invalid fully qualified element reference');
     expectCardOne(simple.value);
-    expectValue(simple.value, 'other.ns', 'Complex'); // Defaults to current namespace
+    expectValue(simple.value, 'other.ns', 'Complex');
     expectNoConstraints(simple.value);
   });
 
@@ -802,14 +876,18 @@ function expectChoiceValue(value, size) {
 function expectMinMax(value, expectedMin, expectedMax) {
   expect(value).to.be.instanceof(Value);
   const card = value.card;
-  expect(card).to.be.instanceof(Cardinality);
-  expect(card.min).to.equal(expectedMin);
-  if (typeof card.max != 'undefined') {
-    expect(card.max).to.equal(expectedMax);
-    expect(card.isMaxUnbounded).to.be.false;
+  if (typeof expectedMin !== 'undefined') {
+    expect(card).to.be.instanceof(Cardinality);
+    expect(card.min).to.equal(expectedMin);
+    if (typeof card.max != 'undefined') {
+      expect(card.max).to.equal(expectedMax);
+      expect(card.isMaxUnbounded).to.be.false;
+    } else {
+      expect(card.max).to.be.undefined;
+      expect(card.isMaxUnbounded).to.be.true;
+    }
   } else {
-    expect(card.max).to.be.undefined;
-    expect(card.isMaxUnbounded).to.be.true;
+    expect(card).to.be.undefined;
   }
 }
 

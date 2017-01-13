@@ -1,8 +1,9 @@
-DataDefinitions:  shr.test
+Grammar:    DataElement 4.0
+Namespace:  shr.test
 
-Vocabulary:     FOOURL = http://foo.org
-Vocabulary:     FOOURN = urn:iso:std:iso:4217
-Vocabulary:     FOOOID = urn:oid:2.16.840.1.114222.4.11.826
+CodeSystem:     FOOURL = http://foo.org
+CodeSystem:     FOOURN = urn:iso:std:iso:4217
+CodeSystem:     FOOOID = urn:oid:2.16.840.1.114222.4.11.826
 
 EntryElement:   Simple
 Concept:        FOOURL #bar "Foobar"

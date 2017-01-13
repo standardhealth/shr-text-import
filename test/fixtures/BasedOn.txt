@@ -1,7 +1,8 @@
-DataDefinitions:  shr.test
+Grammar:   DataElement 4.0
+Namespace: shr.test
 
-Vocabulary:     FOO = http://foo.org
-Vocabulary:     BOO = http://boo.org
+CodeSystem:     FOO = http://foo.org
+CodeSystem:     BOO = http://boo.org
 
 EntryElement: SimpleBasedOn
 Based on:     SimpleBase
