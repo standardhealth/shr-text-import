@@ -535,7 +535,7 @@ describe('#importFromFilePath()', () => {
   });
 
   it('should correctly import an entry based on an element and specializing the value', () => {
-    const {namespaces, errors} = importFixture('TypeConstraintOnValue');
+    const {namespaces, errors} = importFixture('TypeConstraints');
     expect(errors).is.empty;
     const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
     const basedOn = expectAndGetEntry(ns, 0, 'TypeConstraintOnValue');
@@ -546,16 +546,17 @@ describe('#importFromFilePath()', () => {
     expectCardOne(basedOn.value);
     expectValue(basedOn.value, 'shr.test', 'Simple');
     expect(basedOn.value.constraints).to.have.length(1);
-    expect(basedOn.value.constraints[0].path).to.be.empty;
     expect(basedOn.value.constraints[0]).to.be.instanceof(TypeConstraint);
+    expect(basedOn.value.constraints[0].path).to.be.empty;
+    expect(basedOn.value.constraints[0].onValue).to.be.false;
     expectIdentifier(basedOn.value.constraints[0].isA, 'shr.test', 'Simple2');
   });
 
   it('should correctly import an entry based on an element and specializing the value\'s child', () => {
-    const {namespaces, errors} = importFixture('TypeConstraintOnValueChild');
+    const {namespaces, errors} = importFixture('TypeConstraints');
     expect(errors).is.empty;
     const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
-    const basedOn = expectAndGetEntry(ns, 0, 'TypeConstraintOnValueChild');
+    const basedOn = expectAndGetEntry(ns, 1, 'TypeConstraintOnValueChild');
     expect(basedOn.basedOn).to.have.length(1);
     expectIdentifier(basedOn.basedOn[0], 'shr.test', 'ComplexBase');
     expect(basedOn.description).to.equal('It is a simple element based on SimpleBase and specializing the value\'s child');
@@ -568,14 +569,15 @@ describe('#importFromFilePath()', () => {
     expect(basedOn.value.constraints[0].card.max).to.equal(1);
     expect(basedOn.value.constraints[1]).to.be.instanceof(TypeConstraint);
     expect(basedOn.value.constraints[1].path).to.eql([id('shr.test', 'Simple')]);
+    expect(basedOn.value.constraints[1].onValue).to.be.false;
     expectIdentifier(basedOn.value.constraints[1].isA, 'shr.test', 'Simple2');
   });
 
   it('should correctly import a group with a type constraint on a field', () => {
-    const {namespaces, errors} = importFixture('TypeConstraintOnField');
+    const {namespaces, errors} = importFixture('TypeConstraints');
     expect(errors).is.empty;
     const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
-    const group = expectAndGetEntry(ns, 0, 'TypeConstraintOnField');
+    const group = expectAndGetEntry(ns, 2, 'TypeConstraintOnField');
     expect(group.basedOn).to.have.length(1);
     expectIdentifier(group.basedOn[0], 'shr.test', 'GroupBase');
     expect(group.concepts).to.be.empty;
@@ -584,16 +586,17 @@ describe('#importFromFilePath()', () => {
     expect(group.fields).to.have.length(1);
     expectField(group, 0, 'shr.test', 'Simple');
     expect(group.fields[0].constraints).to.have.length(1);
-    expect(group.fields[0].constraints[0].path).to.be.empty;
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
+    expect(group.fields[0].constraints[0].path).to.be.empty;
+    expect(group.fields[0].constraints[0].onValue).to.be.false;
     expectIdentifier(group.fields[0].constraints[0].isA, 'shr.test', 'Simple2');
   });
 
   it('should correctly import a group with a type constraint on a field\'s child', () => {
-    const {namespaces, errors} = importFixture('TypeConstraintOnFieldChild');
+    const {namespaces, errors} = importFixture('TypeConstraints');
     expect(errors).is.empty;
     const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
-    const group = expectAndGetEntry(ns, 0, 'TypeConstraintOnFieldChild');
+    const group = expectAndGetEntry(ns, 3, 'TypeConstraintOnFieldChild');
     expect(group.concepts).to.be.empty;
     expect(group.description).to.equal('It is a group entry with a type constraint on a field\'s child');
     expect(group.value).to.be.undefined;
@@ -608,7 +611,27 @@ describe('#importFromFilePath()', () => {
     expect(cmplx.constraints[0].card.max).to.equal(2);
     expect(cmplx.constraints[1]).to.be.instanceof(TypeConstraint);
     expect(cmplx.constraints[1].path).to.eql([id('shr.test', 'Simple')]);
+    expect(cmplx.constraints[1].onValue).to.be.false;
     expectIdentifier(cmplx.constraints[1].isA, 'shr.test', 'Simple2');
+  });
+
+  it('should correctly import a group with a type constraint on a field\'s value', () => {
+    const {namespaces, errors} = importFixture('TypeConstraints');
+    expect(errors).is.empty;
+    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
+    const group = expectAndGetEntry(ns, 4, 'TypeConstraintOnFieldValue');
+    expect(group.basedOn).to.have.length(1);
+    expectIdentifier(group.basedOn[0], 'shr.test', 'Group2');
+    expect(group.concepts).to.be.empty;
+    expect(group.description).to.equal('It is a group entry with a type constraint on a field\'s value');
+    expect(group.value).to.be.undefined;
+    expect(group.fields).to.have.length(1);
+    expectField(group, 0, 'shr.test', 'HasSimpleValue');
+    expect(group.fields[0].constraints).to.have.length(1);
+    expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
+    expect(group.fields[0].constraints[0].path).to.be.empty;
+    expect(group.fields[0].constraints[0].onValue).to.be.true;
+    expectIdentifier(group.fields[0].constraints[0].isA, 'shr.test', 'Simple2');
   });
 
   it('should correctly import an entry with a card constraint on the value\'s child', () => {
