@@ -772,24 +772,6 @@ function id(namespace, name) {
 function pid(name) {
   return new PrimitiveIdentifier(name);
 }
-/*
-function expectAndGetNamespace(results, namespaceIndex, expectedNamespace) {
-  const ns = results[namespaceIndex];
-  expect(ns).to.be.instanceof(Namespace);
-  expect(ns.namespace).to.equal(expectedNamespace);
-  return ns;
-}
-
-function expectAndGetNamespaceByName(results, namespace) {
-  for (const ns of results) {
-    expect(ns).to.be.instanceof(Namespace);
-    if (ns.namespace == namespace) {
-      return ns;
-    }
-  }
-  assert.fail('', namespace, `Namespace ${namespace} not found`);
-}
-*/
 
 function expectAndGetElement(specs, expectedNamespace, expectedName) {
   return expectAndGetDataElement(specs, expectedNamespace, expectedName, false);
@@ -903,9 +885,9 @@ function expectNoConstraints(value) {
 }
 
 function importFixture(name) {
-  return importFromFilePath(`${__dirname}/fixtures/${name}.txt`);
+  return importFromFilePath(`${__dirname}/fixtures/dataElement/${name}.txt`);
 }
 
 function importFixtureFolder(name) {
-  return importFromFilePath(`${__dirname}/fixtures/${name}`);
+  return importFromFilePath(`${__dirname}/fixtures/dataElement/${name}`);
 }
