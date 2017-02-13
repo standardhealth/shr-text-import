@@ -5,4 +5,4 @@ Target:		TEST
 A maps to B:
 	C.D[F] maps to c.d.f
 	G.H[J] maps to http://test.org/ghj
-	k.l.m is 1..*
+	constrain k.l.m to 1..*

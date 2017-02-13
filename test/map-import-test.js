@@ -10,9 +10,9 @@ describe('#importFromFilePath()', () => {
     expectTargets(specifications, 'TEST');
     const s = getAndExpect(specifications, 'shr.test', 'A', 'TEST', 'B');
     expect(s.rules).to.eql([
-      new mdls.FieldToFieldMappingRule([sid('X')], ['testX']),
-      new mdls.FieldToURLMappingRule([sid('Y')], 'http://test.org/y'),
-      new mdls.TargetCardinalityMappingRule(['z'], new mdls.Cardinality(0, 0))
+      new mdls.FieldMappingRule([sid('X')], 'testX'),
+      new mdls.FieldMappingRule([sid('Y')], 'http://test.org/y'),
+      new mdls.CardinalityMappingRule('z', new mdls.Cardinality(0, 0))
     ]);
   });
 
@@ -23,9 +23,9 @@ describe('#importFromFilePath()', () => {
     expectTargets(specifications, 'TEST');
     const s = getAndExpect(specifications, 'shr.test', 'A', 'TEST', 'B');
     expect(s.rules).to.eql([
-      new mdls.FieldToFieldMappingRule([sid('C'), sid('D'), sid('E')], ['c', 'd', 'e']),
-      new mdls.FieldToURLMappingRule([sid('F'), sid('G'), sid('H')], 'http://test.org/fgh'),
-      new mdls.TargetCardinalityMappingRule(['i', 'j', 'k'], new mdls.Cardinality(1, 2))
+      new mdls.FieldMappingRule([sid('C'), sid('D'), sid('E')], 'c.d.e'),
+      new mdls.FieldMappingRule([sid('F'), sid('G'), sid('H')], 'http://test.org/fgh'),
+      new mdls.CardinalityMappingRule('i.j.k', new mdls.Cardinality(1, 2))
     ]);
   });
 
@@ -36,9 +36,9 @@ describe('#importFromFilePath()', () => {
     expectTargets(specifications, 'TEST');
     const s = getAndExpect(specifications, 'shr.test', 'A', 'TEST', 'B');
     expect(s.rules).to.eql([
-      new mdls.FieldToFieldMappingRule([sid('C'), sid('D'), sid('F')], ['c', 'd', 'f']),
-      new mdls.FieldToURLMappingRule([sid('G'), sid('H'), sid('J')], 'http://test.org/ghj'),
-      new mdls.TargetCardinalityMappingRule(['k', 'l', 'm'], new mdls.Cardinality(1))
+      new mdls.FieldMappingRule([sid('C'), sid('D'), sid('F')], 'c.d.f'),
+      new mdls.FieldMappingRule([sid('G'), sid('H'), sid('J')], 'http://test.org/ghj'),
+      new mdls.CardinalityMappingRule('k.l.m', new mdls.Cardinality(1))
     ]);
   });
 });

@@ -5,4 +5,4 @@ Target:		TEST
 A maps to B:
 	X maps to testX
 	Y maps to http://test.org/y
-	z is 0..0
+	constrain z to 0..0
