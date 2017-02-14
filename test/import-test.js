@@ -94,6 +94,18 @@ describe('#importFromFilePath()', () => {
     expect(codingFromVS.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
   });
 
+  it('should correctly import an entry with a CodeableConcept from a valueset', () => {
+    const {specifications, errors} = importFixtureFolder('codeableConceptFromValueSet');
+    expect(errors).is.empty;
+    const codingFromVS = expectAndGetEntry(specifications, 'shr.test', 'CodeableConceptFromValueSet');
+    expect(codingFromVS.description).to.equal('It is a coded entry with CodeableConcept');
+    expectCardOne(codingFromVS.value);
+    expectValue(codingFromVS.value, 'shr.core', 'CodeableConcept');
+    expect(codingFromVS.value.constraints).to.have.length(1);
+    expect(codingFromVS.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
+    expect(codingFromVS.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+  });
+
   it('should correctly import a reference to simple element', () => {
     const {specifications, errors} = importFixture('SimpleReference');
     expect(errors).is.empty;
@@ -405,6 +417,19 @@ describe('#importFromFilePath()', () => {
     expect(entry.description).to.equal('It is an entry with an includes code constraint on the value');
     expectMinMax(entry.value, 1);
     expectValue(entry.value, 'shr.core', 'Coding');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(IncludesCodeConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+  it('should correctly import an entry with an includes code constraint (using CodeableConcept) on the value', () => {
+    const {specifications, errors} = importFixtureFolder('includesCodeConstraintsUsingCodeableConcept');
+    expect(errors).is.empty;
+    const entry = expectAndGetEntry(specifications, 'shr.test', 'IncludesCodeConstraintOnValue');
+    expect(entry.description).to.equal('It is an entry with an includes code constraint on the value');
+    expectMinMax(entry.value, 1);
+    expectValue(entry.value, 'shr.core', 'CodeableConcept');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(IncludesCodeConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
