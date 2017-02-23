@@ -358,7 +358,7 @@ describe('#importFromFilePath()', () => {
     expectValue(entry.value, 'shr.core', 'Quantity');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core','UnitOfMeasure'), id('shr.core','Coding')]);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','Coding')]);
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -371,7 +371,7 @@ describe('#importFromFilePath()', () => {
     expectValue(entry.value, 'shr.test', 'Volume');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'UnitOfMeasure'), id('shr.core', 'Coding')]);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'Coding')]);
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -389,7 +389,7 @@ describe('#importFromFilePath()', () => {
     const el = group.fields[1];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(el.constraints[0].path).to.eql([id('shr.core','UnitOfMeasure'), id('shr.core','Coding')]);
+    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','Coding')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -406,7 +406,7 @@ describe('#importFromFilePath()', () => {
     const el = group.fields[1];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'UnitOfMeasure'), id('shr.core', 'Coding')]);
+    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'Coding')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
