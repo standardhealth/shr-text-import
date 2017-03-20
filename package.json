@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "antlr4": "~4.6.0",
-    "shr-models": "~4.1.0"
+    "shr-models": "standardhealth/shr-models.git#grammar_4.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
