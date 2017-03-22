@@ -79,7 +79,7 @@ describe('#importFromFilePath()', () => {
     expectPrimitiveValue(coded.value, 'code');
     expect(coded.value.constraints).to.have.length(1);
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
-    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/shr-test-Coded');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
   });
 
   it('should correctly import an entry with a Coding from a valueset', () => {
