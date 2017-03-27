@@ -1,6 +1,6 @@
 const {expect} = require('chai');
 const {importFromFilePath} = require('../index');
-const {Version, DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint} = require('shr-models');
+const {Version, DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, TBD} = require('shr-models');
 
 describe('#importFromFilePath()', () => {
   it('should correctly import a namespace definition', () => {
@@ -669,6 +669,21 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(basedOn.value);
   });
 
+  it('should correctly import an entry based on a TBD', () => {
+    const {specifications, errors} = importFixture('BasedOnTBD');
+    expect(errors).to.eql([]);
+    const basedOn = expectAndGetEntry(specifications, 'shr.test', 'BasedOnTBD');
+    expect(basedOn.basedOn).to.have.length(1);
+    expect(basedOn.basedOn[0]).to.be.instanceOf(TBD);
+    expect(basedOn.basedOn[0].text).to.equal('BaseToBeDetermined');
+    expect(basedOn.concepts).to.have.length(1);
+    expectConcept(basedOn.concepts[0], 'http://foo.org', 'bar');
+    expect(basedOn.description).to.equal('It is a simple definition based on TBD BaseToBeDetermined');
+    expectCardOne(basedOn.value);
+    expectPrimitiveValue(basedOn.value, 'string');
+    expectNoConstraints(basedOn.value);
+  });
+
   it('should correctly import multiple elements in a single namespace', () => {
     const {specifications, errors} = importFixture('MultipleElementNamespace');
     expect(errors).to.eql([]);
@@ -898,7 +913,7 @@ function expectNoConstraints(value) {
 function importFixture(name) {
   const {specifications, errors} = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
   if (errors.length > 0) {
-    console.error("ERRORS", errors);
+    console.error('ERRORS', errors);
   }
   return importFromFilePath(`${__dirname}/fixtures/dataElement/${name}.txt`, specifications);
 }
@@ -906,7 +921,7 @@ function importFixture(name) {
 function importFixtureFolder(name) {
   const {specifications, errors} = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
   if (errors.length > 0) {
-    console.error("ERRORS", errors);
+    console.error('ERRORS', errors);
   }
   return importFromFilePath(`${__dirname}/fixtures/dataElement/${name}`, specifications);
 }
