@@ -72,17 +72,6 @@ describe('#importFromFilePath()', () => {
     expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
   });
 
-  it('should correctly import an entry with a code from a valueset using a default path', () => {
-    const specifications = importFixture('CodedFromDefaultPathValueSet');
-    const coded = expectAndGetEntry(specifications, 'shr.test', 'CodedFromDefaultPathValueSet');
-    expect(coded.description).to.equal('It is a coded entry that uses a valueset with a default path');
-    expectCardOne(coded.value);
-    expectPrimitiveValue(coded.value, 'code');
-    expect(coded.value.constraints).to.have.length(1);
-    expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
-    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
-  });
-
   it('should correctly import an entry with a Coding from a valueset', () => {
     const specifications = importFixtureFolder('codingFromValueSet');
     const codingFromVS = expectAndGetEntry(specifications, 'shr.test', 'CodingFromValueSet');
@@ -135,25 +124,6 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(choice.value);
     expectNoConstraints(choice.value.options);
   });
-
-  /* Not currently supported by grammar, but maybe it should be?
-  it('should correctly import a complex choice entry', () => {
-    const specifications = importFixtureFolder('complexChoice');
-    const ns = expectAndGetNamespace(namespaces, 0, 'shr.test');
-    const choice = expectAndGetEntry(ns, 0, 'ComplexChoice');
-    expect(choice.description).to.equal('It is an entry with a complex choice');
-    expectCardOne(choice.value);
-    expectChoiceValue(choice.value, 2);
-    const option0 = choice.value.options[0];
-    expectMinMax(option0, 1, 2);
-    expectChoiceValue(option0, 2);
-    expectChoiceOption(option0, 0, 'primitive', 'date');
-    expectChoiceOption(option0, 1, 'other.ns', 'Period');
-    const option1 = choice.value.options[1];
-    expectMinMax(option1, 3, 4);
-    expectValue(option1, 'shr.test', 'Simple');
-  });
-  */
 
   it('should correctly import a group entry with a code value', () => {
     const specifications = importFixtureFolder('group');
