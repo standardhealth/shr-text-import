@@ -25,6 +25,7 @@ describe('#importFromFilePath()', () => {
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
     expect(simple.description).to.equal('It is a simple entry');
+    expect(simple.isAbstract).to.be.false;
     expectCardOne(simple.value);
     expectPrimitiveValue(simple.value, 'string');
     expectNoConstraints(simple.value);
@@ -37,18 +38,7 @@ describe('#importFromFilePath()', () => {
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
     expect(simple.description).to.equal('It is a simple element');
     expectCardOne(simple.value);
-    expectPrimitiveValue(simple.value, 'string');
-    expectNoConstraints(simple.value);
-  });
-
-  it('should correctly import a simple abstract entry', () => {
-    const specifications = importFixture('SimpleAbstract');
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.grammarVersion).to.eql(new Version(4, 0));
-    expect(simple.concepts).to.have.length(1);
-    expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
-    expect(simple.description).to.equal('It is a simple entry');
-    expectCardOne(simple.value);
+    expect(simple.isAbstract).to.be.false;
     expectPrimitiveValue(simple.value, 'string');
     expectNoConstraints(simple.value);
   });
@@ -56,6 +46,7 @@ describe('#importFromFilePath()', () => {
   it('should correctly import a simple abstract element', () => {
     const specifications = importFixture('SimpleAbstractElement');
     const simple = expectAndGetElement(specifications, 'shr.test', 'Simple');
+    expect(simple.isAbstract).to.be.true;
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
     expect(simple.description).to.equal('It is a simple element');
