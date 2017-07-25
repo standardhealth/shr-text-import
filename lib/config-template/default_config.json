@@ -1,0 +1,17 @@
+{
+    "projectName": "Example Project",
+    "projectShorthand": "EXAMPLE",
+    "projectURL": "http://example.com",
+    "fhirURL": "http://example.com/fhir",
+    "publisher": "Example Publisher",
+    "contact": [
+        {
+            "telecom": [
+                {
+                    "system": "url",
+                    "value": "http://example.com"
+                }
+            ]
+        }
+    ]
+}

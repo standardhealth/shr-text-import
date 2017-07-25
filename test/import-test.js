@@ -1,5 +1,5 @@
 const {expect} = require('chai');
-const {importFromFilePath, setLogger} = require('../index');
+const {importFromFilePath, importConfigFromFilePath, setLogger} = require('../index');
 const {Version, DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, TBD, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
 const err = require('shr-test-helpers/errors');
 
@@ -790,6 +790,95 @@ describe('#importFromFilePath()', () => {
   });
 });
 
+describe("#importConfigFromFilePath", () => {
+  beforeEach(function() {
+    err.clear();
+  });
+
+  it('should correctly import a basic configuration', () => {
+    const configuration = importConfiguration("basicconfig");
+    expect(configuration).to.have.all.keys("projectName","projectShorthand","projectURL","publisher","contact");
+    expect(configuration.projectName).to.eql("Test Project");
+    expect(configuration.projectShorthand).to.eql("TEST");
+    expect(configuration.projectURL).to.eql("http://test.org");
+    expect(configuration.publisher).to.eql("Test Publisher");
+    expect(configuration.contact).to.be.of.length(1);
+    expect(configuration.contact[0]).to.eql({
+      "telecom": [{
+        "system": "url",
+        "value": "http://test.org"
+      }]
+    });
+  });
+
+  it('should correctly use full default configuration when config is empty', () => {
+    const configuration = importConfiguration("emptyconfig");
+    expect(configuration).to.have.all.keys("projectName","projectShorthand","projectURL","publisher","contact");
+    expect(configuration.projectName).to.eql("Example Project");
+    expect(configuration.projectShorthand).to.eql("EXAMPLE");
+    expect(configuration.projectURL).to.eql("http://example.com");
+    expect(configuration.publisher).to.eql("Example Publisher");
+    expect(configuration.contact).to.be.of.length(1);
+    expect(configuration.contact[0]).to.eql({
+      "telecom": [{
+        "system": "url",
+        "value": "http://example.com"
+      }]
+    });
+  });
+
+
+  it('should correctly import an incomplete configuration with partial default data', () => {
+    const configuration = importConfiguration("incompleteconfig");
+
+    expect(configuration).to.have.all.keys("projectName","projectShorthand","projectURL","publisher","contact");
+    expect(configuration.projectName).to.eql("Test Project");
+    expect(configuration.projectShorthand).to.eql("EXAMPLE");
+    expect(configuration.projectURL).to.eql("http://test.org");
+    expect(configuration.publisher).to.eql("Example Publisher");
+    expect(configuration.contact).to.be.of.length(1);
+    expect(configuration.contact[0]).to.eql({
+      "telecom": [{
+        "system": "url",
+        "value": "http://test.org"
+      }]
+    });
+  });
+
+  it('should correctly throw error then use full default configuration when file is not valid JSON', () => {
+    const configuration = importConfiguration("invalidblankconfig", 1);
+    expect(err.errors()[0].msg).to.contain("Invalid config file")
+    expect(configuration).to.have.all.keys("projectName","projectShorthand","projectURL","publisher","contact");
+    expect(configuration.projectName).to.eql("Example Project");
+    expect(configuration.projectShorthand).to.eql("EXAMPLE");
+    expect(configuration.projectURL).to.eql("http://example.com");
+    expect(configuration.publisher).to.eql("Example Publisher");
+    expect(configuration.contact).to.be.of.length(1);
+    expect(configuration.contact[0]).to.eql({
+      "telecom": [{
+        "system": "url",
+        "value": "http://example.com"
+      }]
+    });
+  });
+
+  it('should correctly throw error then use full default configuration when no file exists', () => {
+    const configuration = importConfigurationFolder("emptyfolder");
+    expect(configuration).to.have.all.keys("projectName","projectShorthand","projectURL","publisher","contact");
+    expect(configuration.projectName).to.eql("Example Project");
+    expect(configuration.projectShorthand).to.eql("EXAMPLE");
+    expect(configuration.projectURL).to.eql("http://example.com");
+    expect(configuration.publisher).to.eql("Example Publisher");
+    expect(configuration.contact).to.be.of.length(1);
+    expect(configuration.contact[0]).to.eql({
+      "telecom": [{
+        "system": "url",
+        "value": "http://example.com"
+      }]
+    });
+  });
+})
+
 // Shorthand Identifier constructor for more concise code
 function id(namespace, name) {
   return new Identifier(namespace, name);
@@ -910,4 +999,16 @@ function importFixtureFolder(name, numExpectedErrors = 0) {
   const specifications = importFromFilePath(`${__dirname}/fixtures/dataElement/${name}`, dependencies);
   expect(err.errors().length).to.equal(numExpectedErrors);
   return specifications;
+}
+
+function importConfiguration(name, numExpectedErrors = 0) {
+  const configuration = importConfigFromFilePath(`${__dirname}/fixtures/config/${name}.txt`);
+  expect(err.errors().length).to.equal(numExpectedErrors);
+  return configuration;
+}
+
+function importConfigurationFolder(name, numExpectedErrors = 0) {
+  const configuration = importConfigFromFilePath(`${__dirname}/fixtures/config/${name}`);
+  expect(err.errors().length).to.equal(numExpectedErrors);
+  return configuration;
 }
