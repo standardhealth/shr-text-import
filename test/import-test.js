@@ -21,7 +21,7 @@ describe('#importFromFilePath()', () => {
   it('should correctly import a simple entry', () => {
     const specifications = importFixture('Simple');
     const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.grammarVersion).to.eql(new Version(4, 0));
+    expect(simple.grammarVersion).to.eql(new Version(5, 0));
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
     expect(simple.description).to.equal('It is a simple entry');
