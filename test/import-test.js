@@ -1,6 +1,6 @@
 const {expect} = require('chai');
 const {importFromFilePath, importConfigFromFilePath, setLogger} = require('../index');
-const {Version, DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, TBD, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
+const {Version, DataElement, Value, RefValue, ChoiceValue, IncompleteValue, Identifier, PrimitiveIdentifier, Cardinality, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, TBD, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
 const err = require('shr-test-helpers/errors');
 
 // Set the logger -- this is needed for detecting and checking errors
@@ -259,7 +259,7 @@ describe('#importFromFilePath()', () => {
       'ExtensibleVSConstraintOnValue': EXTENSIBLE,
       'PreferredVSConstraintOnValue': PREFERRED,
       'ExampleVSConstraintOnValue': EXAMPLE
-    }
+    };
     for (const testCase of Object.keys(answerKey)) {
       const entry = expectAndGetEntry(specifications, 'shr.test', testCase);
       expectCardOne(entry.value);
@@ -280,7 +280,7 @@ describe('#importFromFilePath()', () => {
       'ExtensibleVSConstraintOnField': EXTENSIBLE,
       'PreferredVSConstraintOnField': PREFERRED,
       'ExampleVSConstraintOnField': EXAMPLE
-    }
+    };
     for (const testCase of Object.keys(answerKey)) {
       const entry = expectAndGetEntry(specifications, 'shr.test', testCase);
       expect(entry.value).to.be.undefined;
@@ -680,6 +680,20 @@ describe('#importFromFilePath()', () => {
     expectCardOne(basedOn.value);
     expectPrimitiveValue(basedOn.value, 'string');
     expectNoConstraints(basedOn.value);
+  });
+
+  it('should correctly import an entry with a zeroed out Value', () => {
+    const specifications = importFixture('ZeroedOutValue');
+    const entry = expectAndGetEntry(specifications, 'shr.test', 'ZeroedOutValue');
+    expect(entry.basedOn).to.have.length(1);
+    expect(entry.basedOn[0].namespace).to.equal('shr.test');
+    expect(entry.basedOn[0].name).to.equal('OptionalValue');
+    expect(entry.concepts).to.be.empty;
+    expect(entry.description).to.be.empty;
+    expect(entry.value).to.be.instanceof(IncompleteValue);
+    expect(entry.value.identifier.isValueKeyWord).to.be.true;
+    expectMinMax(entry.value, 0, 0);
+    expectNoConstraints(entry.value);
   });
 
   it('should correctly import multiple elements in a single namespace', () => {
