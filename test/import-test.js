@@ -295,6 +295,21 @@ describe('#importFromFilePath()', () => {
     }
   });
 
+  it('should correctly import an entry with a valueset constraint on the Value keyword', () => {
+    const specifications = importFixture('VSConstraintOnValueKeyWord');
+    const entry = expectAndGetEntry(specifications, 'shr.test', 'ChildElement');
+    expect(entry.description).to.be.undefined;
+    expect(entry.value.card).to.be.undefined;
+    expect(entry.value).to.be.instanceof(IncompleteValue);
+    expect(entry.value.identifier.isValueKeyWord).to.be.true;
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+    expect(entry.value.constraints[0].bindingStrength).to.equal(REQUIRED);
+    expect(entry.fields).to.be.empty;
+  });
+
   it('should correctly import an entry with a code constraint on the value', () => {
     const specifications = importFixtureFolder('codeConstraints');
     const entry = expectAndGetEntry(specifications, 'shr.test', 'CodeConstraintOnValue');
@@ -317,6 +332,20 @@ describe('#importFromFilePath()', () => {
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
     expect(entry.value.constraints[0].path).to.eql([id('shr.core','Coding')]);
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+  it('should correctly import an entry with a code constraint on the Value keyword', () => {
+    const specifications = importFixture('CodeConstraintOnValueKeyWord');
+    const entry = expectAndGetEntry(specifications, 'shr.test', 'ChildElement');
+    expect(entry.description).to.be.undefined;
+    expect(entry.value.card).to.be.undefined;
+    expect(entry.value).to.be.instanceof(IncompleteValue);
+    expect(entry.value.identifier.isValueKeyWord).to.be.true;
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+    expect(entry.fields).to.be.empty;
   });
 
   it('should correctly import a group with a code constraint on a field', () => {
