@@ -3,6 +3,7 @@
     "projectShorthand": "EXAMPLE",
     "projectURL": "http://example.com",
     "fhirURL": "http://example.com/fhir",
+    "igIndexContent": "example.html",
     "publisher": "Example Publisher",
     "contact": [
         {
