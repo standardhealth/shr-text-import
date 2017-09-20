@@ -1,6 +1,5 @@
 {
     "projectName":"Test Project",
-    "projectURL":"http://test.org",
     "contact":[{
         "telecom":[{
           "system":"url",
