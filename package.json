@@ -24,8 +24,8 @@
     "chai": "^3.5.0",
     "eslint": "^3.6.1",
     "mocha": "^3.2.0",
-    "shr-models": "^5.2.1",
-    "shr-test-helpers": "^5.1.1"
+    "shr-models": "standardhealth/shr-models#underscore_kw",
+    "shr-test-helpers": "standardhealth/shr-test-helpers#underscore_kw"
   },
   "peerDependencies": {
     "bunyan": "^1.8.9",
