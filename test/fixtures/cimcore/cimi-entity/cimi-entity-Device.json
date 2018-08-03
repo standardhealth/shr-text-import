@@ -27,7 +27,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/cimi/entity/vs/#DeviceVS",
+              "uri": "http://standardhealthrecord.org/cimi/entity/vs/DeviceVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.entity.Device"
             }
@@ -38,7 +38,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/cimi/entity/vs/#DeviceVS",
+              "uri": "http://standardhealthrecord.org/cimi/entity/vs/DeviceVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.entity.Device"
             },

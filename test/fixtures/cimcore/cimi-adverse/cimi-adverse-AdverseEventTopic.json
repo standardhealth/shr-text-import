@@ -28,7 +28,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/cimi/adverse/vs/#MedDRAVS",
+              "uri": "http://standardhealthrecord.org/cimi/adverse/vs/MedDRAVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.adverse.AdverseEventTopic"
             }
@@ -43,7 +43,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/cimi/adverse/vs/#MedDRAVS",
+              "uri": "http://standardhealthrecord.org/cimi/adverse/vs/MedDRAVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.adverse.AdverseEventTopic"
             },

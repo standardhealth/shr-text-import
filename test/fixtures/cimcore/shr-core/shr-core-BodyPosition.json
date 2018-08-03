@@ -21,7 +21,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/core/vs/#BodyPositionVS",
+        "uri": "http://standardhealthrecord.org/shr/core/vs/BodyPositionVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.core.BodyPosition"
       }

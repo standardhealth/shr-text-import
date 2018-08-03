@@ -29,7 +29,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/oncology/vs/#TubuleFormationScoreVS",
+        "uri": "http://standardhealthrecord.org/shr/oncology/vs/TubuleFormationScoreVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.oncology.TubuleFormationScore"
       }
@@ -38,7 +38,7 @@
       "valueSet": [
         {
           "constraint": {
-            "uri": "http://standardhealthrecord.org/shr/oncology/vs/#TubuleFormationScoreVS",
+            "uri": "http://standardhealthrecord.org/shr/oncology/vs/TubuleFormationScoreVS",
             "bindingStrength": "REQUIRED",
             "lastModifiedBy": "shr.oncology.TubuleFormationScore"
           },
@@ -89,7 +89,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NottinghamNullVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/NottinghamNullVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.TubuleFormationScore"
             }
@@ -104,7 +104,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NottinghamNullVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/NottinghamNullVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.TubuleFormationScore"
             },

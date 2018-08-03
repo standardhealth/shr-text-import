@@ -33,7 +33,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/cimi/context/vs/#GoalContextVS",
+              "uri": "http://standardhealthrecord.org/cimi/context/vs/GoalContextVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.context.GoalContext"
             }
@@ -48,7 +48,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/cimi/context/vs/#GoalContextVS",
+              "uri": "http://standardhealthrecord.org/cimi/context/vs/GoalContextVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.context.GoalContext"
             },

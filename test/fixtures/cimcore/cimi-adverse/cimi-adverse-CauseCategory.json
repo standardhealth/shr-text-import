@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/cimi/adverse/vs/#AttributionCategoryVS",
+        "uri": "http://standardhealthrecord.org/cimi/adverse/vs/AttributionCategoryVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "cimi.adverse.CauseCategory"
       }

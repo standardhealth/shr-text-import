@@ -285,7 +285,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/condition/vs/#ProgressionVS",
+                  "uri": "http://standardhealthrecord.org/shr/condition/vs/ProgressionVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.condition.DiseaseProgression"
                 }
@@ -302,7 +302,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/condition/vs/#ProgressionVS",
+              "uri": "http://standardhealthrecord.org/shr/condition/vs/ProgressionVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.condition.DiseaseProgression"
             },

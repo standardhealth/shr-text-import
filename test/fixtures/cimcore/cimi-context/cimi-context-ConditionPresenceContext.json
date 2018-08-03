@@ -29,7 +29,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/cimi/context/vs/#PresenceContextVS",
+              "uri": "http://standardhealthrecord.org/cimi/context/vs/PresenceContextVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.context.PresenceContext"
             }
@@ -44,7 +44,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/cimi/context/vs/#PresenceContextVS",
+              "uri": "http://standardhealthrecord.org/cimi/context/vs/PresenceContextVS",
               "bindingStrength": "REQUIRED"
             },
             "source": "cimi.context.PresenceContext"

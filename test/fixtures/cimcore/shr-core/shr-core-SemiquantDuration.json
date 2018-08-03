@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/core/vs/#SemiquantitativeDurationVS",
+        "uri": "http://standardhealthrecord.org/shr/core/vs/SemiquantitativeDurationVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.core.SemiquantDuration"
       }

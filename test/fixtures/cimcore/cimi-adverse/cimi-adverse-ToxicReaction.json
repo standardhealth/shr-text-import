@@ -191,7 +191,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/cimi/adverse/vs/#ToxicReactionVS",
+                  "uri": "http://standardhealthrecord.org/cimi/adverse/vs/ToxicReactionVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "cimi.adverse.ToxicReaction"
                 }
@@ -208,7 +208,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/cimi/adverse/vs/#ToxicReactionVS",
+              "uri": "http://standardhealthrecord.org/cimi/adverse/vs/ToxicReactionVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.adverse.ToxicReaction"
             },

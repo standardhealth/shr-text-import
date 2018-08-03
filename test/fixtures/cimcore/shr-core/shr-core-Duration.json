@@ -54,7 +54,7 @@
         "subpaths": {
           "shr.core.Coding": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#TimeUnitOfMeasureVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/TimeUnitOfMeasureVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.core.Duration"
             }
@@ -69,7 +69,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#TimeUnitOfMeasureVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/TimeUnitOfMeasureVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.core.Duration"
             },

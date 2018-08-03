@@ -248,7 +248,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/core/vs/#QualitativeFrequencyVS",
+                  "uri": "http://standardhealthrecord.org/shr/core/vs/QualitativeFrequencyVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "cimi.medication.MedicationAdherenceStatement"
                 }
@@ -265,7 +265,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#QualitativeFrequencyVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/QualitativeFrequencyVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.medication.MedicationAdherenceStatement"
             },

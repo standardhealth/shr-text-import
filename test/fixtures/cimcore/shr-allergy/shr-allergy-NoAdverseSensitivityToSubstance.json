@@ -208,7 +208,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/allergy/vs/#NoKnownAllergyVS",
+                  "uri": "http://standardhealthrecord.org/shr/allergy/vs/NoKnownAllergyVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.allergy.NoAdverseSensitivityToSubstance"
                 }
@@ -225,7 +225,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/allergy/vs/#NoKnownAllergyVS",
+              "uri": "http://standardhealthrecord.org/shr/allergy/vs/NoKnownAllergyVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.allergy.NoAdverseSensitivityToSubstance"
             },

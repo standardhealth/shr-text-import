@@ -21,7 +21,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastSiteVS",
+        "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastSiteVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.oncology.BreastSite"
       }
@@ -34,7 +34,7 @@
       "valueSet": [
         {
           "constraint": {
-            "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastSiteVS",
+            "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastSiteVS",
             "bindingStrength": "REQUIRED",
             "lastModifiedBy": "shr.oncology.BreastSite"
           },

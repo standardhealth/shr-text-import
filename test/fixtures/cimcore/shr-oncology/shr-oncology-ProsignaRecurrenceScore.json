@@ -321,7 +321,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#RecurrenceRiskScoreInterpretationVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/RecurrenceRiskScoreInterpretationVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.ProsignaRecurrenceScore"
                 }
@@ -338,7 +338,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#RecurrenceRiskScoreInterpretationVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/RecurrenceRiskScoreInterpretationVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.ProsignaRecurrenceScore"
             },

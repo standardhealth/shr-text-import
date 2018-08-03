@@ -301,7 +301,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#MammaprintRiskScoreInterpretationVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/MammaprintRiskScoreInterpretationVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.MammaprintRecurrenceScore"
                 }
@@ -318,7 +318,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#MammaprintRiskScoreInterpretationVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/MammaprintRiskScoreInterpretationVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.MammaprintRecurrenceScore"
             },

@@ -48,7 +48,7 @@
         "subpaths": {
           "shr.core.Coding": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#CurrencyVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/CurrencyVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.core.Money"
             }
@@ -63,7 +63,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#CurrencyVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/CurrencyVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.core.Money"
             },

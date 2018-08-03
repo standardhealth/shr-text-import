@@ -21,7 +21,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/allergy/vs/#ManifestationVS",
+        "uri": "http://standardhealthrecord.org/shr/allergy/vs/ManifestationVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.allergy.Manifestation"
       }

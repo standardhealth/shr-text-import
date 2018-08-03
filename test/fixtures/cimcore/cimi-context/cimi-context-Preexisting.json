@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/core/vs/#YesNoUnknownVS",
+        "uri": "http://standardhealthrecord.org/shr/core/vs/YesNoUnknownVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "cimi.context.Preexisting"
       }

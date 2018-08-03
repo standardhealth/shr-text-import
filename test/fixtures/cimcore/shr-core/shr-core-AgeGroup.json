@@ -21,7 +21,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/core/vs/#AgeGroupVS",
+        "uri": "http://standardhealthrecord.org/shr/core/vs/AgeGroupVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.core.AgeGroup"
       }

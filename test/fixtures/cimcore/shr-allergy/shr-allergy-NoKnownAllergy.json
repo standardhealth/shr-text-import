@@ -240,7 +240,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/allergy/vs/#NoKnownAllergyVS",
+              "uri": "http://standardhealthrecord.org/shr/allergy/vs/NoKnownAllergyVS",
               "bindingStrength": "REQUIRED"
             },
             "source": "shr.allergy.NoAdverseSensitivityToSubstance"

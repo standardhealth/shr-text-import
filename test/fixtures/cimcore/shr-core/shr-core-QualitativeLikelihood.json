@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/core/vs/#QualitativeLikelihoodVS",
+        "uri": "http://standardhealthrecord.org/shr/core/vs/QualitativeLikelihoodVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.core.QualitativeLikelihood"
       }

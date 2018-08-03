@@ -353,7 +353,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NottinghamCombinedGradeVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/NottinghamCombinedGradeVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.BreastCancerHistologicGrade"
                 }
@@ -364,7 +364,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NottinghamNullVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/NottinghamNullVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.BreastCancerHistologicGrade"
                 }
@@ -381,7 +381,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NottinghamCombinedGradeVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/NottinghamCombinedGradeVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastCancerHistologicGrade"
             },
@@ -389,7 +389,7 @@
           },
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NottinghamNullVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/NottinghamNullVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastCancerHistologicGrade"
             },

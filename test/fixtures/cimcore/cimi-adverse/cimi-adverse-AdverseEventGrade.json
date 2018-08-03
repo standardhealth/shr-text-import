@@ -21,7 +21,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/cimi/adverse/vs/#AdverseEventGradeVS",
+        "uri": "http://standardhealthrecord.org/cimi/adverse/vs/AdverseEventGradeVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "cimi.adverse.AdverseEventGrade"
       }

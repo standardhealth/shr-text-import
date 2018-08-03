@@ -21,7 +21,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/cimi/context/vs/#DeltaFlagVS",
+        "uri": "http://standardhealthrecord.org/cimi/context/vs/DeltaFlagVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "cimi.context.DeltaFlag"
       }

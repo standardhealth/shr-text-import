@@ -315,7 +315,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#HER2byIHCScoreVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/HER2byIHCScoreVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.HER2byIHC"
                 }
@@ -326,7 +326,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#PositiveNegativeEquivocalVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/PositiveNegativeEquivocalVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.HER2byIHC"
                 }
@@ -343,7 +343,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#HER2byIHCScoreVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/HER2byIHCScoreVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.HER2byIHC"
             },
@@ -351,7 +351,7 @@
           },
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#PositiveNegativeEquivocalVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/PositiveNegativeEquivocalVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.HER2byIHC"
             },

@@ -50,7 +50,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/cimi/medication/vs/#MedicationChangeTypeVS",
+              "uri": "http://standardhealthrecord.org/cimi/medication/vs/MedicationChangeTypeVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.medication.MedicationChangeTopic"
             }
@@ -61,7 +61,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/cimi/medication/vs/#MedicationChangeTypeVS",
+              "uri": "http://standardhealthrecord.org/cimi/medication/vs/MedicationChangeTypeVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.medication.MedicationChangeTopic"
             },

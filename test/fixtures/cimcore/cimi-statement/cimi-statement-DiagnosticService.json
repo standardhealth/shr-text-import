@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/cimi/statement/vs/#DiagnosticServiceVS",
+        "uri": "http://standardhealthrecord.org/cimi/statement/vs/DiagnosticServiceVS",
         "bindingStrength": "EXTENSIBLE",
         "lastModifiedBy": "cimi.statement.DiagnosticService"
       }

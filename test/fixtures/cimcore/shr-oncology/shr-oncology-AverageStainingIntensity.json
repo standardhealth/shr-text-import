@@ -29,7 +29,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/oncology/vs/#StainingIntensityVS",
+        "uri": "http://standardhealthrecord.org/shr/oncology/vs/StainingIntensityVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.oncology.AverageStainingIntensity"
       }
@@ -38,7 +38,7 @@
       "valueSet": [
         {
           "constraint": {
-            "uri": "http://standardhealthrecord.org/shr/oncology/vs/#StainingIntensityVS",
+            "uri": "http://standardhealthrecord.org/shr/oncology/vs/StainingIntensityVS",
             "bindingStrength": "REQUIRED",
             "lastModifiedBy": "shr.oncology.AverageStainingIntensity"
           },

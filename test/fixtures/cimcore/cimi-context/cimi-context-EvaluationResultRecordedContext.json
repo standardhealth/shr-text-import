@@ -126,7 +126,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/cimi/context/vs/#ExceptionValueVS",
+              "uri": "http://standardhealthrecord.org/cimi/context/vs/ExceptionValueVS",
               "bindingStrength": "EXTENSIBLE",
               "lastModifiedBy": "cimi.context.EvaluationResultRecordedContext"
             }
@@ -137,7 +137,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/cimi/context/vs/#ExceptionValueVS",
+              "uri": "http://standardhealthrecord.org/cimi/context/vs/ExceptionValueVS",
               "bindingStrength": "EXTENSIBLE",
               "lastModifiedBy": "cimi.context.EvaluationResultRecordedContext"
             },

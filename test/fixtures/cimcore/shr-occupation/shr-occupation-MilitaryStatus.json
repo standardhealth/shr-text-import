@@ -28,7 +28,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/occupation/vs/#MilitaryStatusVS",
+        "uri": "http://standardhealthrecord.org/shr/occupation/vs/MilitaryStatusVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.occupation.MilitaryStatus"
       }
@@ -37,7 +37,7 @@
       "valueSet": [
         {
           "constraint": {
-            "uri": "http://standardhealthrecord.org/shr/occupation/vs/#MilitaryStatusVS",
+            "uri": "http://standardhealthrecord.org/shr/occupation/vs/MilitaryStatusVS",
             "bindingStrength": "REQUIRED",
             "lastModifiedBy": "shr.occupation.MilitaryStatus"
           },

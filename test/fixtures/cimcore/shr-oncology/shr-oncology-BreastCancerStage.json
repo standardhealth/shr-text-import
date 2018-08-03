@@ -464,7 +464,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastCancerStageVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastCancerStageVS",
                   "bindingStrength": "EXAMPLE",
                   "lastModifiedBy": "shr.oncology.BreastCancerStage"
                 }
@@ -481,7 +481,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastCancerStageVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastCancerStageVS",
               "bindingStrength": "EXAMPLE",
               "lastModifiedBy": "shr.oncology.BreastCancerStage"
             },

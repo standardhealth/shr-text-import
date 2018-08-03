@@ -29,7 +29,7 @@
         "valueType": "IdentifiableValue",
         "constraints": {
           "valueSet": {
-            "uri": "http://standardhealthrecord.org/shr/core/vs/#CurrencyVS",
+            "uri": "http://standardhealthrecord.org/shr/core/vs/CurrencyVS",
             "bindingStrength": "REQUIRED",
             "lastModifiedBy": "shr.core.Units"
           }

@@ -159,7 +159,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/cimi/medication/vs/#MedicationNotUsedReasonVS",
+                  "uri": "http://standardhealthrecord.org/cimi/medication/vs/MedicationNotUsedReasonVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "cimi.medication.MedicationNotPrescribedStatement"
                 }
@@ -176,7 +176,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/cimi/medication/vs/#MedicationNotUsedReasonVS",
+              "uri": "http://standardhealthrecord.org/cimi/medication/vs/MedicationNotUsedReasonVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.medication.MedicationNotPrescribedStatement"
             },

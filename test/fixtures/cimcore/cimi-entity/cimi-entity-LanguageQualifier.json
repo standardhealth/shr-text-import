@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/cimi/entity/vs/#LanguageQualifierVS",
+        "uri": "http://standardhealthrecord.org/cimi/entity/vs/LanguageQualifierVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "cimi.entity.LanguageQualifier"
       }

@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/condition/vs/#ProgressionEvidenceVS",
+        "uri": "http://standardhealthrecord.org/shr/condition/vs/ProgressionEvidenceVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.condition.ProgressionEvidence"
       }

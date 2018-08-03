@@ -333,7 +333,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#PositiveNegativeVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/PositiveNegativeVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.EstrogenReceptorStatus"
                 }
@@ -350,7 +350,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#PositiveNegativeVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/PositiveNegativeVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.EstrogenReceptorStatus"
             },

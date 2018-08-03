@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/core/vs/#SemiquantitativeFrequencyVS",
+        "uri": "http://standardhealthrecord.org/shr/core/vs/SemiquantitativeFrequencyVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.core.SemiquantFrequency"
       }

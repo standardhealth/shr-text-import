@@ -180,7 +180,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastCancerTypeVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastCancerTypeVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.BreastCancerPresenceStatement"
                 }
@@ -191,7 +191,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastCancerDetectionVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastCancerDetectionVS",
                   "bindingStrength": "PREFERRED",
                   "lastModifiedBy": "shr.oncology.BreastCancerPresenceStatement"
                 }
@@ -215,7 +215,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastCancerTypeVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastCancerTypeVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastCancerPresenceStatement"
             },
@@ -223,7 +223,7 @@
           },
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastCancerDetectionVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastCancerDetectionVS",
               "bindingStrength": "PREFERRED",
               "lastModifiedBy": "shr.oncology.BreastCancerPresenceStatement"
             },
@@ -315,7 +315,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#MorphologyBehaviorVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/MorphologyBehaviorVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastCancerPresenceStatement"
             }
@@ -326,7 +326,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#MorphologyBehaviorVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/MorphologyBehaviorVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastCancerPresenceStatement"
             },

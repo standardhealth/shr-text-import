@@ -28,7 +28,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/oncology/vs/#MitoticCountScoreVS",
+        "uri": "http://standardhealthrecord.org/shr/oncology/vs/MitoticCountScoreVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.oncology.MitoticCountScore"
       }
@@ -37,7 +37,7 @@
       "valueSet": [
         {
           "constraint": {
-            "uri": "http://standardhealthrecord.org/shr/oncology/vs/#MitoticCountScoreVS",
+            "uri": "http://standardhealthrecord.org/shr/oncology/vs/MitoticCountScoreVS",
             "bindingStrength": "REQUIRED",
             "lastModifiedBy": "shr.oncology.MitoticCountScore"
           },
@@ -88,7 +88,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NottinghamNullVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/NottinghamNullVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.MitoticCountScore"
             }
@@ -103,7 +103,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NottinghamNullVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/NottinghamNullVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.MitoticCountScore"
             },

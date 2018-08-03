@@ -299,7 +299,7 @@
             "subpaths": {
               "shr.core.CodeableConcept": {
                 "valueSet": {
-                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NuclearGradeVS",
+                  "uri": "http://standardhealthrecord.org/shr/oncology/vs/NuclearGradeVS",
                   "bindingStrength": "REQUIRED",
                   "lastModifiedBy": "shr.oncology.DCISNuclearGrade"
                 }
@@ -316,7 +316,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#NuclearGradeVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/NuclearGradeVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.DCISNuclearGrade"
             },

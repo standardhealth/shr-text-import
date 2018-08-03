@@ -54,7 +54,7 @@
         "subpaths": {
           "shr.core.Coding": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#UnitsOfLengthVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/UnitsOfLengthVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.core.Distance"
             }
@@ -69,7 +69,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#UnitsOfLengthVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/UnitsOfLengthVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.core.Distance"
             },

@@ -15,7 +15,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/cimi/medication/vs/#MedicationNonAdherenceReasonVS",
+        "uri": "http://standardhealthrecord.org/cimi/medication/vs/MedicationNonAdherenceReasonVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "cimi.medication.MedicationNonAdherenceReason"
       }

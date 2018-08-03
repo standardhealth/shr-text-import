@@ -92,7 +92,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#ConditionCategoryVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/ConditionCategoryVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.topic.ConditionTopic"
             }
@@ -103,7 +103,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#ConditionCategoryVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/ConditionCategoryVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.topic.ConditionTopic"
             },

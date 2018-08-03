@@ -22,7 +22,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/oncology/vs/#StageTimingPrefixVS",
+        "uri": "http://standardhealthrecord.org/shr/oncology/vs/StageTimingPrefixVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.oncology.StageTimingPrefix"
       }

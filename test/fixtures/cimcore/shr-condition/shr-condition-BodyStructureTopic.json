@@ -32,7 +32,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/cimi/element/vs/#AnatomicalLocationVS",
+        "uri": "http://standardhealthrecord.org/cimi/element/vs/AnatomicalLocationVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "shr.condition.BodyStructureTopic"
       }
@@ -41,7 +41,7 @@
       "valueSet": [
         {
           "constraint": {
-            "uri": "http://standardhealthrecord.org/cimi/element/vs/#AnatomicalLocationVS",
+            "uri": "http://standardhealthrecord.org/cimi/element/vs/AnatomicalLocationVS",
             "bindingStrength": "REQUIRED",
             "lastModifiedBy": "shr.condition.BodyStructureTopic"
           },
@@ -135,7 +135,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#ConditionCategoryVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/ConditionCategoryVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "cimi.topic.ConditionTopic"
             }
@@ -150,7 +150,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/core/vs/#ConditionCategoryVS",
+              "uri": "http://standardhealthrecord.org/shr/core/vs/ConditionCategoryVS",
               "bindingStrength": "REQUIRED"
             },
             "source": "cimi.topic.ConditionTopic"

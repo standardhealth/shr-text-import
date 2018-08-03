@@ -1014,6 +1014,11 @@ describe('#importCimcoreFromFilePath', () => {
     //This is the cimcore produced from importedSpecs. Used for verifying fidelity
     const cimcoreSpecifications = convertSpecsToCimcore(importedConfigSpecifications, importedSpecifications);
 
+    //All CIMCORE files are verified through string comparison. This is perhaps not ideal as they can still be
+    //valid files if the same elemenets are outputted in a different order. However, this should not be a problem
+    //for now, as the process that produced the original fixtures and the process that produces the unit test are
+    //identical in their ordering of outputs. This change should be a considered update in the future.
+
     const origProjectJSON = importCimcoreProjectFile();
     expect(JSON.stringify(cimcoreSpecifications.projectInfo, null, 2)).to.eql(origProjectJSON);
 

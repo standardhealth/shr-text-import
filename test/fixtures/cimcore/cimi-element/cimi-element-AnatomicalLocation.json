@@ -21,7 +21,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/cimi/element/vs/#AnatomicalLocationVS",
+        "uri": "http://standardhealthrecord.org/cimi/element/vs/AnatomicalLocationVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "cimi.element.AnatomicalLocation"
       }

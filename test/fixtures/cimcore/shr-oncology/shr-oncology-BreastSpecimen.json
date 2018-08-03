@@ -74,7 +74,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastSpecimenTypeVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastSpecimenTypeVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastSpecimen"
             }
@@ -96,7 +96,7 @@
           },
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastSpecimenTypeVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastSpecimenTypeVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastSpecimen"
             },
@@ -209,7 +209,7 @@
         "subpaths": {
           "shr.core.CodeableConcept": {
             "valueSet": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastSpecimenCollectionMethodVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastSpecimenCollectionMethodVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastSpecimen"
             }
@@ -224,7 +224,7 @@
         "valueSet": [
           {
             "constraint": {
-              "uri": "http://standardhealthrecord.org/shr/oncology/vs/#BreastSpecimenCollectionMethodVS",
+              "uri": "http://standardhealthrecord.org/shr/oncology/vs/BreastSpecimenCollectionMethodVS",
               "bindingStrength": "REQUIRED",
               "lastModifiedBy": "shr.oncology.BreastSpecimen"
             },

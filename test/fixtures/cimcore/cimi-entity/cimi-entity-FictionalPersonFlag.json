@@ -21,7 +21,7 @@
     },
     "constraints": {
       "valueSet": {
-        "uri": "http://standardhealthrecord.org/shr/core/vs/#YesNoVS",
+        "uri": "http://standardhealthrecord.org/shr/core/vs/YesNoVS",
         "bindingStrength": "REQUIRED",
         "lastModifiedBy": "cimi.entity.FictionalPersonFlag"
       }
