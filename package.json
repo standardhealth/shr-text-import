@@ -25,7 +25,7 @@
     "eslint": "^3.6.1",
     "mocha": "^3.2.0",
     "shr-models": "^5.5.3",
-    "shr-test-helpers": "^5.2.1"
+    "shr-test-helpers": "^5.2.2"
   },
   "peerDependencies": {
     "bunyan": "^1.8.9",
