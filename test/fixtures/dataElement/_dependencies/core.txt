@@ -1,4 +1,4 @@
-Grammar:    DataElement 5.0
+Grammar:    DataElement 6.0
 Namespace:  shr.core
 CodeSystem: MTH = http://uts.nlm.nih.gov/metathesaurus
 
@@ -6,12 +6,12 @@ CodeSystem: MTH = http://uts.nlm.nih.gov/metathesaurus
 
 Element:		Coding
 Value:			code
-0..1			Vocabulary
-0..1			DisplayText
+Property:		Vocabulary 0..1
+Property:   DisplayText 0..1
 
 Element:		CodeableConcept
-0..*			Coding
-1..1			DisplayText
+Property:   Coding  0..*
+Property: DisplayText 1..1
 
 Element:		Vocabulary
 Value:			uri
@@ -22,7 +22,7 @@ Value:			string
 Element:		Quantity
 Description:	"A quantity with Units."
 Value:			decimal
-0..1			Units
+Property:   Units 0..1
 
 Element:		Units
 Value:			Coding from http://hl7.org/fhir/ValueSet/ucum-units

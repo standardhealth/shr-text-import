@@ -1,6 +1,6 @@
-Grammar:   DataElement 5.0
+Grammar:   DataElement 6.0
 Namespace: shr.test.two
 
-EntryElement:   Foo
+Entry:   Foo
 Description:    "It is a Foo from shr.test.two"
 Value:          string

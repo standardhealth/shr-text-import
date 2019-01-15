@@ -1,36 +1,37 @@
-Grammar:   DataElement 5.0
+Grammar:   DataElement 6.0
 Namespace: shr.test
 Uses:      shr.core
 
 CodeSystem:     FOO = http://foo.org
 
-EntryElement:   CodeConstraintOnValue
+Entry:   CodeConstraintOnValue
 Description:    "It is an entry with a code constraint on the value"
-Value:          Coding is FOO#bar "FooBar"
+Value:          Coding = FOO#bar "FooBar"
 
-EntryElement:   CodeConstraintOnValueChild
+Entry:   CodeConstraintOnValueChild
 Description:    "It is an entry with a code constraint on the value's child"
 Value:          CodedFromValueSet
-                CodedFromValueSet.Coding is FOO#bar "FooBar"
+                CodedFromValueSet.Coding = FOO#bar "FooBar"
 
-EntryElement:   CodeConstraintOnField
+Entry:   CodeConstraintOnField
 Description:    "It is a group entry with a code constraint on a field"
-0..1            Simple
-0..1            Coding is FOO#bar "FooBar"
+Property:       Simple 0..1
+Property:       Coding
+                Coding = FOO#bar "FooBar" 0..1
 
-EntryElement:   CodeConstraintOnFieldChild
+Entry:   CodeConstraintOnFieldChild
 Description:    "It is a group entry with a code constraint on a field's child"
-0..1            Simple
-0..1            CodedFromValueSet
-                CodedFromValueSet.Coding is FOO#bar "FooBar"
+Property:       Simple 0..1
+Property:       CodedFromValueSet 0..1
+                CodedFromValueSet.Coding = FOO#bar "FooBar"
 
-EntryElement:   SystemlessCodeConstraintOnValue
+Entry:   SystemlessCodeConstraintOnValue
 Description:    "It is an entry with a system-less code constraint on the value"
-Based on:       CodedFromValueSet
-Value:          Coding is #bar
+Property:       CodedFromValueSet
+Value:          Coding = #bar
 
 Element:        Simple
 Value:          string
 
 Element:        CodedFromValueSet
-Value:          Coding from http://standardhealthrecord.org/test/vs/Coded
+Value:          Coding from http://standardhealthrecord.org/test/vs/Coded (required)
