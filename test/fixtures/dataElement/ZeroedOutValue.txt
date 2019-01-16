@@ -1,14 +1,14 @@
-Grammar:     DataElement 5.0
+Grammar:     DataElement 6.0
 Namespace:   shr.test
 Description: "The SHR test namespace"
 
-EntryElement:   OptionalValue
-Value:          0..1 string
+Entry:   OptionalValue
+Value:   string
 
-EntryElement:   ZeroedOutValue
-Based on:        OptionalValue
-0..0 _Value
+Entry:   ZeroedOutValue
+Parent:        OptionalValue
+Property:   _Value 0..0
 
-EntryElement:   ZeroedOutValueBackwardsCompatibility
-Based on:        OptionalValue
-0..0 Value
+Entry:   ZeroedOutValueBackwardsCompatibility
+Parent:   OptionalValue
+Property: Value 0..0

@@ -1,12 +1,12 @@
-Grammar:     DataElement 5.0
+Grammar:     DataElement 6.0
 Namespace:   shr.test
 
-EntryElement:   BaseElement
+Entry:   BaseElement
 Value:          CodedElement
 
-EntryElement:   ChildElement
-Based on:       BaseElement
-_Value from http://standardhealthrecord.org/test/vs/Coded
+Entry:   ChildElement
+Parent:       BaseElement
+_Value from http://standardhealthrecord.org/test/vs/Coded (required)
 
 Element:   CodedElement
 Value:     code

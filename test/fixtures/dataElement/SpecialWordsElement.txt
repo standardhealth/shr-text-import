@@ -4,10 +4,10 @@ Uses:       shr.core // This shouldn't be needed, but due to bug in importer, it
 
 CodeSystem:     FOO = http://foo.org
 
-EntryElement:   SpecialParent
-Value:          0..1 string
+Entry:   SpecialParent
+Value:   string
 
-EntryElement:   SpecialChild
-Based on:        SpecialParent
-1..1 _Value
-0..0 _Entry.Version
+Entry:   SpecialChild
+Parent:        SpecialParent
+Property: _Value 1..1
+Property: _Entry.Version 0..0

@@ -5,7 +5,7 @@ Uses:      shr.test.two
 CodeSystem:     FOO = http://foo.org
 CodeSystem:     MOO = http://moo.org
 
-EntryElement:   Conflicting
+Entry:   Conflicting
 Concept:        FOO #bar, MOO #car
 Description:    "It is an entry that uses a conflicting vocab reference"
 Value:          string

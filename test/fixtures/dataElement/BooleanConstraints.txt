@@ -1,19 +1,19 @@
-Grammar:   DataElement 5.0
+Grammar:   DataElement 6.0
 Namespace: shr.test
 
-EntryElement:   BooleanConstraintOnValue
+Entry:   BooleanConstraintOnValue
 Description:    "It is an entry with a boolean constraint on the value"
-Value:          boolean is true
+Value:          boolean = true
 
-EntryElement:   BooleanConstraintOnValueChild
+Entry:   BooleanConstraintOnValueChild
 Description:    "It is an entry with a boolean constraint on the value's child"
 Value:          SimpleBoolean
-                SimpleBoolean.boolean is false
+                SimpleBoolean.boolean = false
 
-EntryElement:   BooleanConstraintOnFieldChild
+Entry:   BooleanConstraintOnFieldChild
 Description:    "It is a group entry with a boolean constraint on a field's child"
-0..1            Simple
-0..1            SimpleBoolean
+Property:       Simple 0..1
+Property:       SimpleBoolean 0..1 
                 SimpleBoolean.boolean is true
 
 Element:        SimpleBoolean

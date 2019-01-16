@@ -1,24 +1,24 @@
-Grammar:    DataElement 5.0
+Grammar:    DataElement 6.0
 Namespace:  shr.test
 Uses:       shr.core
 
 CodeSystem:     FOO = http://foo.org
 
-EntryElement:   IncludesCodeConstraintOnValue
+Entry:   IncludesCodeConstraintOnValue
 Description:    "It is an entry with an includes code constraint on the value"
 Value:          1..* CodeableConcept includes FOO#bar "FooBar"
 
-EntryElement:   IncludesCodeConstraintOnValueChild
+Entry:   IncludesCodeConstraintOnValueChild
 Description:    "It is an entry with an includes code constraint on the value's child"
 Value:          MultiCodedFromValueSet
                 MultiCodedFromValueSet.CodeableConcept includes FOO#bar "FooBar"
 
-EntryElement:   IncludesCodeConstraintOnField
+Entry:   IncludesCodeConstraintOnField
 Description:    "It is a group entry with an includes code constraint on a field"
 0..1            Simple
 1..*            CodeableConcept includes FOO#bar "FooBar"
 
-EntryElement:   IncludesCodeConstraintOnFieldChild
+Entry:   IncludesCodeConstraintOnFieldChild
 Description:    "It is a group entry with an includes code constraint on a field's child"
 0..1            Simple
 0..1            MultiCodedFromValueSet

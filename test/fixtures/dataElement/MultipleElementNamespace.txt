@@ -1,10 +1,10 @@
-Grammar:   DataElement 5.0
+Grammar:   DataElement 6.0
 Namespace: shr.test
 
-EntryElement:   SimpleDate
+Entry:   SimpleDate
 Description:    "It is a simple date entry"
 Value:          date
 
 Element:        Coded
 Description:    "It is a coded element"
-Value:          code from http://standardhealthrecord.org/test/vs/Coded
+Value:          concept from http://standardhealthrecord.org/test/vs/Coded (required)

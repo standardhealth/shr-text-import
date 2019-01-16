@@ -11,18 +11,19 @@ Value:          Quantity with units UCUM#dl "DeciLiter"
 Entry:   UnitConstraintOnValueChild
 Description:    "It is an entry with a unit constraint on the value's child"
 Value:          Volume
-                Volume.Quantity with units UCUM#dl "DeciLiter"
+                Volume[Quantity].Units = UCUM#dl "DeciLiter"
 
 Entry:   UnitConstraintOnField
 Description:    "It is a group entry with a unit constraint on a field"
-0..1            Simple
-0..1            Quantity with units UCUM#dl "DeciLiter"
+Property:       Simple 0..1
+Property:       Quantity 0..1
+                Quantity.Units = UCUM#dl "DeciLiter"
 
 Entry:   UnitConstraintOnFieldChild
 Description:    "It is a group entry with unit constraint on a field's child"
-0..1            Simple
-0..1            Volume
-                Volume.Quantity with units UCUM#dl "DeciLiter"
+Property:       Simple 0..1
+Property:       Volume 0..1
+                Volume[Quantity].Units = UCUM#dl "DeciLiter"
 
 Element:        Simple
 Value:          string

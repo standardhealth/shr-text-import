@@ -1,6 +1,6 @@
-Grammar:    DataElement 5.0
+Grammar:    DataElement 6.0
 Namespace:  shr.test
 
-EntryElement:   Coded
+Entry:   Coded
 Description:    "It is a coded entry"
 Value:          code

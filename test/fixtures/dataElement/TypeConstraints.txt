@@ -1,32 +1,34 @@
-Grammar:    DataElement 5.0
+Grammar:    DataElement 6.0
 Namespace:  shr.test
 
-EntryElement: TypeConstraintOnValue
-Based on:     SimpleBase
+Entry: TypeConstraintOnValue
+Parent:     SimpleBase
 Description:  "It is a simple element based on SimpleBase and specializing the value"
 Value:        Simple is type Simple2
 
-EntryElement: TypeConstraintOnValueChild
-Based on:     ComplexBase
+Entry: TypeConstraintOnValueChild
+Parent:     ComplexBase
 Description:  "It is a simple element based on SimpleBase and specializing the value's child"
 Value:        Complex
-1..1          Complex.Simple is type Simple2
+Property:     Complex.Simple 1..1
+              Complex.Simple substitute Simple2
 
-EntryElement: TypeConstraintOnField
+Entry: TypeConstraintOnField
 Description:  "It is a group entry with a type constraint on a field"
-Based on:     GroupBase
-              Simple is type Simple2
+Parent:     GroupBase
+            Simple substitute Simple2
 
-EntryElement: TypeConstraintOnFieldChild
+Entry: TypeConstraintOnFieldChild
 Description:  "It is a group entry with a type constraint on a field's child"
-0..1    Simple
-0..1    Complex
-1..2    Complex.Simple is type Simple2
+Property: Simple 0..1
+Property: Complex 0..1
+Property: Complex.Simple 1..2
+          Complex.Simple substitute Simple2
 
-EntryElement: TypeConstraintOnFieldValue
-Based on:     Group2
+Entry: TypeConstraintOnFieldValue
+Parent:     Group2
 Description:  "It is a group entry with a type constraint on a field's value"
-              HasSimpleValue value is type Simple2
+              HasSimpleValue value substitute Simple2
 
 Element:      SimpleBase
 Value:        Simple
@@ -35,27 +37,28 @@ Element:      Simple
 Value:        string
 
 Element:      Simple2
-Based on:     Simple
+Parent:       Simple
 Value:        string
 
 Element:      ComplexBase
 Value:        Complex
 
 Element:      Complex
-0..1          Simple
-1..*          CodedFromValueSet
+Property:     Simple 0..1
+Property:     CodedFromValueSet 1..*
 
 Element:      CodedFromValueSet
-Value:        code from http://standardhealthrecord.org/test/vs/Coded
+Value:        code from http://standardhealthrecord.org/test/vs/Coded (required)
 
 Element:      GroupBase
-0..1          Simple
-0..1          CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded2
+Property:     Simple 0..1
+Property:     CodedFromValueSet 0..1
+              CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded2 (required)
 
 Element:      HasSimpleValue
 Value:        Simple
 
 Element:      Group2
-0..1          HasSimpleValue
-0..1          CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded2
-
+Property:     HasSimpleValue 0..1
+Property:     CodedFromValueSet 0..1
+              CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded2 (required)

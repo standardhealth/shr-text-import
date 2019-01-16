@@ -1,14 +1,14 @@
-Grammar:    DataElement 5.0
+Grammar:    DataElement 6.0
 Namespace:  shr.test
 
-EntryElement:   RequiredVSConstraintOnValue
-Value:          code must be from http://standardhealthrecord.org/test/vs/Coded
+Entry:   RequiredVSConstraintOnValue
+Value:   code from http://standardhealthrecord.org/test/vs/Coded (required)
 
-EntryElement:   ExtensibleVSConstraintOnValue
-Value:          code must be from http://standardhealthrecord.org/test/vs/Coded if covered
+Entry:   ExtensibleVSConstraintOnValue
+Value:   code from http://standardhealthrecord.org/test/vs/Coded (extensible)
 
-EntryElement:   PreferredVSConstraintOnValue
-Value:          code should be from http://standardhealthrecord.org/test/vs/Coded
+Entry:   PreferredVSConstraintOnValue
+Value:   code from http://standardhealthrecord.org/test/vs/Coded (preferred)
 
-EntryElement:   ExampleVSConstraintOnValue
-Value:          code could be from http://standardhealthrecord.org/test/vs/Coded
+Entry:   ExampleVSConstraintOnValue
+Value:   code from http://standardhealthrecord.org/test/vs/Coded (example)

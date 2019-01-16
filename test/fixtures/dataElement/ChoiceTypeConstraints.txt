@@ -1,19 +1,19 @@
-Grammar:    DataElement 5.0
+Grammar:    DataElement 6.0
 Namespace:  shr.test
 
-EntryElement: ChoiceOfDatishThings
+Entry: ChoiceOfDatishThings
 Value:        date or dateTime or StringishDateTime
 
-EntryElement: ThingWithChoiceField
-1..1          ChoiceOfDatishThings
+Entry: ThingWithChoiceField
+Property: ChoiceOfDatishThings 1..1
 
-EntryElement: PrimitiveTypeConstraintOnField
-Based on:     ThingWithChoiceField
-              ChoiceOfDatishThings value is type dateTime
+Entry: PrimitiveTypeConstraintOnField
+Parent:     ThingWithChoiceField
+            ChoiceOfDatishThings only dateTime
 
-EntryElement: NonPrimitiveTypeConstraintOnField
-Based on:     ThingWithChoiceField
-              ChoiceOfDatishThings value is type StringishDateTime
+Entry: NonPrimitiveTypeConstraintOnField
+Parent:     ThingWithChoiceField
+            ChoiceOfDatishThings only StringishDateTime
 
 Element:      StringishDateTime
 Value:        string
