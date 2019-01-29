@@ -5,7 +5,7 @@ const err = require('shr-test-helpers/errors');
 // Set the logger -- this is needed for detecting and checking errors
 setLogger(err.logger());
 
-describe('#importFromFilePath()', () => {
+describe('#preprocessFile()', () => {
   beforeEach(function() {
     err.clear();
   });
