@@ -3,11 +3,14 @@
     "projectShorthand":"TEST",
     "projectURL":"http://test.org",
     "fhirURL": "http://test.org/fhir",
-    "implementationGuide": {
-      "npmName": "basic",
-      "version": "1.2.3",
-      "indexContent": "basicindexcontent.html"
-    },
+    "igIndexContent": "basicindexcontent.html",
+    "igLogicalModels": false,
+    "igModelDoc": false,
+    "igPrimarySelectionStrategy":{
+      "strategy": "hybrid",
+			"primary": ["test"],
+      "hideSupporting": true
+		},
     "publisher":"Test Publisher",
     "contact":[{
         "telecom":[{

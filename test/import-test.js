@@ -926,15 +926,18 @@ describe('#importConfigFromFilePath', () => {
     expect(configuration.projectShorthand).to.eql('TEST');
     expect(configuration.projectURL).to.eql('http://test.org');
     expect(configuration.fhirURL).to.eql('http://test.org/fhir');
-    expect(configuration.implementationGuide.indexContent).to.eql('basicindexcontent.html');
+    expect(configuration.implementationGuide).to.eql({
+      'npmName': 'basic',
+      'version': '1.2.3',
+      'indexContent': 'basicindexcontent.html'
+    });
     expect(configuration.publisher).to.eql('Test Publisher');
-    expect(configuration.contact).to.be.of.length(1);
-    expect(configuration.contact[0]).to.eql({
+    expect(configuration.contact).to.eql([{
       'telecom': [{
         'system': 'url',
         'value': 'http://test.org'
       }]
-    });
+    }]);
   });
 
   it('should correctly generate missing fhir url from project url when fhir url is missing', () => {
@@ -944,15 +947,18 @@ describe('#importConfigFromFilePath', () => {
     expect(configuration.projectShorthand).to.eql('TEST');
     expect(configuration.projectURL).to.eql('http://test.org');
     expect(configuration.fhirURL).to.eql('http://test.org/fhir');
-    expect(configuration.implementationGuide.indexContent).to.eql('basicindexcontent.html');
+    expect(configuration.implementationGuide).to.eql({
+      'npmName': 'basic',
+      'version': '1.2.3',
+      'indexContent': 'basicindexcontent.html'
+    });
     expect(configuration.publisher).to.eql('Test Publisher');
-    expect(configuration.contact).to.be.of.length(1);
-    expect(configuration.contact[0]).to.eql({
+    expect(configuration.contact).to.eql([{
       'telecom': [{
         'system': 'url',
         'value': 'http://test.org'
       }]
-    });
+    }]);
 
   });
 
@@ -963,17 +969,68 @@ describe('#importConfigFromFilePath', () => {
     expect(configuration.projectShorthand).to.eql('EXAMPLE');
     expect(configuration.projectURL).to.eql('http://example.com');
     expect(configuration.fhirURL).to.eql('http://example.com/fhir');
-    expect(configuration.implementationGuide.indexContent).to.eql('exampleIndexContent.html');
+    expect(configuration.implementationGuide).to.eql({
+      'npmName': 'example-npm-name',
+      'version': '0.0.1',
+      'indexContent': 'exampleIndexContent.html'
+    });
     expect(configuration.publisher).to.eql('Example Publisher');
-    expect(configuration.contact).to.be.of.length(1);
-    expect(configuration.contact[0]).to.eql({
+    expect(configuration.contact).to.eql([{
       'telecom': [{
         'system': 'url',
         'value': 'http://test.org'
       }]
-    });
+    }]);
   });
 
+  it('should correctly import a configuration with missing npmName & version and add values', () => {
+    const configuration = importConfiguration('incompleteigconfig');
+    expect(configuration).to.have.all.keys('projectName','projectShorthand','projectURL','provenanceInfo','publisher','contact','fhirURL','implementationGuide');
+    expect(configuration.projectName).to.eql('Test Project');
+    expect(configuration.projectShorthand).to.eql('TEST');
+    expect(configuration.projectURL).to.eql('http://test.org');
+    expect(configuration.fhirURL).to.eql('http://test.org/fhir');
+    expect(configuration.implementationGuide).to.eql({
+      'npmName': 'example-npm-name',
+      'version': '0.0.1',
+      'indexContent': 'basicindexcontent.html'
+    });
+    expect(configuration.publisher).to.eql('Test Publisher');
+    expect(configuration.contact).to.eql([{
+      'telecom': [{
+        'system': 'url',
+        'value': 'http://test.org'
+      }]
+    }]);
+  });
+
+  it('should correctly translate deprecated properties', () => {
+    const configuration = importConfiguration('deprecatedigconfig');
+    expect(configuration).to.have.all.keys('projectName','projectShorthand','projectURL','provenanceInfo','publisher','contact','fhirURL','implementationGuide');
+    expect(configuration.projectName).to.eql('Test Project');
+    expect(configuration.projectShorthand).to.eql('TEST');
+    expect(configuration.projectURL).to.eql('http://test.org');
+    expect(configuration.fhirURL).to.eql('http://test.org/fhir');
+    expect(configuration.implementationGuide).to.eql({
+      'npmName': 'example-npm-name',
+      'version': '0.0.1',
+      'indexContent': 'basicindexcontent.html',
+      'includeLogicalModels': false,
+      'includeModelDoc': false,
+      'primarySelectionStrategy': {
+        'strategy': 'hybrid',
+        'primary': ['test'],
+        'hideSupporting': true
+      }
+    });
+    expect(configuration.publisher).to.eql('Test Publisher');
+    expect(configuration.contact).to.eql([{
+      'telecom': [{
+        'system': 'url',
+        'value': 'http://test.org'
+      }]
+    }]);
+  });
 
   it('should correctly throw error when file is not valid JSON', () => {
     const configuration = importConfiguration('invalidblankconfig', 1);
@@ -994,15 +1051,18 @@ describe('#importConfigFromFilePath', () => {
     expect(configuration.projectShorthand).to.eql('EXAMPLE');
     expect(configuration.projectURL).to.eql('http://example.com');
     expect(configuration.fhirURL).to.eql('http://example.com/fhir');
-    expect(configuration.implementationGuide.indexContent).to.eql('exampleIndexContent.html');
+    expect(configuration.implementationGuide).to.eql({
+      'npmName': 'example-npm-name',
+      'version': '0.0.1',
+      'indexContent': 'exampleIndexContent.html'
+    });
     expect(configuration.publisher).to.eql('Example Publisher');
-    expect(configuration.contact).to.be.of.length(1);
-    expect(configuration.contact[0]).to.eql({
+    expect(configuration.contact).to.eql([{
       'telecom': [{
         'system': 'url',
         'value': 'http://example.com'
       }]
-    });
+    }]);
   });
 });
 
