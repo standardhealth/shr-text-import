@@ -15,6 +15,7 @@ describe('#importFromFilePath()', () => {
   it('should correctly import a namespace definition', () => {
     const specifications = importFixture('Simple');
     const ns = specifications.namespaces.find('shr.test');
+    console.log("hey hey");
     expect(ns.namespace).to.equal('shr.test');
     expect(ns.description).to.equal('The SHR test namespace');
   });
@@ -22,11 +23,12 @@ describe('#importFromFilePath()', () => {
   it('should correctly import a simple entry', () => {
     const specifications = importFixture('Simple');
     const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.grammarVersion).to.eql(new Version(5, 0));
+    expect(simple.grammarVersion).to.eql(new Version(6, 0));
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
     expect(simple.description).to.equal('It is a simple entry');
     expect(simple.isAbstract).to.be.false;
+    console.log(simple.value);
     expectCardOne(simple.value);
     expectPrimitiveValue(simple.value, 'string');
     expectNoConstraints(simple.value);
