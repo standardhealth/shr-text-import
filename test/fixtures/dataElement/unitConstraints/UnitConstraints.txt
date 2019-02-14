@@ -6,7 +6,7 @@ CodeSystem:		  UCUM = http://unitsofmeasure.org
 
 Entry:   UnitConstraintOnValue
 Description:    "It is an entry with a unit constraint on the value"
-Value:          Quantity with units UCUM#dl "DeciLiter"
+Value[Quantity].Units = UCUM#dl "DeciLiter"
 
 Entry:   UnitConstraintOnValueChild
 Description:    "It is an entry with a unit constraint on the value's child"
