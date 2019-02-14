@@ -5,10 +5,9 @@ Entry: VSConstraintOnField
 Description:  "It is a group entry with a valueset constraint on a field"
 Property: Simple 0..1
 Property: CodedFromValueSet 0..1
-          CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded2 (required)
 
 Element:        Simple
 Value:          string
 
 Element:   CodedFromValueSet
-Value:     code from http://standardhealthrecord.org/test/vs/Coded (required)
+Value:     concept from http://standardhealthrecord.org/test/vs/Coded (required)

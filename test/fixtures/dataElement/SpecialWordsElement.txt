@@ -1,4 +1,4 @@
-Grammar:    DataElement 5.1
+Grammar:    DataElement 6.0
 Namespace:  shr.test
 Uses:       shr.core // This shouldn't be needed, but due to bug in importer, it is!
 
@@ -9,5 +9,5 @@ Value:   string
 
 Entry:   SpecialChild
 Parent:        SpecialParent
-Property: _Value 1..1
-Property: _Entry.Version 0..0
+Property: Value 1..1
+Property: Entry.Version 0..0
