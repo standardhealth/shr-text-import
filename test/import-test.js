@@ -12,16 +12,18 @@ describe('#importFromFilePath()', () => {
     err.clear();
   });
 
-  it('should correctly import a namespace definition', () => {
-    const specifications = importFixture('Simple');
+  // Every test has to be parseable.
+
+  it('Test01: Check reading the header', () => {
+    const specifications = importFixture('Header');
     const ns = specifications.namespaces.find('shr.test');
     expect(ns.namespace).to.equal('shr.test');
     expect(ns.description).to.equal('The SHR test namespace');
-  });
+});
 
-  it('should correctly import a simple entry', () => {
+  it('Test02: Check reading a simple entry', () => {
     const specifications = importFixture('Simple');
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
+    const simple = expectAndGetEntry(specifications, 'shr.test', 'SimpleEntry');
     expect(simple.grammarVersion).to.eql(new Version(6, 0));
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
@@ -31,7 +33,7 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(simple.value);
   });
 
-  it('should correctly import a simple element', () => {
+  it('Test03: should correctly import a simple element', () => {
     const specifications = importFixture('SimpleElement');
     const simple = expectAndGetElement(specifications, 'shr.test', 'Simple');
     expect(simple.concepts).to.have.length(1);
@@ -43,7 +45,7 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(simple.value);
   });
 
-  it('should correctly import a simple abstract element', () => {
+  it('Test04: should correctly import a simple abstract element', () => {
     const specifications = importFixture('SimpleAbstractElement');
     const simple = expectAndGetElement(specifications, 'shr.test', 'Simple');
     expect(simple.isAbstract).to.be.true;
@@ -55,7 +57,7 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(simple.value);
   });
 
-  it('should correctly import a coded entry', () => {
+  it('Test05: should correctly import a coded entry', () => {
     const specifications = importFixture('Coded');
     const coded = expectAndGetEntry(specifications, 'shr.test', 'Coded');
     expect(coded.description).to.equal('It is a coded entry');
@@ -64,7 +66,7 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(coded.value);
   });
 
-  it('should correctly import an entry with a code from a valueset', () => {
+  it('Test06: should correctly import an entry with a code from a valueset', () => {
     const specifications = importFixture('CodedFromValueSet');
     const coded = expectAndGetEntry(specifications, 'shr.test', 'CodedFromValueSet');
     expect(coded.description).to.equal('It is a coded entry');
@@ -76,7 +78,7 @@ describe('#importFromFilePath()', () => {
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
   });
 
-  it('should correctly import an entry with a code from a valueset using a path', () => {
+  it('Test07: should correctly import an entry with a code from a valueset using a path', () => {
     const specifications = importFixture('CodedFromPathValueSet');
     const coded = expectAndGetEntry(specifications, 'shr.test', 'CodedFromPathValueSet');
     expect(coded.description).to.equal('It is a coded entry that uses a valueset with a path');
@@ -88,7 +90,7 @@ describe('#importFromFilePath()', () => {
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
   });
 
-  it('should correctly import an entry with a Coding from a valueset', () => {
+  it('Test08: should correctly import an entry with a Coding from a valueset', () => {
     const specifications = importFixtureFolder('codingFromValueSet');
     const codingFromVS = expectAndGetEntry(specifications, 'shr.test', 'CodingFromValueSet');
     expect(codingFromVS.description).to.equal('It is a coded entry with Coding');
