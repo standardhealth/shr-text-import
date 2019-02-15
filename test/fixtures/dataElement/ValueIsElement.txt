@@ -1,8 +1,8 @@
 Grammar:    DataElement 6.0
 Namespace:  shr.test
 
-Entry:   SimpleReference
-Description:    "It is a reference to a simple element"
+Entry:          ValueIsElement
+Description:    "Value is a reference to a simple element"
 Value:          Simple
 
 Element:        Simple
