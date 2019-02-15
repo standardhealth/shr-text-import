@@ -1,0 +1,20 @@
+Grammar:   DataElement 6.0
+Namespace: shr.test
+Uses:      shr.core
+
+CodeSystem:     FOO = http://foo.org
+
+Entry:          CodeConstraintOnFieldChild
+Description:    "It is a group entry with a code constraint on a field's child"
+Property:       Simple 0..1
+Property:       CodedFromValueSet 0..1
+                CodedFromValueSet.CodedFromVS2 = FOO#bar "FooBar"
+
+Element:        Simple
+Value:          string
+
+Element:        CodedFromValueSet
+Property:       CodedFromVS2
+
+Element:        CodedFromVS2
+Value:          concept from http://standardhealthrecord.org/test/vs/Coded (required)
