@@ -2,9 +2,9 @@ Grammar:     DataElement 6.0
 Namespace:   shr.test
 Description: "The SHR test namespace"
 
-CodeSystem:     FOO = http://foo.org
+ CodeSystem:     FOO = http://foo.org
 
-Entry:   Simple
+Entry:   SimpleEntry
 Concept:        FOO #bar "Foobar"
 Description:    "It is a simple entry"
 Value:          string
