@@ -1,0 +1,13 @@
+Grammar:   DataElement 6.0
+Namespace: shr.test
+Uses:      shr.core
+
+CodeSystem:     FOO = http://foo.org
+
+Entry:          SystemlessCodeConstraintOnValue
+Description:    "It is an entry with a system-less code constraint on the value"
+Property:       CodedFromValueSet
+Value:          concept = #bar
+
+Element:        CodedFromValueSet
+Value:          concept from http://standardhealthrecord.org/test/vs/Coded (required)

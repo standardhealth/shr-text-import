@@ -1,12 +1,13 @@
 Grammar:     DataElement 6.0
 Namespace:   shr.test
 
-Entry:   BaseElement
-Value:          CodedElement
+Entry:    BaseElement
+Value:    CodedElement
 
-Entry:   ChildElement
-Parent:       BaseElement
-_Value from http://standardhealthrecord.org/test/vs/Coded (required)
+Entry:    ChildElement
+Parent:   BaseElement
+// not using _Value in 6.0 !
+Value from http://standardhealthrecord.org/test/vs/Coded (required)
 
 Element:   CodedElement
-Value:     code
+Value:     concept

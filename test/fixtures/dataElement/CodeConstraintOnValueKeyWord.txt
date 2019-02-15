@@ -5,11 +5,11 @@ Uses:      shr.core
 CodeSystem:     FOO = http://foo.org
 
 Entry:   BaseElement
-Value:          CodedElement
+Value:   CodedElement
 
 Entry:   ChildElement
-Parent:       BaseElement
-_Value substitute FOO#bar "FooBar"
+Parent:   BaseElement
+Value = FOO#bar "FooBar"
 
 Element:   CodedElement
-Value:     Coding from http://standardhealthrecord.org/test/vs/Coded (required)
+Value:     concept from http://standardhealthrecord.org/test/vs/Coded (required)
