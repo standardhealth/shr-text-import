@@ -22,7 +22,7 @@ describe('#importFromFilePath()', () => {
 });
 
   it('Test02: Check reading a simple entry', () => {
-    const specifications = importFixture('Simple');
+    const specifications = importFixture('SimpleEntry');
     const simple = expectAndGetEntry(specifications, 'shr.test', 'SimpleEntry');
     expect(simple.grammarVersion).to.eql(new Version(6, 0));
     expect(simple.concepts).to.have.length(1);
