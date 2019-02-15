@@ -173,7 +173,7 @@ describe('#importFromFilePath()', () => {
 
   // Constraints
 
-  it('Test 12: should correctly import an entry with a valueset constraint on the value', () => {
+  it('Test12: should correctly import an entry with a valueset constraint on the value', () => {
     const specifications = importFixture('VSConstraintOnValue');
     const entry = expectAndGetEntry(specifications, 'shr.test', 'VSConstraintOnValue');
     expect(entry.description).to.equal('It is an entry with a valueset constraint on the value');
@@ -187,29 +187,28 @@ describe('#importFromFilePath()', () => {
     expect(cst.bindingStrength).to.equal(REQUIRED);
   });
 
-  it('should correctly import an entry with a valueset constraint on the value\'s child', () => {
+  it('Test13: should correctly import an entry with a valueset constraint on the child\'s value', () => {
     const specifications = importFixture('VSConstraintOnValueChild');
     const entry = expectAndGetEntry(specifications, 'shr.test', 'VSConstraintOnValueChild');
-    expect(entry.description).to.equal('It is an entry with a valueset constraint on the value\'s child');
     expectCardOne(entry.value);
+    expect(entry.fields).to.be.empty;
     expectValue(entry.value, 'shr.test', 'Complex');
     expect(entry.value.constraints).to.have.length(2);
+    // constraint[0]: Complex.CodedFromValueSet 1..2
     expect(entry.value.constraints[0]).to.be.instanceof(CardConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.test', 'CodedFromValueSet')]);
     expect(entry.value.constraints[0].card.min).to.equal(1);
     expect(entry.value.constraints[0].card.max).to.equal(2);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.test', 'CodedFromValueSet')]);
+    // constraint[1]: Complex.CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded (required)
     expect(entry.value.constraints[1]).to.be.instanceof(ValueSetConstraint);
     expect(entry.value.constraints[1].path).to.eql([id('shr.test', 'CodedFromValueSet')]);
-    expect(entry.value.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded2');
+    expect(entry.value.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(entry.value.constraints[1].bindingStrength).to.equal(REQUIRED);
-    expect(entry.fields).to.be.empty;
   });
 
-  it('should correctly import a group with a valueset constraint on a field', () => {
+  it('Test14: should correctly import a group with a valueset constraint on a field', () => {
     const specifications = importFixture('VSConstraintOnField');
     const group = expectAndGetEntry(specifications, 'shr.test', 'VSConstraintOnField');
-    expect(group.concepts).to.be.empty;
-    expect(group.description).to.equal('It is a group entry with a valueset constraint on a field');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(2);
     expectField(group, 0, 'shr.test', 'Simple', 0, 1);
@@ -217,21 +216,15 @@ describe('#importFromFilePath()', () => {
     expectField(group, 1, 'shr.test', 'CodedFromValueSet', 0, 1);
     const cmplx = group.fields[1];
     expect(cmplx.constraints).to.have.length(1);
-    //expectNoConstraints(group.fields[1]);
-    /*expect(cmplx.constraints).to.have.length(1);
-    expect(cmplx.constraints[0]).to.be.instanceof(ValueSetConstraint);
-    expect(cmplx.constraints[0].path).to.be.empty;
-    expect(cmplx.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded2');
-    expect(cmplx.constraints[0].bindingStrength).to.equal(REQUIRED);*/
+    expect(cmplx.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+    expect(entry.value.constraints[1].bindingStrength).to.equal(EXAMPLE);
   });
 
-  it('should correctly import a group with a valueset constraint on a field\'s child', () => {
+  it('Test15: should correctly import a group with a valueset constraint on a field\'s child', () => {
     const specifications = importFixture('VSConstraintOnFieldChild');
     const group = expectAndGetEntry(specifications, 'shr.test', 'VSConstraintOnFieldChild');
-    expect(group.concepts).to.be.empty;
-    expect(group.description).to.equal('It is a group entry with a valueset constraint on a field\'s child');
     expect(group.value).to.be.undefined;
-    expect(group.fields).to.have.length(2); // 3rd listing in fixture is really constraint on 2nd field
+    expect(group.fields).to.have.length(2); 
     expectField(group, 0, 'shr.test', 'Simple', 0, 1);
     expectField(group, 1, 'shr.test', 'Complex', 0, 1);
     const cmplx = group.fields[1];
@@ -246,7 +239,7 @@ describe('#importFromFilePath()', () => {
     expect(cmplx.constraints[1].bindingStrength).to.equal(REQUIRED);
   });
 
-  it('should correctly import entries with valueset constraints on value with a binding strength', () => {
+  it('Test16: should correctly import entries with valueset constraints on value with a binding strength', () => {
     const specifications = importFixture('VSConstraintOnValueWithBindingStrength');
     const answerKey = {
       'RequiredVSConstraintOnValue': REQUIRED,
@@ -257,7 +250,7 @@ describe('#importFromFilePath()', () => {
     for (const testCase of Object.keys(answerKey)) {
       const entry = expectAndGetEntry(specifications, 'shr.test', testCase);
       expectCardOne(entry.value);
-      expectPrimitiveValue(entry.value, 'code');
+      expectPrimitiveValue(entry.value, 'concept');
       expect(entry.value.constraints).to.have.length(1);
       let cst = entry.value.constraints[0];
       expect(cst).to.be.instanceof(ValueSetConstraint);
@@ -267,7 +260,7 @@ describe('#importFromFilePath()', () => {
     }
   });
 
-  it('should correctly import entries with a valueset constraint on a field with a binding strength', () => {
+  it('Test17: should correctly import entries with a valueset constraint on a field with a binding strength', () => {
     const specifications = importFixture('VSConstraintOnFieldWithBindingStrength');
     const answerKey = {
       'RequiredVSConstraintOnField': REQUIRED,

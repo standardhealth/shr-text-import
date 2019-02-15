@@ -4,15 +4,15 @@ Namespace:  shr.test
 Entry:   VSConstraintOnValueChild
 Description:    "It is an entry with a valueset constraint on the value's child"
 Value:          Complex
-Property:       Complex.CodedFromValueSet 1..2
-                Complex.CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded2 (required)
+Complex.CodedFromValueSet 1..2
+Complex.CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded (required)
 
 Element:        Complex
 Property:       Simple 0..1
 Property:       CodedFromValueSet 1..*
 
 Element:        CodedFromValueSet
-Value:          concept from http://standardhealthrecord.org/test/vs/Coded (required)
+Value:          concept
 
 Element:        Simple
 Value:          string
