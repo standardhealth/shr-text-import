@@ -1,12 +1,13 @@
 Grammar:   DataElement 6.0
 Namespace: shr.test
+// Should this fail to because it doesn't have "Uses: other.ns" ?
 
 CodeSystem:     FOO = http://foo.org
 CodeSystem:     BOO = http://boo.org
 CodeSystem:     ZOO = http://zoo.org
 
 Entry: SimpleGroup
-Concept:      FOO #bar, BOO #far, ZOO #bear
+Concept:      FOO#bar, BOO#far, ZOO#bear
 Description:  "It is a group entry with a code value"
 Value:        concept
 Property:     Simple 0..1

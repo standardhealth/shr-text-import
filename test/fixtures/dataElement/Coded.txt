@@ -1,6 +1,6 @@
-Grammar:    DataElement 6.0
-Namespace:  shr.test
+Grammar:        DataElement 6.0
+Namespace:      shr.test
 
-Entry:   Coded
-Description:    "It is a coded entry"
-Value:          code
+Entry:          Coded
+Description:    "It is a concept entry"
+Value:          concept

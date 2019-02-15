@@ -6,4 +6,4 @@ Description:    "It is an entry with a valueset constraint on the value"
 Value:          CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded2 (required)
 
 Element:   CodedFromValueSet
-Value:     concept from http://standardhealthrecord.org/test/vs/Coded (required)
+Value:     concept

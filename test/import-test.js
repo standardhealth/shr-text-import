@@ -57,12 +57,12 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(simple.value);
   });
 
-  it('Test05: should correctly import a coded entry', () => {
+  it('Test05: should correctly import an entry whose value is a concept', () => {
     const specifications = importFixture('Coded');
     const coded = expectAndGetEntry(specifications, 'shr.test', 'Coded');
-    expect(coded.description).to.equal('It is a coded entry');
+    expect(coded.description).to.equal('It is a concept entry');
     expectCardOne(coded.value);
-    expectPrimitiveValue(coded.value, 'code');
+    expectPrimitiveValue(coded.value, 'concept');
     expectNoConstraints(coded.value);
   });
 
@@ -90,48 +90,15 @@ describe('#importFromFilePath()', () => {
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
   });
 
-  it('Test08: should correctly import an entry with a Coding from a valueset', () => {
-    const specifications = importFixtureFolder('codingFromValueSet');
-    const codingFromVS = expectAndGetEntry(specifications, 'shr.test', 'CodingFromValueSet');
-    expect(codingFromVS.description).to.equal('It is a coded entry with Coding');
-    expectCardOne(codingFromVS.value);
-    expectValue(codingFromVS.value, 'shr.core', 'Coding');
-    expect(codingFromVS.value.constraints).to.have.length(1);
-    expect(codingFromVS.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
-    expect(codingFromVS.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
-    expect(codingFromVS.value.constraints[0].bindingStrength).to.equal(REQUIRED);
-  });
-
-  it('should correctly import an entry with a CodeableConcept from a valueset', () => {
-    const specifications = importFixtureFolder('codeableConceptFromValueSet');
-    const codingFromVS = expectAndGetEntry(specifications, 'shr.test', 'CodeableConceptFromValueSet');
-    expect(codingFromVS.description).to.equal('It is a coded entry with CodeableConcept');
-    expectCardOne(codingFromVS.value);
-    expectValue(codingFromVS.value, 'shr.core', 'concept');
-    expect(codingFromVS.value.constraints).to.have.length(1);
-    expect(codingFromVS.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
-    expect(codingFromVS.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
-    expect(codingFromVS.value.constraints[0].bindingStrength).to.equal(REQUIRED);
-  });
-
-  it('should correctly import a reference to simple element', () => {
-    const specifications = importFixture('SimpleReference');
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'SimpleReference');
-    expect(simple.description).to.equal('It is a reference to a simple element');
+  it('Test08: should correctly import an entry whose value is an element', () => {
+    const specifications = importFixture('ValueIsElement');
+    const simple = expectAndGetEntry(specifications, 'shr.test', 'ValueIsElement');
+    expect(simple.description).to.equal('Value is a reference to a simple element');
     expectCardOne(simple.value);
     expectNoConstraints(simple.value);
   });
 
-  it('should correctly import an entry with a list value', () => {
-    const specifications = importFixture('MultiString');
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'MultiString');
-    expect(simple.description).to.equal('It is a multi-string entry');
-    expectMinMax(simple.value, 1);
-    expectPrimitiveValue(simple.value, 'string');
-    expectNoConstraints(simple.value);
-  });
-
-  it('should correctly import a choice entry', () => {
+  it('Test09: should correctly import a choice entry', () => {
     const specifications = importFixtureFolder('choice');
     const choice = expectAndGetEntry(specifications, 'shr.test', 'Choice');
     expect(choice.description).to.equal('It is an entry with a choice');
@@ -144,7 +111,7 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(choice.value.options);
   });
 
-  it('should correctly import a group entry with a code value', () => {
+  it('Test10: should correctly import a group entry with a code value', () => {
     const specifications = importFixtureFolder('group');
     const group = expectAndGetEntry(specifications,'shr.test', 'SimpleGroup');
     expect(group.concepts).to.have.length(3);
@@ -163,7 +130,7 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(group.fields);
   });
 
-  it('should correctly import a group element without a value', () => {
+  it('Test11: should correctly import a group element without a value', () => {
     const specifications = importFixtureFolder('groupElement');
     const group = expectAndGetElement(specifications, 'shr.test', 'SimpleGroup');
     expect(group.concepts).to.have.length(3);
@@ -206,7 +173,7 @@ describe('#importFromFilePath()', () => {
 
   // Constraints
 
-  it('should correctly import an entry with a valueset constraint on the value', () => {
+  it('Test 12: should correctly import an entry with a valueset constraint on the value', () => {
     const specifications = importFixture('VSConstraintOnValue');
     const entry = expectAndGetEntry(specifications, 'shr.test', 'VSConstraintOnValue');
     expect(entry.description).to.equal('It is an entry with a valueset constraint on the value');
