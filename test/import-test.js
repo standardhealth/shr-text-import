@@ -173,7 +173,7 @@ describe('#importFromFilePath()', () => {
 
   // Constraints
 
-  it('Test 11: should correctly import an entry with a valueset constraint on the value', () => {
+  it('Test 12: should correctly import an entry with a valueset constraint on the value', () => {
     const specifications = importFixture('VSConstraintOnValue');
     const entry = expectAndGetEntry(specifications, 'shr.test', 'VSConstraintOnValue');
     expect(entry.description).to.equal('It is an entry with a valueset constraint on the value');
