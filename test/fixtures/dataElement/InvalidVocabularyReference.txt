@@ -3,7 +3,7 @@ Namespace:  shr.test
 
 CodeSystem:     FOO = http://foo.org
 
-Entry:   Simple
-Concept:        ZOO #bear
+Entry:          Simple
+Concept:        ZOO#bear
 Description:    "It is a simple entry with invalid vocab"
 Value:          string

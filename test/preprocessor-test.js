@@ -5,23 +5,23 @@ const err = require('shr-test-helpers/errors');
 // Set the logger -- this is needed for detecting and checking errors
 setLogger(err.logger());
 
-describe('#preprocessFile()', () => {
+describe('#preprocessFile', () => {
   beforeEach(function() {
     err.clear();
   });
 
-  it('should correctly preprocess a simple entry definition', () => {
-    const data = importFixture('Simple');
+  it('Prep1: should correctly preprocess a simple entry definition', () => {
+    const data = importFixture('SimpleEntry');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
       'shr.test': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'shr.test': { 'Simple': true }
+      'shr.test': { 'SimpleEntry': true }
     });
   });
 
-  it('should correctly preprocess a simple abstract element definition', () => {
+  it('Prep2: should correctly preprocess a simple abstract element definition', () => {
     const data = importFixture('SimpleAbstractElement');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
@@ -32,7 +32,7 @@ describe('#preprocessFile()', () => {
     });
   });
 
-  it('should correctly preprocess a simple element definition', () => {
+  it('Prep3: should correctly preprocess a simple element definition', () => {
     const data = importFixture('SimpleElement');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
@@ -43,7 +43,7 @@ describe('#preprocessFile()', () => {
     });
   });
 
-  it('should correctly preprocess a path definition', () => {
+  it('Prep4: should correctly preprocess a path definition', () => {
     const data = importFixture('CodedFromPathValueSet');
     expect(data._paths).to.eql({
       'shr.test': { 'TESTVS': 'http://standardhealthrecord.org/test/vs' }
@@ -54,8 +54,8 @@ describe('#preprocessFile()', () => {
     });
   });
 
-  it('should correctly preprocess multiple definitions in a single namespace', () => {
-    const data = importFixture('group/Group');
+  it('Prep5: should correctly preprocess multiple codesystem definitions in a single namespace', () => {
+    const data = importFixture('CodeSystems');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
       'shr.test': {
@@ -69,7 +69,7 @@ describe('#preprocessFile()', () => {
         'SimpleGroup': true,
         'Simple': true,
         'Coded': true,
-        'Simple2': true
+        'Simple2': true,
       }
     });
   });

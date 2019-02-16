@@ -6,7 +6,7 @@ Value:    date or dateTime or DateTimeString
 
 Entry:    ThingWithChoiceField
 Property: ChoiceElement 1..1
-          ChoiceElement only dateTime or DateTimeString
+          ChoiceElement only dateTime
 
 Element:  DateTimeString
 Value:    string

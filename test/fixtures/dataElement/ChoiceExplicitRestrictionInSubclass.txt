@@ -1,0 +1,34 @@
+Grammar:    DataElement 6.0
+Namespace:  shr.test
+
+// Need counterexample where the child values are not subclasses of the parent's value class, which is an error
+// Need counterexample where the child adds a choice not given in the parent, which is an error (for example, if Child.Value included Quantity)
+
+Entry:    ParentWithAnyDateTypeValue
+Value:    DateType
+
+    Abstract:  DateType
+    Description:    "Parent for several date types"
+
+Entry:    ChildWithSpecificDateTypes
+Parent:   ParentWithAnyDateTypeValue
+Value:    DateString or DateDate or DateRange
+
+Element:  DateString
+Parent:   DateType
+Value:    string
+
+Element:  DateDate
+Parent:   DateType
+Value:    date
+
+Element:  DateRange
+Parent:   DateType
+Property: LowDate 1..1
+Property: HighDate 0..1
+
+    Element:    LowDate
+    Value:      date
+
+    Element:    HighDate
+    Value:      date

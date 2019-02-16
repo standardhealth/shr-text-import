@@ -6,19 +6,8 @@ Value:    date or dateTime or DateTimeString
 
 Entry:    ThingWithChoiceField
 Property: ChoiceElement 1..1
-          ChoiceElement only dateTime
+          ChoiceElement only DateTimeString
 
-
-
-
-
-Entry:   PrimitiveTypeConstraintOnField
-Parent:  ThingWithChoiceField
-         
-
-Entry:   NonPrimitiveTypeConstraintOnField
-Parent:  ThingWithChoiceField
-         ChoiceOfDatishThings only DateTimeString
 
 Element:  DateTimeString
 Value:    string
