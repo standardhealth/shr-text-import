@@ -759,68 +759,86 @@ describe('#importDataElement', () => {
   });
 });
 
-describe('#importDataElementCounterexample', () => {
+describe('#importDataElementNegatives', () => {
   beforeEach(function() {
     err.clear();
   });
-  
-  it('Neg1: should return errors when there are invalid vocabulary references', () => {
-    const specifications = importFixture('InvalidVocabularyReference', 1);
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.concepts).to.have.length(1);
-    expectConcept(simple.concepts[0], 'ZOO', 'bear'); // Defaults to vocabulary alias
-    expect(simple.description).to.equal('It is a simple entry with invalid vocab');
-    expectCardOne(simple.value);
-    expectPrimitiveValue(simple.value, 'string');
-    expectNoConstraints(simple.value);
+
+  it('Neg1: should return 11013 parsing error when a keyword is not followed by a colon', () => {
+//    const specifications = importFixture('InvalidSyntaxMissingColon', 1);
+    expect(function(){
+      importFixture('InvalidSyntaxMissingColon', 1);
+    }).to.throw('11013')
   });
 
-  it('Neg2: should return errors when there are invalid element references', () => {
-    const specifications = importFixture('InvalidElementReference', 1);
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.concepts).to.have.length(1);
-    expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
-    expect(simple.description).to.equal('It is a simple entry with invalid element reference');
-    expectCardOne(simple.value);
-    expectValue(simple.value, 'unknown', 'Complex');
-    expectNoConstraints(simple.value);
+  it('Neg2: should return error when there is an invalid vocabulary reference', () => {
+    expect(function(){
+      importFixture('InvalidVocabularyReference', 1);
+    }).to.throw()
   });
 
-  it('Neg3: should return errors when there are invalid fully qualified element references', () => {
-    const specifications = importFixture('InvalidFQElementReference', 1);
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.concepts).to.have.length(1);
-    expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
-    expect(simple.description).to.equal('It is a simple entry with invalid fully qualified element reference');
-    expectCardOne(simple.value);
-    expectValue(simple.value, 'other.ns', 'Complex');
-    expectNoConstraints(simple.value);
+  it('Neg3: should return an error when there is an invalid element reference', () => {
+    expect(function(){
+      importFixture('InvalidElementReference', 1);
+    }).to.throw()
   });
 
-  it('Neg4: should return errors when there are ambiguous element references', () => {
-    const specifications = importFixtureFolder('ambiguousResolution', 1);
-    const amb = expectAndGetEntry(specifications, 'shr.test.one', 'Ambiguous');
-    expect(amb.concepts).to.be.empty;
-    expect(amb.description).to.equal('It is an entry that uses an ambiguous reference');
-    expectCardOne(amb.value);
-    expectValue(amb.value, 'shr.test.two', 'Foo'); // Defaults to first encountered namespace
-    expectNoConstraints(amb.value);
+  it('Neg4: should return an error when there is a duplicate element name', () => {
+    expect(function(){
+      importFixture('InvalidDuplicateElementDefinition', 1);
+    }).to.throw()
+   });
+
+  it('Neg5: should return an error when a class defines a property twice.', () => {
+      expect(function(){
+        importFixture('InvalidDuplicatePropertyDefinition', 1);
+      }).to.throw()
   });
 
-  it('Neg5: should return errors when there are conflicting vocab references', () => {
-    const specifications = importFixtureFolder('conflictingVocab', 1);
-    expect(err.errors()[0].msg).to.contain('FOO');
-    expect(err.errors()[0].msg).to.not.contain('MOO');
-
-    const conflicting = expectAndGetEntry(specifications, 'shr.test.one', 'Conflicting');
-    expect(conflicting.concepts).to.have.length(2);
-    expectConcept(conflicting.concepts[0], 'http://foo.org', 'bar'); // Default to the first encountered vocab
-    expectConcept(conflicting.concepts[1], 'http://moo.org', 'car');
-    expect(conflicting.description).to.equal('It is an entry that uses a conflicting vocab reference');
-    expectCardOne(conflicting.value);
-    expectPrimitiveValue(conflicting.value, 'string');
-    expectNoConstraints(conflicting.value);
+  it('Neg6: should return an error if Grammar is not the first line of the file.', () => {
+    expect(function(){
+      importFixture('InvalidMisplacedGrammarDeclaration', 1);
+    }).to.throw()
   });
+
+  it('Neg7: should return an error if there is no cardinality specified on a property.', () => {
+    expect(function(){
+      importFixture('InvalidPropertyNoCardinality', 1);
+    }).to.throw()
+  });
+
+  it('Neg8: should return an error if the file lacks a namespace declaration.', () => {
+    expect(function(){
+      importFixture('InvalidNoNamespace', 1);
+    }).to.throw()
+  });
+
+  it('Neg9: should return an error if a child class defines a property it already inherited.', () => {
+    expect(function(){
+      importFixture('InvalidInheritedFieldDuplicatedInChild', 1);
+    }).to.throw()
+  });
+
+  it('Neg10: should return errors when there are invalid fully qualified element references', () => {
+    expect(function(){
+      importFixture('InvalidFQElementReference', 1);
+    }).to.throw()
+  });
+
+  it('Neg11: should return errors when there are ambiguous element references', () => {
+    // MK: I'm not sure that just loading the folder should trigger the checks for ambiguous elements
+    expect(function(){
+        importFixtureFolder('invalidAmbiguousResolution', 1);
+    }).to.throw()
+  });
+
+  it('Neg11: should return errors when there are ambiguous element references', () => {
+    // MK: I'm not sure that just loading the folder should trigger the checks for ambiguous elements
+    expect(function(){
+        importFixtureFolder('invalidConflictingVocab', 1);
+    }).to.throw()
+  });
+// end of negative examples  
 });
 
 
