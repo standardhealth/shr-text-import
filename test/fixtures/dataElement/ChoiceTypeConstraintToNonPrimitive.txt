@@ -1,0 +1,24 @@
+Grammar:    DataElement 6.0
+Namespace:  shr.test
+
+Element:  ChoiceElement
+Value:    date or dateTime or DateTimeString
+
+Entry:    ThingWithChoiceField
+Property: ChoiceElement 1..1
+          ChoiceElement only dateTime
+
+
+
+
+
+Entry:   PrimitiveTypeConstraintOnField
+Parent:  ThingWithChoiceField
+         
+
+Entry:   NonPrimitiveTypeConstraintOnField
+Parent:  ThingWithChoiceField
+         ChoiceOfDatishThings only DateTimeString
+
+Element:  DateTimeString
+Value:    string

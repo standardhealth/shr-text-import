@@ -98,18 +98,30 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(simple.value);
   });
 
-  it('Test09: should correctly import a choice entry', () => {
-    const specifications = importFixtureFolder('choice');
-    const choice = expectAndGetEntry(specifications, 'shr.test', 'Choice');
-    expect(choice.description).to.equal('It is an entry with a choice');
-    expectCardOne(choice.value);
-    expectChoiceValue(choice.value, 3);
-    expectChoiceOption(choice.value, 0, 'primitive', 'date');
-    expectChoiceOption(choice.value, 1, 'other.ns', 'Period');
-    expectChoiceOption(choice.value, 2, 'shr.test', 'Simple');
-    expectNoConstraints(choice.value);
-    expectNoConstraints(choice.value.options);
-  });
+  /*it('Test09: should correctly import a special entry', () => {
+    const specifications = importFixture('SpecialWordsElement');
+    const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
+    expect(parent.grammarVersion).to.eql(new Version(6, 0));
+    expectMinMax(parent.value, 0, 1);
+    expectPrimitiveValue(parent.value, 'string');
+    const child = expectAndGetEntry(specifications, 'shr.test', 'SpecialChild');
+    expect(child.basedOn).to.have.length(1);
+    expect(child.basedOn[0].namespace).to.equal('shr.test');
+    expect(child.basedOn[0].name).to.equal('SpecialParent');
+    // The _Value identifier is set as the value. Do I love this? No. But that's
+    // how it already worked -- probably to avoid having to resolve the value
+    // (and leave it to shr-expand to do that work).
+    expect(child.value.identifier.isValueKeyWord).to.be.true;
+    expectMinMax(child.value, 1, 1);
+    expect(child.fields).to.have.length(1);
+    expectField(child, 0, '', '_Entry', 1, 1);
+    expect(child.fields[0].constraints).to.have.length(1);
+    expect(child.fields[0].constraints[0]).to.be.instanceof(CardConstraint);
+    expect(child.fields[0].constraints[0].path).to.eql([id('shr.core', 'Version')]);
+    expect(child.fields[0].constraints[0].card.min).to.equal(0);
+    expect(child.fields[0].constraints[0].card.max).to.equal(0);
+  });*/
+
 
   it('Test10: should correctly import a group entry with a code value', () => {
     const specifications = importFixtureFolder('group');
@@ -147,29 +159,6 @@ describe('#importFromFilePath()', () => {
     expectNoConstraints(group.fields);
   });
 
-  /*it('should correctly import a special entry', () => {
-    const specifications = importFixture('SpecialWordsElement');
-    const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
-    expect(parent.grammarVersion).to.eql(new Version(6, 0));
-    expectMinMax(parent.value, 0, 1);
-    expectPrimitiveValue(parent.value, 'string');
-    const child = expectAndGetEntry(specifications, 'shr.test', 'SpecialChild');
-    expect(child.basedOn).to.have.length(1);
-    expect(child.basedOn[0].namespace).to.equal('shr.test');
-    expect(child.basedOn[0].name).to.equal('SpecialParent');
-    // The _Value identifier is set as the value. Do I love this? No. But that's
-    // how it already worked -- probably to avoid having to resolve the value
-    // (and leave it to shr-expand to do that work).
-    expect(child.value.identifier.isValueKeyWord).to.be.true;
-    expectMinMax(child.value, 1, 1);
-    expect(child.fields).to.have.length(1);
-    expectField(child, 0, '', '_Entry', 1, 1);
-    expect(child.fields[0].constraints).to.have.length(1);
-    expect(child.fields[0].constraints[0]).to.be.instanceof(CardConstraint);
-    expect(child.fields[0].constraints[0].path).to.eql([id('shr.core', 'Version')]);
-    expect(child.fields[0].constraints[0].card.min).to.equal(0);
-    expect(child.fields[0].constraints[0].card.max).to.equal(0);
-  });*/
 
   // Constraints
 
@@ -472,7 +461,7 @@ describe('#importFromFilePath()', () => {
     expect(entry.value.constraints[0].value).to.be.false;
   });
 
-  it('Test 32: should correctly import a group with a boolean constraint on a field\'s child', () => {
+  it('Test32: should correctly import a group with a boolean constraint on a field\'s child', () => {
     const specifications = importFixture('BooleanConstraintOnFieldChild');
     const group = expectAndGetEntry(specifications, 'shr.test', 'BooleanConstraintOnFieldChild');
     expect(group.value).to.be.undefined;
@@ -485,50 +474,42 @@ describe('#importFromFilePath()', () => {
     expect(el.constraints[0].value).to.be.true;
   });
 
-  it('should correctly import an entry based on an element and specializing the value', () => {
-    const specifications = importFixture('TypeConstraints');
-    const basedOn = expectAndGetEntry(specifications, 'shr.test', 'TypeConstraintOnValue');
-    expect(basedOn.basedOn).to.have.length(1);
-    expect(basedOn.basedOn[0].namespace).to.equal('shr.test');
-    expect(basedOn.basedOn[0].name).to.equal('SimpleBase');
-    expect(basedOn.description).to.equal('It is a simple element based on SimpleBase and specializing the value');
-    expectCardOne(basedOn.value);
-    expectValue(basedOn.value, 'shr.test', 'Simple');
-    expect(basedOn.value.constraints).to.have.length(1);
-    expect(basedOn.value.constraints[0]).to.be.instanceof(TypeConstraint);
-    expect(basedOn.value.constraints[0].path).to.be.empty;
-    expect(basedOn.value.constraints[0].onValue).to.be.false;
-    expectIdentifier(basedOn.value.constraints[0].isA, 'shr.test', 'Simple2');
+  it('Test33: should correctly import an entry based on an element and substituting the value', () => {
+    const specifications = importFixture('TypeConstraintOnValue');
+    const entry = expectAndGetEntry(specifications, 'shr.test', 'TypeConstraintOnValue');
+    expect(entry.basedOn).to.have.length(1);
+    expect(entry.basedOn[0].namespace).to.equal('shr.test');
+    expect(entry.basedOn[0].name).to.equal('SimpleBase');
+    expectCardOne(entry.value);  // fails here (value should be inherited)
+    expectValue(entry.value, 'shr.test', 'Simple');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(TypeConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].onValue).to.be.false;
+    expectIdentifier(entry.value.constraints[0].isA, 'shr.test', 'Simple2');
   });
 
-  it('should correctly import an entry based on an element and specializing the value\'s child', () => {
-    const specifications = importFixture('TypeConstraints');
-    const basedOn = expectAndGetEntry(specifications, 'shr.test', 'TypeConstraintOnValueChild');
-    expect(basedOn.basedOn).to.have.length(1);
-    expectIdentifier(basedOn.basedOn[0], 'shr.test', 'ComplexBase');
-    expect(basedOn.description).to.equal('It is a simple element based on SimpleBase and specializing the value\'s child');
-    expectCardOne(basedOn.value);
-    expectValue(basedOn.value, 'shr.test', 'Complex');
-    expect(basedOn.value.constraints).to.have.length(2);
-    expect(basedOn.value.constraints[0]).to.be.instanceof(CardConstraint);
-    expect(basedOn.value.constraints[0].path).to.eql([id('shr.test', 'Simple')]);
-    expect(basedOn.value.constraints[0].card.min).to.equal(1);
-    expect(basedOn.value.constraints[0].card.max).to.equal(1);
-    expect(basedOn.value.constraints[1]).to.be.instanceof(TypeConstraint);
-    expect(basedOn.value.constraints[1].path).to.eql([id('shr.test', 'Simple')]);
-    expect(basedOn.value.constraints[1].onValue).to.be.false;
-    expectIdentifier(basedOn.value.constraints[1].isA, 'shr.test', 'Simple2');
+  it('Test34: should correctly import an entry based on an element and substitute the value\'s child', () => {
+    const specifications = importFixture('TypeConstraintOnValueChild');
+    const entry = expectAndGetEntry(specifications, 'shr.test', 'TypeConstraintOnValueChild');
+    expect(entry.basedOn).to.have.length(1);
+    expectIdentifier(entry.basedOn[0], 'shr.test', 'ComplexBase');
+    expectCardOne(entry.value);   // fails here (value should be inherited)
+    expectValue(entry.value, 'shr.test', 'Complex');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(TypeConstraint);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.test', 'Simple')]);  // should the path include Complex?
+    expect(entry.value.constraints[0].onValue).to.be.true;  // MK: changed false to true since this is a constraint on the value
+    expectIdentifier(entry.value.constraints[0].isA, 'shr.test', 'Simple2');
   });
 
-  it('should correctly import a group with a type constraint on a field', () => {
-    const specifications = importFixture('TypeConstraints');
+  it('Test35: should correctly import a group with a type constraint on a field', () => {
+    const specifications = importFixture('TypeConstraintOnField');
     const group = expectAndGetEntry(specifications, 'shr.test', 'TypeConstraintOnField');
     expect(group.basedOn).to.have.length(1);
     expectIdentifier(group.basedOn[0], 'shr.test', 'GroupBase');
-    expect(group.concepts).to.be.empty;
-    expect(group.description).to.equal('It is a group entry with a type constraint on a field');
     expect(group.value).to.be.undefined;
-    expect(group.fields).to.have.length(1);
+    expect(group.fields).to.have.length(2);  // MK: changed from 1 to 2 since two fields are inherited: Simple and CodedFromValueSet
     expectField(group, 0, 'shr.test', 'Simple');
     expect(group.fields[0].constraints).to.have.length(1);
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
@@ -537,16 +518,13 @@ describe('#importFromFilePath()', () => {
     expectIdentifier(group.fields[0].constraints[0].isA, 'shr.test', 'Simple2');
   });
 
-  it('should correctly import a group with a type constraint on a field\'s child', () => {
-    const specifications = importFixture('TypeConstraints');
+  it('Test36: should correctly import a group with a cardinality constraint and a type constraint on a field\'s child', () => {
+    const specifications = importFixture('TypeConstraintOnFieldChild');
     const group = expectAndGetEntry(specifications, 'shr.test', 'TypeConstraintOnFieldChild');
-    expect(group.concepts).to.be.empty;
-    expect(group.description).to.equal('It is a group entry with a type constraint on a field\'s child');
     expect(group.value).to.be.undefined;
-    expect(group.fields).to.have.length(2); // 3rd listing in fixture is really constraint on 2nd field
-    expectField(group, 0, 'shr.test', 'Simple', 0, 1);
-    expectField(group, 1, 'shr.test', 'Complex', 0, 1);
-    const cmplx = group.fields[1];
+    expect(group.fields).to.have.length(1);
+    expectField(group, 0, 'shr.test', 'Complex', 0, 1);
+    const cmplx = group.fields[0];
     expect(cmplx.constraints).to.have.length(2);
     expect(cmplx.constraints[0]).to.be.instanceof(CardConstraint);
     expect(cmplx.constraints[0].path).to.eql([id('shr.test', 'Simple')]);
@@ -558,13 +536,11 @@ describe('#importFromFilePath()', () => {
     expectIdentifier(cmplx.constraints[1].isA, 'shr.test', 'Simple2');
   });
 
-  it('should correctly import a group with a type constraint on a field\'s value', () => {
-    const specifications = importFixture('TypeConstraints');
+  it('Test37: should correctly import a group with a type constraint on a field\'s value', () => {
+    const specifications = importFixture('TypeConstraintOnFieldValue');
     const group = expectAndGetEntry(specifications, 'shr.test', 'TypeConstraintOnFieldValue');
     expect(group.basedOn).to.have.length(1);
     expectIdentifier(group.basedOn[0], 'shr.test', 'Group2');
-    expect(group.concepts).to.be.empty;
-    expect(group.description).to.equal('It is a group entry with a type constraint on a field\'s value');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
     expectField(group, 0, 'shr.test', 'HasSimpleValue');
@@ -575,23 +551,42 @@ describe('#importFromFilePath()', () => {
     expectIdentifier(group.fields[0].constraints[0].isA, 'shr.test', 'Simple2');
   });
 
-  // Type constraints on choices
+  // Choices
 
-  it('should correctly import an entry with a value type constraint (to primitive) on a choice field', () => {
-    const specifications = importFixture('ChoiceTypeConstraints');
-    const primType = expectAndGetEntry(specifications, 'shr.test', 'PrimitiveTypeConstraintOnField');
-    expect(primType.basedOn).to.have.length(1);
-    expectIdentifier(primType.basedOn[0], 'shr.test', 'ThingWithChoiceField');
-    expect(primType.concepts).to.be.empty;
-    expect(primType.description).to.be.undefined;
-    expect(primType.value).to.be.undefined;
-    expect(primType.fields).to.have.length(1);
-    expectField(primType, 0, 'shr.test', 'ChoiceOfDatishThings');
-    expect(primType.fields[0].constraints).to.have.length(1);
-    expect(primType.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
-    expect(primType.fields[0].constraints[0].path).to.be.empty;
-    expect(primType.fields[0].constraints[0].onValue).to.be.true;
-    expectPrimitiveIdentifier(primType.fields[0].constraints[0].isA, 'dateTime');
+  it('Test38: should correctly import an element whose value has choices', () => {
+    const specifications = importFixture('ChoiceType');
+    const element = expectAndGetElement(specifications, 'shr.test', 'ChoiceElement');
+    expect(entry.value).to.be.undefined;
+    expect(entry.fields).to.have.length(0);
+  // MK: don't know how to test that the value has a choice of date, dateTime, DateTimeString. Please discuss with me.
+    expectChoiceOption(choice, optionIndex, expectedNamespace, expectedName, expectedMin=1, expectedMax=1)
+  });
+
+
+  it('Test38: should correctly import a choice entry', () => {
+    const specifications = importFixture('ChoiceType');
+    const choice = expectAndGetEntry(specifications, 'shr.test', 'Choice');
+    expectCardOne(choice.value);
+    expectChoiceValue(choice.value, 3);
+    expectChoiceOption(choice.value, 0, 'primitive', 'date');
+    expectChoiceOption(choice.value, 1, 'primitive', 'dateTime');
+    expectChoiceOption(choice.value, 2, 'shr.test', 'DateTimeString');
+    expectNoConstraints(choice.value);
+    expectNoConstraints(choice.value.options);
+  });
+
+
+  it('Test39: should correctly import an entry with a value type constraint (to primitive) on a choice field', () => {
+    const specifications = importFixture('ChoiceTypeConstraintToPrimitive');
+    const entry = expectAndGetEntry(specifications, 'shr.test', 'ThingWithChoiceField');
+    expect(entry.value).to.be.undefined;
+    expect(entry.fields).to.have.length(1);
+    expectField(entry, 0, 'shr.test', 'ChoiceElement');
+    expect(entry.fields[0].constraints).to.have.length(1);
+    expect(entry.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);  // MK: I don't know if there should be a ChoiceConstraint, but the 'only' (choice constraint) is not the same constraint as 'substitute' (type constraint). Please discuss with me.
+    expect(entry.fields[0].constraints[0].path).to.be.empty;
+    expect(entry.fields[0].constraints[0].onValue).to.be.true;
+    expectPrimitiveIdentifier(entry.fields[0].constraints[0].isA, 'dateTime');
   });
 
   it('should correctly import an entry with a value type constraint (to non-primitive) on a choice field', () => {
