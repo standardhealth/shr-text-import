@@ -1,7 +1,7 @@
 Grammar:   DataElement 6.0
 Namespace: shr.test
 
-Entry:   SimpleDate
+Entry:          SimpleDate
 Description:    "It is a simple date entry"
 Value:          date
 
