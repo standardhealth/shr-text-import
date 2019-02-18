@@ -903,7 +903,11 @@ describe('#importDataElementNegatives', () => {
     }).to.throw()
   });  
 
-
+  it('Neg22: should throw an error when a class specifies its parent as TBD', () => {
+    expect(function(){
+         importFixture('InvalidTBDParent');
+    }).to.throw()
+  });  
 
 // end of negative examples  
 });
