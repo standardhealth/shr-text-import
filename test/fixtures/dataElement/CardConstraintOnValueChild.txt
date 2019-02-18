@@ -1,8 +1,6 @@
 Grammar:    DataElement 6.0
 Namespace:  shr.test
 
-// Need counterexample(s) where cardinality is on the value field itself (not allowed in Grammar 6), for example Value: 1..* string or Value: string 1..* or a constraint on an inherited value:  Value 0..0
-
 Entry: CardConstraintOnValueChild
 Description:  "It is an entry with a card constraint on the value's child"
 Value:        Thing1
