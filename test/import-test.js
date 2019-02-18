@@ -701,7 +701,6 @@ describe('#importDataElement', () => {
     expectCardOne(simple.value);
     expectPrimitiveValue(simple.value, 'date');
     expectNoConstraints(simple.value);
-
     const coded = expectAndGetElement(specifications, 'shr.test', 'Coded');
     expect(coded.description).to.equal('It is a coded element');
     expectCardOne(coded.value);
@@ -730,14 +729,12 @@ describe('#importDataElement', () => {
     expectCardOne(one.value);
     expectValue(one.value, 'shr.test.two', 'Two');
     expectNoConstraints(one.value);
-
     const two = expectAndGetEntry(specifications, 'shr.test.two', 'Two');
     expect(two.concepts).to.have.length(1);
     expectConcept(two.concepts[0], 'http://zoo.org', 'bear');
     expectCardOne(two.value);
     expectPrimitiveValue(two.value, 'string');
     expectNoConstraints(two.value);
-
     expect(specifications.dataElements.namespaces).not.to.contain('shr.test.three');
   });
 
@@ -748,12 +745,19 @@ describe('#importDataElement', () => {
     expectChoiceValue(choice.value, 2);
     expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
     expectChoiceOption(choice.value, 1, 'primitive', 'concept');
-// MK: I need some help writing this correctly. I'm not sure how to access constraints placed on a choice.
-    expectNoConstraints(choice.value[0])
-    const fixed = choice.value[1];
-    expect(fixed.constraints).to.have.length(1);
-    expect(fixed.constraints[0]).to.be.instanceof(CodeConstraint);
-    expectConcept(fixed.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+// MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
+// first the fixed boolean choice value
+    const fb = choice.value[0];
+    expect(fb.constraints).to.have.length(1);
+    expect(fb.constraints[0]).to.be.instanceof(BooleanConstraint);
+    expect(fb.constraints[0].path).to.be.empty;
+    expect(fb.constraints[0].value).to.be.true;
+// now the fixed concept choice value
+    const fc = choice.value[1];
+    expect(fc.constraints).to.have.length(1);
+    expect(fc.constraints[0]).to.be.instanceof(CodeConstraint);
+    expect(fb.constraints[0].path).to.be.empty;
+    expectConcept(fc.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
   });
 
 
@@ -875,12 +879,29 @@ describe('#importDataElementNegatives', () => {
     }).to.throw()
   });  
 
-  it('Neg18: should throw an error when choice value is constrained without specifying which choice', () => {
+  it('Neg18: should throw an error when choice value is constrained without specifying which choice the constraint applies to', () => {
     expect(function(){
          importFixture('InvalidConstraintOnChoice');
     }).to.throw()
   });  
 
+  it('Neg19: should throw an error when substituting a non-subclass for a field', () => {
+    expect(function(){
+         importFixture('InvalidSubstituteOnField');
+    }).to.throw()
+  });  
+
+  it('Neg20: should throw an error when substituting a non-subclass for a field child', () => {
+    expect(function(){
+         importFixture('InvalidSubstituteOnFieldChild');
+    }).to.throw()
+  });  
+
+  it('Neg21: should throw an error when a field declares a choice', () => {
+    expect(function(){
+         importFixture('InvalidDeclarationOfFieldChoice');
+    }).to.throw()
+  });  
 
 
 
