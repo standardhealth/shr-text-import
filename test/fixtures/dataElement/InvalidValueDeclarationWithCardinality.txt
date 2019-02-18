@@ -1,0 +1,10 @@
+Grammar:   DataElement 6.0
+Namespace: shr.test
+Uses:      shr.core
+
+Entry:          InvalidInheritanceValueOverride
+Description:    "Can't have a value with cardinality."
+Value:        Simple 0..*
+
+Element:    Simple
+Value:      boolean
