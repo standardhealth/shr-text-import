@@ -6,8 +6,8 @@ const err = require('shr-test-helpers/errors');
 
 // Shorthand Identifier constructor for more concise code
 function id(namespace, name) {
-    return new Identifier(namespace, name);
-  }
+  return new Identifier(namespace, name);
+}
   
 // Shorthand PrimitiveIdentifier constructor for more concise code
 function pid(name) {
