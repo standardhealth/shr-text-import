@@ -337,22 +337,7 @@ describe('#importDataElement', () => {
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
   });
 
-  it('Import24: should fail when a code lacks a value set', () => {
-    const specifications = importFixture('SystemlessCodeConstraintOnValue');
-    const entry = expectAndGetEntry(specifications, 'shr.test', 'SystemlessCodeConstraintOnValue');
-/*
-    expect(entry.description).to.equal('It is an entry with a system-less code constraint on the value');
-    expect(entry.basedOn).to.have.length(1);
-    expect(entry.basedOn[0].namespace).to.equal('shr.test');
-    expect(entry.basedOn[0].name).to.equal('CodedFromValueSet');
-    expectCardOne(entry.value);
-    expectValue(entry.value, 'shr.core', 'Coding');
-    expect(entry.value.constraints).to.have.length(1);
-    expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[0].path).to.be.empty;
-    expectConcept(entry.value.constraints[0].code, null, 'bar');
-    */
-  });
+
 
   it('Import25: should correctly import an entry with a unit constraint on the value', () => {
     const specifications = importFixture('UnitConstraintOnValue');
@@ -716,7 +701,6 @@ describe('#importDataElement', () => {
     expectCardOne(simple.value);
     expectPrimitiveValue(simple.value, 'date');
     expectNoConstraints(simple.value);
-
     const coded = expectAndGetElement(specifications, 'shr.test', 'Coded');
     expect(coded.description).to.equal('It is a coded element');
     expectCardOne(coded.value);
@@ -742,85 +726,186 @@ describe('#importDataElement', () => {
     expect(one.concepts).to.have.length(2);
     expectConcept(one.concepts[0], 'http://foo.org', 'bar');
     expectConcept(one.concepts[1], 'http://moo.org', 'car');
-    expect(one.description).to.equal('It is an entry that uses other namespaces');
     expectCardOne(one.value);
     expectValue(one.value, 'shr.test.two', 'Two');
     expectNoConstraints(one.value);
-
     const two = expectAndGetEntry(specifications, 'shr.test.two', 'Two');
     expect(two.concepts).to.have.length(1);
     expectConcept(two.concepts[0], 'http://zoo.org', 'bear');
-    expect(two.description).to.equal('It is an entry that uses other namespaces too');
     expectCardOne(two.value);
     expectPrimitiveValue(two.value, 'string');
     expectNoConstraints(two.value);
-
     expect(specifications.dataElements.namespaces).not.to.contain('shr.test.three');
   });
+
+  it('Import54: should be able to apply a fixed concept to a choice value', () => {
+    const specifications = importFixture('ConstraintOnChoiceValue');
+    const choice = expectAndGetElement(specifications, 'shr.test', 'ConstraintOnChoiceValue');
+    expectCardOne(choice.value);
+    expectChoiceValue(choice.value, 2);
+    expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
+    expectChoiceOption(choice.value, 1, 'primitive', 'concept');
+// MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
+// first the fixed boolean choice value
+    const fb = choice.value[0];
+    expect(fb.constraints).to.have.length(1);
+    expect(fb.constraints[0]).to.be.instanceof(BooleanConstraint);
+    expect(fb.constraints[0].path).to.be.empty;
+    expect(fb.constraints[0].value).to.be.true;
+// now the fixed concept choice value
+    const fc = choice.value[1];
+    expect(fc.constraints).to.have.length(1);
+    expect(fc.constraints[0]).to.be.instanceof(CodeConstraint);
+    expect(fb.constraints[0].path).to.be.empty;
+    expectConcept(fc.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+
 });
 
-describe('#importDataElementCounterexample', () => {
+describe('#importDataElementNegatives', () => {
   beforeEach(function() {
     err.clear();
   });
-  
-  it('Neg1: should return errors when there are invalid vocabulary references', () => {
-    const specifications = importFixture('InvalidVocabularyReference', 1);
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.concepts).to.have.length(1);
-    expectConcept(simple.concepts[0], 'ZOO', 'bear'); // Defaults to vocabulary alias
-    expect(simple.description).to.equal('It is a simple entry with invalid vocab');
-    expectCardOne(simple.value);
-    expectPrimitiveValue(simple.value, 'string');
-    expectNoConstraints(simple.value);
+
+  it('Neg1: should throw an error 11013 when a keyword is not followed by a colon', () => {
+//    const specifications = importFixture('InvalidSyntaxMissingColon', 1);
+    expect(function(){
+      importFixture('InvalidSyntaxMissingColon', 1);
+    }).to.throw('11013')
   });
 
-  it('Neg2: should return errors when there are invalid element references', () => {
-    const specifications = importFixture('InvalidElementReference', 1);
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.concepts).to.have.length(1);
-    expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
-    expect(simple.description).to.equal('It is a simple entry with invalid element reference');
-    expectCardOne(simple.value);
-    expectValue(simple.value, 'unknown', 'Complex');
-    expectNoConstraints(simple.value);
+  it('Neg2: should throw an error when there is an invalid vocabulary reference', () => {
+    expect(function(){
+      importFixture('InvalidVocabularyReference', 1);
+    }).to.throw()
   });
 
-  it('Neg3: should return errors when there are invalid fully qualified element references', () => {
-    const specifications = importFixture('InvalidFQElementReference', 1);
-    const simple = expectAndGetEntry(specifications, 'shr.test', 'Simple');
-    expect(simple.concepts).to.have.length(1);
-    expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
-    expect(simple.description).to.equal('It is a simple entry with invalid fully qualified element reference');
-    expectCardOne(simple.value);
-    expectValue(simple.value, 'other.ns', 'Complex');
-    expectNoConstraints(simple.value);
+  it('Neg3: should throw an error when there is an invalid element reference', () => {
+    expect(function(){
+      importFixture('InvalidElementReference', 1);
+    }).to.throw()
   });
 
-  it('Neg4: should return errors when there are ambiguous element references', () => {
-    const specifications = importFixtureFolder('ambiguousResolution', 1);
-    const amb = expectAndGetEntry(specifications, 'shr.test.one', 'Ambiguous');
-    expect(amb.concepts).to.be.empty;
-    expect(amb.description).to.equal('It is an entry that uses an ambiguous reference');
-    expectCardOne(amb.value);
-    expectValue(amb.value, 'shr.test.two', 'Foo'); // Defaults to first encountered namespace
-    expectNoConstraints(amb.value);
+  it('Neg4: should throw an error when there is a duplicate element name', () => {
+    expect(function(){
+      importFixture('InvalidDuplicateElementDefinition', 1);
+    }).to.throw()
+   });
+
+  it('Neg5: should throw an error when a class defines a property twice.', () => {
+      expect(function(){
+        importFixture('InvalidDuplicatePropertyDefinition', 1);
+      }).to.throw()
   });
 
-  it('Neg5: should return errors when there are conflicting vocab references', () => {
-    const specifications = importFixtureFolder('conflictingVocab', 1);
-    expect(err.errors()[0].msg).to.contain('FOO');
-    expect(err.errors()[0].msg).to.not.contain('MOO');
-
-    const conflicting = expectAndGetEntry(specifications, 'shr.test.one', 'Conflicting');
-    expect(conflicting.concepts).to.have.length(2);
-    expectConcept(conflicting.concepts[0], 'http://foo.org', 'bar'); // Default to the first encountered vocab
-    expectConcept(conflicting.concepts[1], 'http://moo.org', 'car');
-    expect(conflicting.description).to.equal('It is an entry that uses a conflicting vocab reference');
-    expectCardOne(conflicting.value);
-    expectPrimitiveValue(conflicting.value, 'string');
-    expectNoConstraints(conflicting.value);
+  it('Neg6: should throw an error if Grammar is not the first line of the file.', () => {
+    expect(function(){
+      importFixture('InvalidMisplacedGrammarDeclaration', 1);
+    }).to.throw()
   });
+
+  it('Neg7: should throw an error if there is no cardinality specified on a property.', () => {
+    expect(function(){
+      importFixture('InvalidPropertyNoCardinality', 1);
+    }).to.throw()
+  });
+
+  it('Neg8: should throw an error if the file lacks a namespace declaration.', () => {
+    expect(function(){
+      importFixture('InvalidNoNamespace', 1);
+    }).to.throw()
+  });
+
+  it('Neg9: should throw an error if a child class defines a property it already inherited.', () => {
+    expect(function(){
+      importFixture('InvalidInheritedFieldDuplicatedInChild', 1);
+    }).to.throw()
+  });
+
+  it('Neg10: should throw an error when there is an invalid fully qualified element reference', () => {
+    expect(function(){
+      importFixture('InvalidFQElementReference', 1);
+    }).to.throw()
+  });
+
+  it('Neg11: should throw an error when there is an ambiguous element reference', () => {
+    // MK: I'm not sure that just loading the folder should trigger the checks for ambiguous elements
+    expect(function(){
+        importFixtureFolder('invalidAmbiguousResolution', 1);
+    }).to.throw()
+  });
+
+  it('Neg12: should throw an error when there are conflicing code system declarations', () => {
+    // MK: I'm not sure that just loading the folder should trigger the checks for ambiguous elements
+    expect(function(){
+        importFixtureFolder('invalidConflictingVocab', 1);
+    }).to.throw()
+  });
+
+  it('Neg13: should throw an error when a code lacks a code system', () => {
+    expect(function(){
+         importFixture('InvalidSystemlessCode');
+    }).to.throw()
+  });
+
+  it('Neg14: should throw an error when a value is missing a value element', () => {
+    expect(function(){
+         importFixture('InvalidValueDeclarationEmpty');
+    }).to.throw()
+  });
+
+  it('Neg15: should throw an error when a value declares cardinality', () => {
+    expect(function(){
+         importFixture('InvalidValueDeclarationWithCardinality');
+    }).to.throw()
+  });
+
+  it('Neg16: should throw an error when a child class inherits a value but also defines a value', () => {
+    expect(function(){
+         importFixture('InvalidInheritanceValueOverride');
+    }).to.throw()
+  });
+
+  it('Neg16: should throw an error when a child class value overrides a required binding', () => {
+    expect(function(){
+         importFixture('InvalidValueBindingOverride');
+    }).to.throw()
+  });  
+
+  it('Neg17: should throw an error when a child class overrides a fixed code value', () => {
+    expect(function(){
+         importFixture('InvalidFixedCodeOverride');
+    }).to.throw()
+  });  
+
+  it('Neg18: should throw an error when choice value is constrained without specifying which choice the constraint applies to', () => {
+    expect(function(){
+         importFixture('InvalidConstraintOnChoice');
+    }).to.throw()
+  });  
+
+  it('Neg19: should throw an error when substituting a non-subclass for a field', () => {
+    expect(function(){
+         importFixture('InvalidSubstituteOnField');
+    }).to.throw()
+  });  
+
+  it('Neg20: should throw an error when substituting a non-subclass for a field child', () => {
+    expect(function(){
+         importFixture('InvalidSubstituteOnFieldChild');
+    }).to.throw()
+  });  
+
+  it('Neg21: should throw an error when a field declares a choice', () => {
+    expect(function(){
+         importFixture('InvalidDeclarationOfFieldChoice');
+    }).to.throw()
+  });  
+
+
+
+// end of negative examples  
 });
 
 
