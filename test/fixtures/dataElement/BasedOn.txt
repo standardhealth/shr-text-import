@@ -4,7 +4,6 @@ Namespace: shr.test
 // Need counterexample where the parent class doesn't exist
 // Need counterexample where both the parent and child declare a value
 // Need counterexample where child declares a property that exists in a parent
-// Need counterexample with the declaration "Parent: TBD" - not allowed
 
 Entry:        Child
 Parent:       Base

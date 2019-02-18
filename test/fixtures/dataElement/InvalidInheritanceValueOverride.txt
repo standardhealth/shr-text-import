@@ -1,0 +1,14 @@
+Grammar:   DataElement 6.0
+Namespace: shr.test
+Uses:      shr.core
+
+Entry:   BasedOn
+Value:   Simple from 
+
+Entry:      InvalidInheritanceValueOverride
+Parent:  BasedOn
+    Value from 
+
+Element:    Simple
+Value:      concept
+
