@@ -2,4 +2,7 @@ Grammar:    DataElement 6.0
 Namespace:  shr.test
 
 Entry:          Simple
-Value:          Nonexistent
+Property:       Simple2
+
+Element:        Simple2
+Value:          concept

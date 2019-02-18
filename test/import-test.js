@@ -339,22 +339,7 @@ describe('#importDataElement', () => {
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
   });
 
-  it('Import24: should fail when a code lacks a value set', () => {
-    const specifications = importFixture('SystemlessCodeConstraintOnValue');
-    const entry = expectAndGetEntry(specifications, 'shr.test', 'SystemlessCodeConstraintOnValue');
-/*
-    expect(entry.description).to.equal('It is an entry with a system-less code constraint on the value');
-    expect(entry.basedOn).to.have.length(1);
-    expect(entry.basedOn[0].namespace).to.equal('shr.test');
-    expect(entry.basedOn[0].name).to.equal('CodedFromValueSet');
-    expectCardOne(entry.value);
-    expectValue(entry.value, 'shr.core', 'Coding');
-    expect(entry.value.constraints).to.have.length(1);
-    expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[0].path).to.be.empty;
-    expectConcept(entry.value.constraints[0].code, null, 'bar');
-    */
-  });
+
 
   it('Import25: should correctly import an entry with a unit constraint on the value', () => {
     const specifications = importFixture('UnitConstraintOnValue');
@@ -718,7 +703,6 @@ describe('#importDataElement', () => {
     expectCardOne(simple.value);
     expectPrimitiveValue(simple.value, 'date');
     expectNoConstraints(simple.value);
-
     const coded = expectAndGetElement(specifications, 'shr.test', 'Coded');
     expect(coded.description).to.equal('It is a coded element');
     expectCardOne(coded.value);
@@ -744,26 +728,45 @@ describe('#importDataElement', () => {
     expect(one.concepts).to.have.length(2);
     expectConcept(one.concepts[0], 'http://foo.org', 'bar');
     expectConcept(one.concepts[1], 'http://moo.org', 'car');
-    expect(one.description).to.equal('It is an entry that uses other namespaces');
     expectCardOne(one.value);
     expectValue(one.value, 'shr.test.two', 'Two');
     expectNoConstraints(one.value);
-
     const two = expectAndGetEntry(specifications, 'shr.test.two', 'Two');
     expect(two.concepts).to.have.length(1);
     expectConcept(two.concepts[0], 'http://zoo.org', 'bear');
-    expect(two.description).to.equal('It is an entry that uses other namespaces too');
     expectCardOne(two.value);
     expectPrimitiveValue(two.value, 'string');
     expectNoConstraints(two.value);
-
     expect(specifications.dataElements.namespaces).not.to.contain('shr.test.three');
   });
+
+  it('Import54: should be able to apply a fixed concept to a choice value', () => {
+    const specifications = importFixture('ConstraintOnChoiceValue');
+    const choice = expectAndGetElement(specifications, 'shr.test', 'ConstraintOnChoiceValue');
+    expectCardOne(choice.value);
+    expectChoiceValue(choice.value, 2);
+    expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
+    expectChoiceOption(choice.value, 1, 'primitive', 'concept');
+// MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
+// first the fixed boolean choice value
+    const fb = choice.value[0];
+    expect(fb.constraints).to.have.length(1);
+    expect(fb.constraints[0]).to.be.instanceof(BooleanConstraint);
+    expect(fb.constraints[0].path).to.be.empty;
+    expect(fb.constraints[0].value).to.be.true;
+// now the fixed concept choice value
+    const fc = choice.value[1];
+    expect(fc.constraints).to.have.length(1);
+    expect(fc.constraints[0]).to.be.instanceof(CodeConstraint);
+    expect(fb.constraints[0].path).to.be.empty;
+    expectConcept(fc.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+  });
+
+
 });
 
 // mlt: modularized negative tests. Now located in import-neg-test.js
 // mlt: modularized config tests. Now located in config-import-test.js
-
 
 /* MK - cutting out CIMCORE tests because the examples are out of date, in Grammar 5. If we revive this, it should live in a separate file (e.g., cimcore-test.js).
 
