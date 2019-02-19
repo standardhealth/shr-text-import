@@ -4,8 +4,13 @@ Uses:      shr.core
 
 CodeSystem:     FOO = http://foo.org
 
-Entry:   BasedOn
-Value:   boolean or concept
+Entry:   TheParent
+Value:   concept
 Value = FOO#baz
+
+
+Entry:   TheChild
+"Cannot override the fixed value established by the parent."
+Value = FOO#bar
 
 
