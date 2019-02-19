@@ -115,10 +115,10 @@ function expectNoConstraints(value) {
   }
 }
 
-function importFixture(name, numExpectedErrors = 0) {
+function importFixture(name, hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
   const specifications = importFromFilePath(`${__dirname}/fixtures/dataElement/${name}.txt`, null, dependencies);
-  checkImportErrors(numExpectedErrors);
+  checkImportErrors(hasExpectedErrors);
   return specifications;
 }
 
@@ -182,11 +182,14 @@ function importCimcoreFolder(numExpectedErrors = 0) {
   return configuration;
 }
 
-function checkImportErrors(numExpectedErrors = 0) {
+function checkImportErrors(hasExpectedErrors) {
   const errors = err.errors();
   const message = `Import Errors: ${errors.map(e => e.msg).join('; ')}`;
-  expect(errors.length, message).to.equal(numExpectedErrors);
+//  console.log('message='+message);
+  expect((((errors.length > 0)? true: false), message).to.equal(hasExpectedErrors));
 }
+
+
 
 //THIS IS A HORRIBLE HACK. THIS AND THE CORRESPONDING SECTION IN shr-cli SHOULD
 //BE REPLACED WITH A STANDARD shr-model METHOD AS SOON AS WE REFACTOR shr-models.
