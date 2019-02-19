@@ -12,144 +12,98 @@ describe('#importDataElementNegatives', () => {
     err.clear();
   });
 
-  it('Neg1: should throw an error 11013 when a keyword is not followed by a colon', () => {
-    expect(function(){
-      importFixture('InvalidSyntaxMissingColon', true);
-    }).to.not.throw()
+  it('Neg1: should produce an import error 11013 when a keyword is not followed by a colon', () => {
+    importFixture('InvalidSyntaxMissingColon', true);
   });
 
-  it('Neg2: should throw an error when there is an invalid vocabulary reference', () => {
-    expect(function(){
-      importFixture('InvalidVocabularyReference', true);
-    }).to.not.throw()
+  it('Neg2: should produce an import error when there is an invalid vocabulary reference', () => {
+    importFixture('InvalidVocabularyReference', true);
   });
 
-  it('Neg3: should throw an error when there is an invalid element reference', () => {
-    expect(function(){
-      importFixture('InvalidElementReference', true);
-    }).to.not.throw()
+  it('Neg3: should produce an import error when there is an invalid element reference', () => {
+    importFixture('InvalidElementReference', true);
   });
 
-  it('Neg4: should throw an error when there is a duplicate element name', () => {
-    expect(function(){
-      importFixture('InvalidDuplicateElementDefinition', true);
-    }).to.not.throw()
+  it('Neg4: should produce an import error when there is a duplicate element name', () => {
+    importFixture('InvalidDuplicateElementDefinition', true);
    });
 
-  it('Neg5: should throw an error when a class defines a property twice.', () => {
-      expect(function(){
-        importFixture('InvalidDuplicatePropertyDefinition', true);
-      }).to.not.throw()
+  it('Neg5: should produce an import error when a class defines a property twice.', () => {
+    importFixture('InvalidDuplicatePropertyDefinition', true);
   });
 
-  it('Neg6: should throw an error if Grammar is not the first line of the file.', () => {
-    expect(function(){
-      importFixture('InvalidMisplacedGrammarDeclaration', true);
-    }).to.not.throw()
+  it('Neg6: should produce an import error if Grammar is not the first line of the file.', () => {
+    importFixture('InvalidMisplacedGrammarDeclaration', true);
   });
 
-  it('Neg7: should throw an error if there is no cardinality specified on a property.', () => {
-    expect(function(){
-      importFixture('InvalidPropertyNoCardinality', true);
-    }).to.not.throw()
+  it('Neg7: should produce an import error if there is no cardinality specified on a property.', () => {
+    importFixture('InvalidPropertyNoCardinality', true);
   });
 
-  it('Neg8: should throw an error if the file lacks a namespace declaration.', () => {
-    expect(function(){
-      importFixture('InvalidNoNamespace', true);
-    }).to.not.throw()
+  it('Neg8: should produce an import error if the file lacks a namespace declaration.', () => {
+    importFixture('InvalidNoNamespace', true);
   });
 
-  it('Neg9: should throw an error if a child class defines a property it already inherited.', () => {
-    expect(function(){
-      importFixture('InvalidInheritedFieldDuplicatedInChild', true);
-    }).to.not.throw()
+  it('Neg9: should produce an import error if a child class defines a property it already inherited.', () => {
+    importFixture('InvalidInheritedFieldDuplicatedInChild', true);
   });
 
-  it('Neg10: should throw an error when there is an invalid fully qualified element reference', () => {
-    expect(function(){
-      importFixture('InvalidFQElementReference', true);
-    }).to.not.throw()
+  it('Neg10: should produce an import error when there is an invalid fully qualified element reference', () => {
+    importFixture('InvalidFQElementReference', true);
   });
 
-  it('Neg11: should throw an error when there is an ambiguous element reference', () => {
+  it('Neg11: should produce an import error when there is an ambiguous element reference', () => {
     // MK: I'm not sure that just loading the folder should trigger the checks for ambiguous elements
-    expect(function(){
-        importFixtureFolder('invalidAmbiguousResolution', true);
-    }).to.not.throw()
+    importFixtureFolder('invalidAmbiguousResolution', true);
   });
 
-  it('Neg12: should throw an error when there are conflicing code system declarations', () => {
+  it('Neg12: should produce an import error when there are conflicing code system declarations', () => {
     // MK: I'm not sure that just loading the folder should trigger the checks for ambiguous elements
-    expect(function(){
-        importFixtureFolder('invalidConflictingVocab', true);
-    }).to.not.throw()
+    importFixtureFolder('invalidConflictingVocab', true);
   });
 
-  it('Neg13: should throw an error when a code lacks a code system', () => {
-    expect(function(){
-         importFixture('InvalidSystemlessCode', true);
-    }).to.not.throw()
+  it('Neg13: should produce an import error when a code lacks a code system', () => {
+    importFixture('InvalidSystemlessCode', true);
   });
 
-  it('Neg14: should throw an error when a value is missing a value element', () => {
-    expect(function(){
-         importFixture('InvalidValueDeclarationEmpty', true);
-    }).to.not.throw()
+  it('Neg14: should produce an import error when a value is missing a value element', () => {
+    importFixture('InvalidValueDeclarationEmpty', true);
   });
 
-  it('Neg15: should throw an error when a value declares cardinality', () => {
-    expect(function(){
-         importFixture('InvalidValueDeclarationWithCardinality', true);
-    }).to.not.throw()
+  it('Neg15: should produce an import error when a value declares cardinality', () => {
+    importFixture('InvalidValueDeclarationWithCardinality', true);
   });
 
-  it('Neg16: should throw an error when a child class inherits a value but also defines a value', () => {
-    expect(function(){
-         importFixture('InvalidInheritanceValueOverride', true);
-    }).to.not.throw()
+  it('Neg16: should produce an import error when a child class inherits a value but also defines a value', () => {
+    importFixture('InvalidInheritanceValueOverride', true);
   });
 
-  it('Neg16: should throw an error when a child class value overrides a required binding', () => {
-    expect(function(){
-         importFixture('InvalidValueBindingOverride', true);
-    }).to.not.throw()
+  it('Neg16: should produce an import error when a child class value overrides a required binding', () => {
+    importFixture('InvalidValueBindingOverride', true);
   });  
 
-  it('Neg17: should throw an error when a child class overrides a fixed code value', () => {
-    expect(function(){
-         importFixture('InvalidFixedCodeOverride', true);
-    }).to.not.throw()
+  it('Neg17: should produce an import error when a child class overrides a fixed code value', () => {
+    importFixture('InvalidValueFixedCodeOverride', true);
   });  
 
-  it('Neg18: should throw an error when choice value is constrained without specifying which choice the constraint applies to', () => {
-    expect(function(){
-         importFixture('InvalidConstraintOnChoice', true);
-    }).to.not.throw()
+  it('Neg18: should produce an import error when choice value is constrained without specifying which choice the constraint applies to', () => {
+    importFixture('InvalidConstraintOnChoice', true);
   });  
 
-  it('Neg19: should throw an error when substituting a non-subclass for a field', () => {
-    expect(function(){
-         importFixture('InvalidSubstituteOnField', true);
-    }).to.not.throw()
+  it('Neg19: should produce an import error when substituting a non-subclass for a field', () => {
+    importFixture('InvalidSubstituteOnField', true);
   });  
 
-  it('Neg20: should throw an error when substituting a non-subclass for a field child', () => {
-    expect(function(){
-         importFixture('InvalidSubstituteOnFieldChild', true);
-    }).to.not.throw()
+  it('Neg20: should produce an import error when substituting a non-subclass for a field child', () => {
+    importFixture('InvalidSubstituteOnFieldChild', true);
   });  
 
-  it('Neg21: should throw an error when a field declares a choice', () => {
-    expect(function(){
-         importFixture('InvalidDeclarationOfFieldChoice', true);
-    }).to.not.throw()
+  it('Neg21: should produce an import error when a field declares a choice', () => {
+    importFixture('InvalidDeclarationOfFieldChoice', true);
   });  
 
-  it('Neg22: should throw an error when a class specifies its parent as TBD', () => {
-    expect(function(){
-         importFixture('InvalidTBDParent', true);
-    }).to.not.throw()
+  it('Neg22: should produce an import error when a class specifies its parent as TBD', () => {
+    importFixture('InvalidTBDParent', true);
   });  
 
 // end of negative examples  

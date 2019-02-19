@@ -122,25 +122,41 @@ function importFixture(name, hasExpectedErrors = false) {
   return specifications;
 }
 
-function importFixtureFolder(name, numExpectedErrors = 0) {
+function importFixtureFolder(name, hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
   const specifications = importFromFilePath(`${__dirname}/fixtures/dataElement/${name}`, null, dependencies);
-  checkImportErrors(numExpectedErrors);
+  checkImportErrors(hasExpectedErrors);
   return specifications;
 }
 
-function importConfiguration(name, numExpectedErrors = 0) {
+function importConfiguration(name, hasExpectedErrors = false) {
   const configuration = importConfigFromFilePath(`${__dirname}/fixtures/config/${name}.txt`);
-  checkImportErrors(numExpectedErrors);
+  checkImportErrors(hasExpectedErrors);
   return configuration;
 }
 
-function importConfigurationFolder(name, numExpectedErrors = 0) {
+function importConfigurationFolder(name, hasExpectedErrors = false) {
   const configuration = importConfigFromFilePath(`${__dirname}/fixtures/config/${name}`);
-  checkImportErrors(numExpectedErrors);
+  checkImportErrors(hasExpectedErrors);
   return configuration;
 }
 
+function checkImportErrors(hasExpectedErrors) {
+  const errors = err.errors();
+  //console.log('message='+message);
+  if (hasExpectedErrors && errors.length === 0) {
+    expect(true, '**Negative Test Failed: No error was reported**').to.be.false;
+  } else if (!hasExpectedErrors && errors.length > 0) {
+    expect(false, `**Import Errors: ${errors.map(e => e.msg).join('; ')}**`).to.be.true;
+  } else if (hasExpectedErrors) {
+    // Expectation of error was met. But let's print the error messsage anyway
+    const message = ${errors.map(e => e.msg).join('; ')};
+    console.log('**Test passed with error message:'+message);
+  }
+}
+
+
+/*
 function importCimcoreNSFile(namespace, numExpectedErrors = 0) {
   namespace = namespace.replace(/\./g,'-');
   const configuration = fs.readFileSync(`${__dirname}/fixtures/cimcore/${namespace}/${namespace}.json`, 'utf8');
@@ -181,14 +197,6 @@ function importCimcoreFolder(numExpectedErrors = 0) {
   checkImportErrors(numExpectedErrors);
   return configuration;
 }
-
-function checkImportErrors(hasExpectedErrors) {
-  const errors = err.errors();
-  const message = `Import Errors: ${errors.map(e => e.msg).join('; ')}`;
-//  console.log('message='+message);
-  expect((((errors.length > 0)? true: false), message).to.equal(hasExpectedErrors));
-}
-
 
 
 //THIS IS A HORRIBLE HACK. THIS AND THE CORRESPONDING SECTION IN shr-cli SHOULD
@@ -239,3 +247,7 @@ function convertSpecsToCimcore(configSpecifications, expSpecifications) {
 }
 
 module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, checkImportErrors, convertSpecsToCimcore };
+
+*/
+
+module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors };
