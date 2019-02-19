@@ -150,8 +150,8 @@ function checkImportErrors(hasExpectedErrors) {
     expect(false, `**Import Errors: ${errors.map(e => e.msg).join('; ')}**`).to.be.true;
   } else if (hasExpectedErrors) {
     // Expectation of error was met. But let's print the error messsage anyway
-    const message = ${errors.map(e => e.msg).join('; ')};
-    console.log('**Test passed with error message:'+message);
+    const message = `    The following test passed, error message:  ${errors.map(e => e.msg).join('; ')}`;
+    console.log(message);
   }
 }
 

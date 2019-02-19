@@ -136,7 +136,6 @@ describe('#importDataElement', () => {
 
   it('Import11: should correctly import a group entry with both a value and properties', () => {
     const specifications = importFixture('GroupValueAndProperties');
-    // const group = expectAndGetEntry(specifications,'shr.test', 'GroupValueAndProperties');
     const group = expectAndGetElement(specifications,'shr.test', 'GroupValueAndProperties');
     expectCardOne(group.value);
     expectPrimitiveValue(group.value, 'concept');
@@ -481,8 +480,8 @@ describe('#importDataElement', () => {
     expectValue(entry.value, 'shr.test', 'Complex');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(TypeConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.test', 'Simple')]);  // should the path include Complex?
-    expect(entry.value.constraints[0].onValue).to.be.true;  // MK: changed false to true since this is a constraint on the value
+    expect(entry.value.constraints[0].path).to.eql([id('shr.test', 'Simple')]);  // should the path include Complex? (yes)
+    expect(entry.value.constraints[0].onValue).to.be.false;
     expectIdentifier(entry.value.constraints[0].isA, 'shr.test', 'Simple2');
   });
 
@@ -536,16 +535,6 @@ describe('#importDataElement', () => {
 
   // Choices
 
-  it('Import39: should correctly import an element whose value has choices', () => {
-    const specifications = importFixture('ChoiceType');
-    const element = expectAndGetElement(specifications, 'shr.test', 'ChoiceElement');
-    expect(entry.value).to.be.undefined;
-    expect(entry.fields).to.have.length(0);
-  // MK: don't know how to test that the value has a choice of date, dateTime, DateTimeString. Please discuss with me.
-    expectChoiceOption(choice, optionIndex, expectedNamespace, expectedName, expectedMin=1, expectedMax=1)
-  });
-
-
   it('Import40: should correctly import a choice entry', () => {
     const specifications = importFixture('ChoiceType');
     const choice = expectAndGetElement(specifications, 'shr.test', 'ChoiceElement');
@@ -567,10 +556,10 @@ describe('#importDataElement', () => {
     expect(entry.fields).to.have.length(1);
     expectField(entry, 0, 'shr.test', 'ChoiceElement', 1, 1);
     expect(entry.fields[0].constraints).to.have.length(1);
-    expect(entry.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);  // MK: I don't know if there should be a ChoiceConstraint, but the 'only' (choice constraint) is not the same constraint as 'substitute' (type constraint). Please discuss with me.
+    expect(entry.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
     expect(entry.fields[0].constraints[0].path).to.be.empty;
     expect(entry.fields[0].constraints[0].onValue).to.be.true;
-// MK: Should onValue be false? This constraint applies to a field (ChoiceElement) although it is a constraint on the value of ChoiceElement. Is that the meaning of onValue? 
+    // MK:onValue is true because it is a constraint on the value of ChoiceElement.
     expectPrimitiveIdentifier(entry.fields[0].constraints[0].isA, 'dateTime');
   });
 
