@@ -1,0 +1,12 @@
+Grammar:   DataElement 6.0
+Namespace: shr.test
+Uses:      shr.core
+
+Entry:  ConstraintOnString
+Description: "Simple example with a fixed string without the element reference."
+Value:   SimpleString
+Value = "myString"
+
+Element: SimpleString
+Value:  string
+
