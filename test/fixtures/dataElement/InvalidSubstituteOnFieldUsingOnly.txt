@@ -15,4 +15,4 @@ Property:   ClassToBeSubstituted
 Entry:    TheChild
 Parent:   TheParent
 ClassToBeSubstituted only ClassToSubstitute
-// NOT OK to restrict a choice AND substitute simultaneously:
+// NOT OK to restrict a choice AND substitute simultaneously
