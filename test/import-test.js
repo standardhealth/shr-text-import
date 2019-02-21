@@ -193,8 +193,8 @@ describe('#importDataElement', () => {
     expectField(group, 1, 'shr.test', 'CodedFromValueSet', 0, 1);
     const cmplx = group.fields[1];
     expect(cmplx.constraints).to.have.length(1);   // failing here
-    expect(cmplx.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
-    expect(entry.value.constraints[1].bindingStrength).to.equal(EXAMPLE);
+    expect(cmplx.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+    expect(cmplx.constraints[0].bindingStrength).to.equal(EXAMPLE);
   });
 
   it('Import15: should correctly import a group with a valueset constraint on a field\'s child', () => {
@@ -213,7 +213,7 @@ describe('#importDataElement', () => {
     expect(cmplx.constraints[1]).to.be.instanceof(ValueSetConstraint);
     expect(cmplx.constraints[1].path).to.eql([id('shr.test', 'CodedFromValueSet')]);
     expect(cmplx.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
-    expect(cmplx.constraints[1].bindingStrength).to.equal(REQUIRED);
+    expect(cmplx.constraints[1].bindingStrength).to.equal(EXAMPLE);
   });
 
   it('Import16: should correctly import entries with valueset constraints on value with a binding strength', () => {
