@@ -194,7 +194,7 @@ describe('#importDataElement', () => {
     const cmplx = group.fields[1];
     expect(cmplx.constraints).to.have.length(1);   // failing here
     expect(cmplx.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
-    expect(entry.value.constraints[1].bindingStrength).to.equal(EXAMPLE);
+    expect(cmplx.constraints[0].bindingStrength).to.equal(EXAMPLE);
   });
 
   it('Import15: should correctly import a group with a valueset constraint on a field\'s child', () => {
