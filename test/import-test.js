@@ -212,7 +212,7 @@ describe('#importDataElement', () => {
     expect(cmplx.constraints[0].card.max).to.equal(2);
     expect(cmplx.constraints[1]).to.be.instanceof(ValueSetConstraint);
     expect(cmplx.constraints[1].path).to.eql([id('shr.test', 'CodedFromValueSet')]);
-    expect(cmplx.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded2');
+    expect(cmplx.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(cmplx.constraints[1].bindingStrength).to.equal(REQUIRED);
   });
 
@@ -398,7 +398,7 @@ describe('#importDataElement', () => {
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
     expectField(group, 0, 'shr.test', 'Coded', 1);
-    const el = group.fields[1];
+    const el = group.fields[0];
     expect(el.constraints).to.have.length(2);
     expect(el.constraints[0]).to.be.instanceof(IncludesCodeConstraint);
     expect(el.constraints[0].path).to.be.empty;
@@ -417,7 +417,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
-    expect(entry.value.constraints[0].value).to.be.true;
+    expect(entry.value.constraints[0].onValue).to.be.true;
   });
 
   it('Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax)', () => {
@@ -428,7 +428,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
-    expect(entry.value.constraints[0].value).to.be.true;
+    expect(entry.value.constraints[0].onValue).to.be.true;
   });
 
 
@@ -449,7 +449,7 @@ describe('#importDataElement', () => {
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
     expectField(group, 0, 'shr.test', 'SimpleBoolean', 0, 1);
-    const el = group.fields[1];
+    const el = group.fields[0];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(el.constraints[0].path).to.eql([pid('boolean')]);
@@ -529,7 +529,7 @@ describe('#importDataElement', () => {
     expect(group.fields[0].constraints).to.have.length(1);
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
     expect(group.fields[0].constraints[0].path).to.be.empty;
-    expect(group.fields[0].constraints[0].onValue).to.be.true;
+    expect(group.fields[0].constraints[0].onValue).to.be.false;
     expectIdentifier(group.fields[0].constraints[0].isA, 'shr.test', 'Simple2');
   });
 
@@ -750,7 +750,6 @@ describe('#importDataElement', () => {
     expect(fb.constraints[0].path).to.be.empty;
     expectConcept(fc.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
   });
-
 
 });
 
