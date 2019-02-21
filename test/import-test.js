@@ -213,7 +213,7 @@ describe('#importDataElement', () => {
     expect(cmplx.constraints[1]).to.be.instanceof(ValueSetConstraint);
     expect(cmplx.constraints[1].path).to.eql([id('shr.test', 'CodedFromValueSet')]);
     expect(cmplx.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
-    expect(cmplx.constraints[1].bindingStrength).to.equal(EXAMPLE);
+    expect(cmplx.constraints[1].bindingStrength).to.equal(REQUIRED);
   });
 
   it('Import16: should correctly import entries with valueset constraints on value with a binding strength', () => {
