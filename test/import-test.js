@@ -757,11 +757,11 @@ describe('#importDataElement', () => {
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
     expectField(group, 0, 'shr.test', 'SimpleString', 0, 1);
-    const el = group.fields[1];
+    const el = group.fields[0];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(StringConstraint);
     expect(el.constraints[0].path).to.eql([pid('string')]);
-    expect(el.constraints[0].value).to.be.true;
+    expect(el.constraints[0].onValue).to.be.true;
   });
 
   it('Import56: should correctly import a group with a string constraint on a field\'s child (without element reference)', () => {
@@ -770,11 +770,11 @@ describe('#importDataElement', () => {
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
     expectField(group, 0, 'shr.test', 'SimpleString', 0, 1);
-    const el = group.fields[1];
+    const el = group.fields[0];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(StringConstraint);
     expect(el.constraints[0].path).to.eql([pid('string')]);
-    expect(el.constraints[0].value).to.be.true;
+    expect(el.constraints[0].onValue).to.be.true;
   });
 
 });
