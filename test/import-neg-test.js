@@ -106,6 +106,10 @@ describe('#importDataElementNegatives', () => {
     importFixture('InvalidTBDParent', true);
   });  
 
+  it('Neg23: should produce an error message (not a traceback) when restricting a choice using the only keyword and substituting a class simultaneously', () => {
+    importFixture('InvalidSubstituteOnFieldUsingOnly', true);
+  });  
+
 // end of negative examples  
 });
 
