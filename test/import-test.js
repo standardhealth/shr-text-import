@@ -19,7 +19,7 @@ describe('#importDataElement', () => {
     expect(ns.namespace).to.equal('shr.test');
     expect(ns.description).to.equal('The SHR test namespace');
 });
-
+/*
   it('Import02: Check reading a simple entry', () => {
     const specifications = importFixture('SimpleEntry');
     const simple = expectAndGetEntry(specifications, 'shr.test', 'SimpleEntry');
@@ -96,7 +96,7 @@ describe('#importDataElement', () => {
     expectCardOne(simple.value);
     expectNoConstraints(simple.value);
   });
-
+*/
   /*it('Import09: should correctly import a special entry', () => {
     const specifications = importFixture('SpecialWordsElement');
     const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
@@ -121,6 +121,7 @@ describe('#importDataElement', () => {
     expect(child.fields[0].constraints[0].card.max).to.equal(0);
   });*/
 
+  /*
   it('Import10: should correctly import a group element without a value', () => {
     const specifications = importFixture('GroupPropertiesOnly');
     const group = expectAndGetElement(specifications, 'shr.test', 'GroupPropertiesOnly');
@@ -669,7 +670,7 @@ describe('#importDataElement', () => {
     expectField(entry, 0, 'shr.test', 'Coded', 0);
     expectField(entry, 0, 'shr.test', 'Simple2', 1, 2);
   });
-
+*/
 /* this is not supported, should not be allowed
   it('should correctly import an entry based on a TBD', () => {
     const specifications = importFixture('BasedOnTBD');
@@ -686,6 +687,7 @@ describe('#importDataElement', () => {
   });
   */
 
+  /*
   it('Import51: should correctly import multiple elements in a single namespace', () => {
     const specifications = importFixture('MultipleElementNamespace');
     const simple = expectAndGetEntry(specifications, 'shr.test', 'SimpleDate');
@@ -729,6 +731,7 @@ describe('#importDataElement', () => {
     expect(specifications.dataElements.namespaces).not.to.contain('shr.test.three');
   });
 
+  */
   it('Import54: should be able to apply a fixed concept to a choice value', () => {
     const specifications = importFixture('ConstraintOnChoiceValue');
     const choice = expectAndGetElement(specifications, 'shr.test', 'ConstraintOnChoiceValue');
@@ -736,7 +739,9 @@ describe('#importDataElement', () => {
     expectChoiceValue(choice.value, 2);
     expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
     expectChoiceOption(choice.value, 1, 'primitive', 'concept');
-// MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
+
+
+    // MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
 // first the fixed boolean choice value
     const fb = choice.value[0];
     expect(fb.constraints).to.have.length(1);

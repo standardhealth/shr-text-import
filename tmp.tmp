@@ -1,0 +1,548 @@
+yarn run v1.12.3
+$ ./node_modules/.bin/mocha --reporter spec --recursive
+
+
+  #importConfig
+    ✓ Config1: should correctly import a basic configuration
+    ✓ Config2: should correctly generate missing fhir url from project url when fhir url is missing
+    ✓ Config3: should correctly import an incomplete configuration with partial default data
+    ✓ Config4: should correctly import a configuration with missing npmName & version and add values
+    ✓ Config5: should correctly translate deprecated properties
+    The following test passed, error message:  Invalid config file: /Users/ggryan/Downloads/mochaChai/shr-text-import/test/fixtures/config/invalidblankconfig.txt
+    ✓ Config6: should correctly throw error when file is not valid JSON
+    ✓ Config7: should correctly create default configuration as config.json when no file exists
+
+  #importDataElementNegatives
+    The following test passed, error message:  no viable alternative at input '"It is an entry with a boolean constraint on the value's child"'; Failed to resolve definition for Description. ERROR_CODE:11013
+    ✓ Neg1: should produce an error message (not a traceback) when a keyword is not followed by a colon (111ms)
+    The following test passed, error message:  Failed to resolve vocabulary for ZOO. ERROR_CODE:11020
+    ✓ Neg2: should produce an error message (not a traceback) when there is an invalid vocabulary reference
+    The following test passed, error message:  Failed to resolve definition for Nonexistent. ERROR_CODE:11013
+    ✓ Neg3: should produce an error message (not a traceback) when there is an invalid element reference
+    The following test passed, error message:  Name "Simple" already exists. ERROR_CODE:11033
+    ✓ Neg4: should produce an error message (not a traceback) when there is a duplicate element name
+    1) Neg5: should produce an error message (not a traceback) when a class defines a property twice.
+    The following test passed, error message:  Missing CIMPL version. ERROR_CODE:99001; mismatched input 'Namespace:' expecting 'Grammar:'. ERROR_CODE:11016; Failed to resolve definition for Simple2. ERROR_CODE:11013
+    ✓ Neg6: should produce an error message (not a traceback) if Grammar is not the first line of the file.
+    2) Neg7: should produce an error message (not a traceback) if there is no cardinality specified on a property.
+    3) Neg8: should produce an error message (not a traceback) if the file lacks a namespace declaration.
+    4) Neg9: should produce an error message (not a traceback) if a child class defines a property it already inherited.
+    The following test passed, error message:  Failed to resolve definition for Complex. ERROR_CODE:11013
+    ✓ Neg10: should produce an error message (not a traceback) when there is an invalid fully qualified element reference
+    The following test passed, error message:  Found conflicting definitions for Foo in multiple namespaces: shr.test.two,shr.test.three. ERROR_CODE:11022
+    ✓ Neg11: should produce an error message (not a traceback) when there is an ambiguous element reference
+    The following test passed, error message:  Found conflicting vocabularies for FOO in multiple namespaces: shr.test.one,shr.test.two. ERROR_CODE:11021
+    ✓ Neg12: should produce an error message (not a traceback) when there are conflicing code system declarations
+    5) Neg13: should produce an error message (not a traceback) when a code lacks a code system
+    6) Neg14: should produce an error message (not a traceback) when a value is missing a value element
+    7) Neg15: should produce an error message (not a traceback) when a value declares cardinality
+    8) Neg16: should produce an error message (not a traceback) when a child class inherits a value but also defines a value
+required
+required
+    9) Neg16: should produce an error message (not a traceback) when a child class value overrides a required binding
+    The following test passed, error message:  extraneous input '"Cannot override the fixed value established by the parent."' expecting {<EOF>, 'Abstract:', 'Element:', 'Entry:', 'Value', 'Property:', '_Entry', '_Value', 'boolean', 'integer', 'string', 'decimal', 'uri', 'base64Binary', 'instant', 'date', 'dateTime', 'time', 'concept', 'oid', 'id', 'markdown', 'unsignedInt', 'positiveInt', 'xhtml', null, null, null, null}. ERROR_CODE:11023
+    ✓ Neg17: should produce an error message (not a traceback) when a child class overrides a fixed code value
+    10) Neg18: should produce an error message (not a traceback) when choice value is constrained without specifying which choice the constraint applies to
+    11) Neg19: should produce an error message (not a traceback) when substituting a non-subclass for a field
+    12) Neg20: should produce an error message (not a traceback) when substituting a non-subclass for a field child
+    13) Neg21: should produce an error message (not a traceback) when a field declares a choice
+    14) Neg22: should produce an error message (not a traceback) when a class specifies its parent as TBD
+
+  #importDataElement
+    ✓ Import01: Check reading the header
+    ✓ Import02: Check reading a simple entry
+    ✓ Import03: should correctly import a simple element
+    ✓ Import04: should correctly import a simple abstract element
+    ✓ Import05: should correctly import an entry whose value is a concept
+required
+required
+    ✓ Import06: should correctly import an entry with a code from a valueset
+required
+required
+    ✓ Import07: should correctly import an entry with a code from a valueset using a path
+    ✓ Import08: should correctly import an entry whose value is an element
+    ✓ Import10: should correctly import a group element without a value
+    ✓ Import11: should correctly import a group entry with both a value and properties
+required
+required
+    ✓ Import12: should correctly import an entry with a valueset constraint on the value
+required
+    15) Import13: should correctly import an entry with a valueset constraint on the child's value
+example
+    16) Import14: should correctly import a group with a valueset constraint on a field
+required
+    17) Import15: should correctly import a group with a valueset constraint on a field's child
+required
+required
+extensible
+extensible
+preferred
+preferred
+example
+example
+    ✓ Import16: should correctly import entries with valueset constraints on value with a binding strength
+required
+extensible
+preferred
+example
+    18) Import17: should correctly import entries with a valueset constraint on a field with a binding strength
+    19) Import18: should correctly import an entry with a valueset constraint on the Value keyword
+    ✓ Import19: should correctly import an entry with a code constraint on the value
+required
+required
+    20) Import20: should correctly import an entry with a code constraint on the value's child
+required
+required
+    21) Import21: should correctly import an entry with a code constraint on the Value keyword
+required
+required
+    22) Import22: should correctly import a group with a code constraint on a field
+    23) Import23: should correctly import a group with a code constraint on a field's child
+    24) Import25: should correctly import an entry with a unit constraint on the value
+    25) Import26: should correctly import an entry with a unit constraint on the value's child
+    26) Import27: should correctly import a group with a unit constraint on a field
+    27) Import28: should correctly import a group with a unit constraint on a field's child
+example
+example
+    28) Import29: should correctly import a group with an includes code constraint on a field
+    29) Import30: should correctly import an entry with a boolean constraint on the value
+    30) Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax)
+    31) Import32: should correctly import an entry with a boolean constraint on the value's child
+    32) Import33: should correctly import a group with a boolean constraint on a field's child
+    33) Import34: should correctly import an entry based on an element and substituting the value
+    34) Import35: should correctly import an entry based on an element and substitute the value's child
+    35) Import36: should correctly import a group with a type constraint on a field
+    36) Import37: should correctly import a group with a cardinality constraint and a type constraint on a field's child
+    37) Import38: should correctly import a group with a type constraint on a field's value
+    ✓ Import40: should correctly import a choice entry
+    38) Import41: should correctly import an entry with a value choice constraint (to primitive) on a choice field
+    39) Import42: should correctly import an entry with a value choice constraint (to non-primitive) on a choice field
+    40) Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field
+    ✓ Import44: should correctly import an entry with a value choice inheriting from a parent with a simple value field
+    41) Import45: should correctly import an entry with a card constraint on the value's child
+    42) Import46: should correctly import a group with a card constraint on a field's child
+    ✓ Import47: should correctly import single concept
+    ✓ Import48: should correctly import multiple concepts
+    43) Import49: should correctly import TBD concept
+    44) Import50: should correctly import a simple parent-child relationship
+required
+required
+    ✓ Import51: should correctly import multiple elements in a single namespace
+    ✓ Import52: should correctly resolve URL, URN, and URN OID vocabularies
+    ✓ Import53: should correctly resolve elements and vocabularies from other namespaces
+    45) Import54: should be able to apply a fixed concept to a choice value
+
+  #importMapping
+    ✓ Map1: should correctly import a simple mapping
+    ✓ Map2: should correctly import a mapping with deep paths
+    ✓ Map3: should correctly import a mapping with special words
+    ✓ Map4: should correctly import a mapping with paths and choices
+
+  #preprocessFile
+    ✓ Prep1: should correctly preprocess a simple entry definition
+    ✓ Prep2: should correctly preprocess a simple abstract element definition
+    ✓ Prep3: should correctly preprocess a simple element definition
+    ✓ Prep4: should correctly preprocess a path definition
+    ✓ Prep5: should correctly preprocess multiple codesystem definitions in a single namespace
+
+
+  45 passing (1s)
+  45 failing
+
+  1) #importDataElementNegatives Neg5: should produce an error message (not a traceback) when a class defines a property twice.:
+     AssertionError: **Negative Test Failed: No error was reported**: expected true to be false
+      at checkImportErrors (test/import-helper.js:148:74)
+      at importFixture (test/import-helper.js:121:3)
+      at Context.it (test/import-neg-test.js:32:5)
+
+  2) #importDataElementNegatives Neg7: should produce an error message (not a traceback) if there is no cardinality specified on a property.:
+     TypeError: Cannot read property 'getText' of undefined
+      at DataElementImporter.getMinMax (lib/dataElementListener.js:517:35)
+      at DataElementImporter.processCountAndTypes (lib/dataElementListener.js:361:25)
+      at DataElementImporter.enterPropertyField (lib/dataElementListener.js:303:24)
+      at PropertyFieldContext.enterRule (lib/parsers/SHRDataElementParser.js:2335:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-neg-test.js:40:5)
+
+  3) #importDataElementNegatives Neg8: should produce an error message (not a traceback) if the file lacks a namespace declaration.:
+     TypeError: Cannot read property 'getText' of null
+      at Preprocessor.visitDoc (lib/preprocessor.js:101:43)
+      at Preprocessor.preprocessFile (lib/preprocessor.js:90:12)
+      at importFromFilePath (lib/import.js:26:18)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-neg-test.js:44:5)
+
+  4) #importDataElementNegatives Neg9: should produce an error message (not a traceback) if a child class defines a property it already inherited.:
+     AssertionError: **Negative Test Failed: No error was reported**: expected true to be false
+      at checkImportErrors (test/import-helper.js:148:74)
+      at importFixture (test/import-helper.js:121:3)
+      at Context.it (test/import-neg-test.js:48:5)
+
+  5) #importDataElementNegatives Neg13: should produce an error message (not a traceback) when a code lacks a code system:
+     AssertionError: **Negative Test Failed: No error was reported**: expected true to be false
+      at checkImportErrors (test/import-helper.js:148:74)
+      at importFixture (test/import-helper.js:121:3)
+      at Context.it (test/import-neg-test.js:66:5)
+
+  6) #importDataElementNegatives Neg14: should produce an error message (not a traceback) when a value is missing a value element:
+     TypeError: Cannot read property 'length' of null
+      at ValueTypeContext.ParserRuleContext.getChild (node_modules/antlr4/ParserRuleContext.js:125:32)
+      at ValueTypeContext.ParserRuleContext.getTypedRuleContext (node_modules/antlr4/ParserRuleContext.js:174:17)
+      at ValueTypeContext.simpleOrFQName (lib/parsers/SHRDataElementParser.js:2112:17)
+      at DataElementImporter.processType (lib/dataElementListener.js:391:13)
+      at DataElementImporter.processCountAndTypesForValue (lib/dataElementListener.js:385:17)
+      at DataElementImporter.enterValue (lib/dataElementListener.js:191:24)
+      at ValueContext.enterRule (lib/parsers/SHRDataElementParser.js:2033:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-neg-test.js:70:5)
+
+  7) #importDataElementNegatives Neg15: should produce an error message (not a traceback) when a value declares cardinality:
+     AssertionError: **Negative Test Failed: No error was reported**: expected true to be false
+      at checkImportErrors (test/import-helper.js:148:74)
+      at importFixture (test/import-helper.js:121:3)
+      at Context.it (test/import-neg-test.js:74:5)
+
+  8) #importDataElementNegatives Neg16: should produce an error message (not a traceback) when a child class inherits a value but also defines a value:
+     TypeError: Cannot read property 'length' of null
+      at ValuesetContext.ParserRuleContext.getToken (node_modules/antlr4/ParserRuleContext.js:141:31)
+      at ValuesetContext.PATH_URL (lib/parsers/SHRDataElementParser.js:5205:17)
+      at DataElementImporter.resolveValueSetForVSConstraint (lib/dataElementListener.js:419:33)
+      at DataElementImporter.enterElementWithConstraint (lib/dataElementListener.js:279:25)
+      at DataElementImporter.processType (lib/dataElementListener.js:409:20)
+      at DataElementImporter.processCountAndTypesForValue (lib/dataElementListener.js:385:17)
+      at DataElementImporter.enterValue (lib/dataElementListener.js:191:24)
+      at ValueContext.enterRule (lib/parsers/SHRDataElementParser.js:2033:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-neg-test.js:78:5)
+
+  9) #importDataElementNegatives Neg16: should produce an error message (not a traceback) when a child class value overrides a required binding:
+     AssertionError: **Negative Test Failed: No error was reported**: expected true to be false
+      at checkImportErrors (test/import-helper.js:148:74)
+      at importFixture (test/import-helper.js:121:3)
+      at Context.it (test/import-neg-test.js:82:5)
+
+  10) #importDataElementNegatives Neg18: should produce an error message (not a traceback) when choice value is constrained without specifying which choice the constraint applies to:
+     AssertionError: **Negative Test Failed: No error was reported**: expected true to be false
+      at checkImportErrors (test/import-helper.js:148:74)
+      at importFixture (test/import-helper.js:121:3)
+      at Context.it (test/import-neg-test.js:90:5)
+
+  11) #importDataElementNegatives Neg19: should produce an error message (not a traceback) when substituting a non-subclass for a field:
+     TypeError: Cannot read property 'getText' of undefined
+      at DataElementImporter.getMinMax (lib/dataElementListener.js:517:35)
+      at DataElementImporter.processCountAndTypes (lib/dataElementListener.js:361:25)
+      at DataElementImporter.enterPropertyField (lib/dataElementListener.js:303:24)
+      at PropertyFieldContext.enterRule (lib/parsers/SHRDataElementParser.js:2335:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-neg-test.js:94:5)
+
+  12) #importDataElementNegatives Neg20: should produce an error message (not a traceback) when substituting a non-subclass for a field child:
+     TypeError: Cannot read property 'getText' of undefined
+      at DataElementImporter.getMinMax (lib/dataElementListener.js:517:35)
+      at DataElementImporter.processCountAndTypes (lib/dataElementListener.js:361:25)
+      at DataElementImporter.enterPropertyField (lib/dataElementListener.js:303:24)
+      at PropertyFieldContext.enterRule (lib/parsers/SHRDataElementParser.js:2335:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-neg-test.js:98:5)
+
+  13) #importDataElementNegatives Neg21: should produce an error message (not a traceback) when a field declares a choice:
+     TypeError: Cannot read property 'getText' of undefined
+      at DataElementImporter.getMinMax (lib/dataElementListener.js:517:35)
+      at DataElementImporter.processCountAndTypes (lib/dataElementListener.js:361:25)
+      at DataElementImporter.enterPropertyField (lib/dataElementListener.js:303:24)
+      at PropertyFieldContext.enterRule (lib/parsers/SHRDataElementParser.js:2335:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-neg-test.js:102:5)
+
+  14) #importDataElementNegatives Neg22: should produce an error message (not a traceback) when a class specifies its parent as TBD:
+     TypeError: Cannot read property 'getText' of undefined
+      at DataElementImporter.getMinMax (lib/dataElementListener.js:517:35)
+      at DataElementImporter.processCountAndTypes (lib/dataElementListener.js:361:25)
+      at DataElementImporter.enterPropertyField (lib/dataElementListener.js:303:24)
+      at PropertyFieldContext.enterRule (lib/parsers/SHRDataElementParser.js:2335:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-neg-test.js:106:5)
+
+  15) #importDataElement Import13: should correctly import an entry with a valueset constraint on the child's value:
+     AssertionError: expected [] to have a length of 2 but got 0
+      at Context.it (test/import-test.js:173:45)
+
+  16) #importDataElement Import14: should correctly import a group with a valueset constraint on a field:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:195:39)
+
+  17) #importDataElement Import15: should correctly import a group with a valueset constraint on a field's child:
+     AssertionError: expected [] to have a length of 2 but got 0
+      at Context.it (test/import-test.js:208:39)
+
+  18) #importDataElement Import17: should correctly import entries with a valueset constraint on a field with a binding strength:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:254:41)
+
+  19) #importDataElement Import18: should correctly import an entry with a valueset constraint on the Value keyword:
+     TypeError: Cannot read property 'card' of undefined
+      at Context.it (test/import-test.js:266:24)
+
+  20) #importDataElement Import20: should correctly import an entry with a code constraint on the value's child:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:292:45)
+
+  21) #importDataElement Import21: should correctly import an entry with a code constraint on the Value keyword:
+     TypeError: Cannot read property 'card' of undefined
+      at Context.it (test/import-test.js:302:24)
+
+  22) #importDataElement Import22: should correctly import a group with a code constraint on a field:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:321:36)
+
+  23) #importDataElement Import23: should correctly import a group with a code constraint on a field's child:
+     TypeError: Cannot read property 'getText' of undefined
+      at DataElementImporter.getMinMax (lib/dataElementListener.js:517:35)
+      at DataElementImporter.processCountAndTypes (lib/dataElementListener.js:361:25)
+      at DataElementImporter.enterPropertyField (lib/dataElementListener.js:303:24)
+      at PropertyFieldContext.enterRule (lib/parsers/SHRDataElementParser.js:2335:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-test.js:328:28)
+
+  24) #importDataElement Import25: should correctly import an entry with a unit constraint on the value:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:348:45)
+
+  25) #importDataElement Import26: should correctly import an entry with a unit constraint on the value's child:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:360:45)
+
+  26) #importDataElement Import27: should correctly import a group with a unit constraint on a field:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:375:36)
+
+  27) #importDataElement Import28: should correctly import a group with a unit constraint on a field's child:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:389:36)
+
+  28) #importDataElement Import29: should correctly import a group with an includes code constraint on a field:
+     AssertionError: **Import Errors: no viable alternative at input '+'; Failed to resolve definition for FOO. ERROR_CODE:11013; Failed to resolve definition for FOO. ERROR_CODE:11013**: expected false to be true
+      at checkImportErrors (test/import-helper.js:150:83)
+      at importFixture (test/import-helper.js:121:3)
+      at Context.it (test/import-test.js:396:28)
+
+  29) #importDataElement Import30: should correctly import an entry with a boolean constraint on the value:
+     TypeError: cst.elementWithUnitsConstraint is not a function
+      at DataElementImporter.enterElementWithConstraint (lib/dataElementListener.js:286:22)
+      at DataElementImporter.processType (lib/dataElementListener.js:409:20)
+      at DataElementImporter.processCountAndTypesForValue (lib/dataElementListener.js:385:17)
+      at DataElementImporter.enterValue (lib/dataElementListener.js:191:24)
+      at ValueContext.enterRule (lib/parsers/SHRDataElementParser.js:2033:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-test.js:413:28)
+
+  30) #importDataElement Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax):
+     TypeError: cst.elementWithUnitsConstraint is not a function
+      at DataElementImporter.enterElementWithConstraint (lib/dataElementListener.js:286:22)
+      at ElementWithConstraintContext.enterRule (lib/parsers/SHRDataElementParser.js:3805:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-test.js:424:28)
+
+  31) #importDataElement Import32: should correctly import an entry with a boolean constraint on the value's child:
+     TypeError: cst.elementWithUnitsConstraint is not a function
+      at DataElementImporter.enterElementWithConstraint (lib/dataElementListener.js:286:22)
+      at ElementWithConstraintContext.enterRule (lib/parsers/SHRDataElementParser.js:3805:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-test.js:436:28)
+
+  32) #importDataElement Import33: should correctly import a group with a boolean constraint on a field's child:
+     TypeError: cst.elementWithUnitsConstraint is not a function
+      at DataElementImporter.enterElementWithConstraint (lib/dataElementListener.js:286:22)
+      at ElementWithConstraintContext.enterRule (lib/parsers/SHRDataElementParser.js:3805:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-test.js:447:28)
+
+  33) #importDataElement Import34: should correctly import an entry based on an element and substituting the value:
+     TypeError: Cannot read property 'card' of undefined
+      at expectCardOne (test/import-helper.js:75:16)
+      at Context.it (test/import-test.js:465:5)
+
+  34) #importDataElement Import35: should correctly import an entry based on an element and substitute the value's child:
+     TypeError: Cannot read property 'card' of undefined
+      at expectCardOne (test/import-helper.js:75:16)
+      at Context.it (test/import-test.js:479:5)
+
+  35) #importDataElement Import36: should correctly import a group with a type constraint on a field:
+     AssertionError: expected [] to have a length of 2 but got 0
+      at Context.it (test/import-test.js:494:34)
+
+  36) #importDataElement Import37: should correctly import a group with a cardinality constraint and a type constraint on a field's child:
+     AssertionError: expected [] to have a length of 2 but got 0
+      at Context.it (test/import-test.js:510:39)
+
+  37) #importDataElement Import38: should correctly import a group with a type constraint on a field's value:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:527:34)
+
+  38) #importDataElement Import41: should correctly import an entry with a value choice constraint (to primitive) on a choice field:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:558:49)
+
+  39) #importDataElement Import42: should correctly import an entry with a value choice constraint (to non-primitive) on a choice field:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:572:49)
+
+  40) #importDataElement Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field:
+     AssertionError: **Import Errors: extraneous input 'or' expecting {<EOF>, 'Abstract:', 'Element:', 'Entry:', 'Value', 'Property:', '_Entry', '_Value', 'boolean', 'integer', 'string', 'decimal', 'uri', 'base64Binary', 'instant', 'date', 'dateTime', 'time', 'concept', 'oid', 'id', 'markdown', 'unsignedInt', 'positiveInt', 'xhtml', null, null, null, null}. ERROR_CODE:11023**: expected false to be true
+      at checkImportErrors (test/import-helper.js:150:83)
+      at importFixture (test/import-helper.js:121:3)
+      at Context.it (test/import-test.js:580:28)
+
+  41) #importDataElement Import45: should correctly import an entry with a card constraint on the value's child:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:614:45)
+
+  42) #importDataElement Import46: should correctly import a group with a card constraint on a field's child:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:628:36)
+
+  43) #importDataElement Import49: should correctly import TBD concept:
+     AssertionError: expected [] to have a length of 1 but got 0
+      at Context.it (test/import-test.js:654:36)
+
+  44) #importDataElement Import50: should correctly import a simple parent-child relationship:
+     AssertionError: expected [] to have a length of 2 but got 0
+      at Context.it (test/import-test.js:668:34)
+
+  45) #importDataElement Import54: should be able to apply a fixed concept to a choice value:
+     TypeError: cst.elementWithUnitsConstraint is not a function
+      at DataElementImporter.enterElementWithConstraint (lib/dataElementListener.js:286:22)
+      at ElementWithConstraintContext.enterRule (lib/parsers/SHRDataElementParser.js:3805:18)
+      at ParseTreeWalker.enterRule (node_modules/antlr4/tree/Tree.js:207:6)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:190:8)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at ParseTreeWalker.walk (node_modules/antlr4/tree/Tree.js:193:9)
+      at DataElementImporter.importFile (lib/dataElementListener.js:53:14)
+      at importFromFilePath (lib/import.js:34:14)
+      at importFixture (test/import-helper.js:120:26)
+      at Context.it (test/import-test.js:733:28)
+
+
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

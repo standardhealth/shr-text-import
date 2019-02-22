@@ -12,7 +12,6 @@ describe('#importDataElementNegatives', () => {
     err.clear();
   });
 
-  /*
   it('Neg1: should produce an error message (not a traceback) when a keyword is not followed by a colon', () => {
     importFixture('InvalidSyntaxMissingColon', true);
   });
@@ -66,7 +65,7 @@ describe('#importDataElementNegatives', () => {
   it('Neg13: should produce an error message (not a traceback) when a code lacks a code system', () => {
     importFixture('InvalidSystemlessCode', true);
   });
-*/
+
   it('Neg14: should produce an error message (not a traceback) when a value is missing a value element', () => {
     importFixture('InvalidValueDeclarationEmpty', true);
   });
@@ -82,7 +81,7 @@ describe('#importDataElementNegatives', () => {
   it('Neg16: should produce an error message (not a traceback) when a child class value overrides a required binding', () => {
     importFixture('InvalidValueBindingOverride', true);
   });  
-/*
+
   it('Neg17: should produce an error message (not a traceback) when a child class overrides a fixed code value', () => {
     importFixture('InvalidValueFixedCodeOverride', true);
   });  
@@ -106,7 +105,7 @@ describe('#importDataElementNegatives', () => {
   it('Neg22: should produce an error message (not a traceback) when a class specifies its parent as TBD', () => {
     importFixture('InvalidTBDParent', true);
   });  
-*/
+
 // end of negative examples  
 });
 
