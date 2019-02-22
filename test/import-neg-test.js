@@ -78,35 +78,35 @@ describe('#importDataElementNegatives', () => {
     importFixture('InvalidInheritanceValueOverride', true);
   });
 
-  it('Neg16: should produce an error message (not a traceback) when a child class value overrides a required binding', () => {
+  it('Neg17: should produce an error message (not a traceback) when a child class value overrides a required binding', () => {
     importFixture('InvalidValueBindingOverride', true);
   });  
 
-  it('Neg17: should produce an error message (not a traceback) when a child class overrides a fixed code value', () => {
+  it('Neg18: should produce an error message (not a traceback) when a child class overrides a fixed code value', () => {
     importFixture('InvalidValueFixedCodeOverride', true);
   });  
 
-  it('Neg18: should produce an error message (not a traceback) when choice value is constrained without specifying which choice the constraint applies to', () => {
+  it('Neg19: should produce an error message (not a traceback) when choice value is constrained without specifying which choice the constraint applies to', () => {
     importFixture('InvalidConstraintOnChoice', true);
   });  
 
-  it('Neg19: should produce an error message (not a traceback) when substituting a non-subclass for a field', () => {
+  it('Neg20: should produce an error message (not a traceback) when substituting a non-subclass for a field', () => {
     importFixture('InvalidSubstituteOnField', true);
   });  
 
-  it('Neg20: should produce an error message (not a traceback) when substituting a non-subclass for a field child', () => {
+  it('Neg21: should produce an error message (not a traceback) when substituting a non-subclass for a field child', () => {
     importFixture('InvalidSubstituteOnFieldChild', true);
   });  
 
-  it('Neg21: should produce an error message (not a traceback) when a field declares a choice', () => {
+  it('Neg22: should produce an error message (not a traceback) when a field declares a choice', () => {
     importFixture('InvalidDeclarationOfFieldChoice', true);
   });  
 
-  it('Neg22: should produce an error message (not a traceback) when a class specifies its parent as TBD', () => {
+  it('Neg23: should produce an error message (not a traceback) when a class specifies its parent as TBD', () => {
     importFixture('InvalidTBDParent', true);
   });  
 
-  it('Neg23: should produce an error message (not a traceback) when restricting a choice using the only keyword and substituting a class simultaneously', () => {
+  it('Neg24: should produce an error message (not a traceback) when restricting a choice using the only keyword and substituting a class simultaneously', () => {
     importFixture('InvalidSubstituteOnFieldUsingOnly', true);
   });  
 
