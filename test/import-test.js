@@ -19,7 +19,7 @@ describe('#importDataElement', () => {
     expect(ns.namespace).to.equal('shr.test');
     expect(ns.description).to.equal('The SHR test namespace');
 });
-/*
+
   it('Import02: Check reading a simple entry', () => {
     const specifications = importFixture('SimpleEntry');
     const simple = expectAndGetEntry(specifications, 'shr.test', 'SimpleEntry');
@@ -96,7 +96,7 @@ describe('#importDataElement', () => {
     expectCardOne(simple.value);
     expectNoConstraints(simple.value);
   });
-*/
+
   /*it('Import09: should correctly import a special entry', () => {
     const specifications = importFixture('SpecialWordsElement');
     const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
@@ -121,7 +121,6 @@ describe('#importDataElement', () => {
     expect(child.fields[0].constraints[0].card.max).to.equal(0);
   });*/
 
-  /*
   it('Import10: should correctly import a group element without a value', () => {
     const specifications = importFixture('GroupPropertiesOnly');
     const group = expectAndGetElement(specifications, 'shr.test', 'GroupPropertiesOnly');
@@ -195,14 +194,14 @@ describe('#importDataElement', () => {
     const cmplx = group.fields[1];
     expect(cmplx.constraints).to.have.length(1);   // failing here
     expect(cmplx.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
-    expect(entry.value.constraints[1].bindingStrength).to.equal(EXAMPLE);
+    expect(cmplx.constraints[0].bindingStrength).to.equal(EXAMPLE);
   });
 
   it('Import15: should correctly import a group with a valueset constraint on a field\'s child', () => {
     const specifications = importFixture('VSConstraintOnFieldChild');
     const group = expectAndGetEntry(specifications, 'shr.test', 'VSConstraintOnFieldChild');
     expect(group.value).to.be.undefined;
-    expect(group.fields).to.have.length(2); 
+    expect(group.fields).to.have.length(2);
     expectField(group, 0, 'shr.test', 'Simple', 0, 1);
     expectField(group, 1, 'shr.test', 'Complex', 0, 1);
     const cmplx = group.fields[1];
@@ -213,7 +212,7 @@ describe('#importDataElement', () => {
     expect(cmplx.constraints[0].card.max).to.equal(2);
     expect(cmplx.constraints[1]).to.be.instanceof(ValueSetConstraint);
     expect(cmplx.constraints[1].path).to.eql([id('shr.test', 'CodedFromValueSet')]);
-    expect(cmplx.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded2');
+    expect(cmplx.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(cmplx.constraints[1].bindingStrength).to.equal(REQUIRED);
   });
 
@@ -348,7 +347,8 @@ describe('#importDataElement', () => {
     expectValue(entry.value, 'shr.core', 'Quantity');
     expect(entry.value.constraints).to.have.length(1); // fails here
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
+ //   expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units')]);
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -360,8 +360,9 @@ describe('#importDataElement', () => {
     expectValue(entry.value, 'shr.test', 'Volume');
     expect(entry.value.constraints).to.have.length(1);  // fails here
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
-    expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
+   // expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
+   expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units')]);
+   expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
   it('Import27: should correctly import a group with a unit constraint on a field', () => {
@@ -375,7 +376,8 @@ describe('#importDataElement', () => {
     const el = group.fields[0];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
+//    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
+    expect(el.constraints[0].path).to.eql([id('shr.core','Units')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -389,7 +391,8 @@ describe('#importDataElement', () => {
     const el = group.fields[0];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
+//    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
+    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -399,7 +402,7 @@ describe('#importDataElement', () => {
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
     expectField(group, 0, 'shr.test', 'Coded', 1);
-    const el = group.fields[1];
+    const el = group.fields[0];
     expect(el.constraints).to.have.length(2);
     expect(el.constraints[0]).to.be.instanceof(IncludesCodeConstraint);
     expect(el.constraints[0].path).to.be.empty;
@@ -418,6 +421,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].onValue).to.be.undefined;
     expect(entry.value.constraints[0].value).to.be.true;
   });
 
@@ -429,6 +433,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].onValue).to.be.undefined;
     expect(entry.value.constraints[0].value).to.be.true;
   });
 
@@ -450,7 +455,7 @@ describe('#importDataElement', () => {
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
     expectField(group, 0, 'shr.test', 'SimpleBoolean', 0, 1);
-    const el = group.fields[1];
+    const el = group.fields[0];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(el.constraints[0].path).to.eql([pid('boolean')]);
@@ -530,7 +535,7 @@ describe('#importDataElement', () => {
     expect(group.fields[0].constraints).to.have.length(1);
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
     expect(group.fields[0].constraints[0].path).to.be.empty;
-    expect(group.fields[0].constraints[0].onValue).to.be.true;
+    expect(group.fields[0].constraints[0].onValue).to.be.false;
     expectIdentifier(group.fields[0].constraints[0].isA, 'shr.test', 'Simple2');
   });
 
@@ -670,7 +675,7 @@ describe('#importDataElement', () => {
     expectField(entry, 0, 'shr.test', 'Coded', 0);
     expectField(entry, 0, 'shr.test', 'Simple2', 1, 2);
   });
-*/
+
 /* this is not supported, should not be allowed
   it('should correctly import an entry based on a TBD', () => {
     const specifications = importFixture('BasedOnTBD');
@@ -687,7 +692,6 @@ describe('#importDataElement', () => {
   });
   */
 
-  /*
   it('Import51: should correctly import multiple elements in a single namespace', () => {
     const specifications = importFixture('MultipleElementNamespace');
     const simple = expectAndGetEntry(specifications, 'shr.test', 'SimpleDate');
@@ -731,7 +735,6 @@ describe('#importDataElement', () => {
     expect(specifications.dataElements.namespaces).not.to.contain('shr.test.three');
   });
 
-  */
   it('Import54: should be able to apply a fixed concept to a choice value', () => {
     const specifications = importFixture('ConstraintOnChoiceValue');
     const choice = expectAndGetElement(specifications, 'shr.test', 'ConstraintOnChoiceValue');
@@ -739,9 +742,7 @@ describe('#importDataElement', () => {
     expectChoiceValue(choice.value, 2);
     expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
     expectChoiceOption(choice.value, 1, 'primitive', 'concept');
-
-
-    // MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
+// MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
 // first the fixed boolean choice value
     const fb = choice.value[0];
     expect(fb.constraints).to.have.length(1);
@@ -756,7 +757,6 @@ describe('#importDataElement', () => {
     expectConcept(fc.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
   });
 
-
 });
 
 
@@ -765,47 +765,37 @@ describe('#importDataElement', () => {
 
 
 /* MK - cutting out CIMCORE tests because the examples are out of date, in Grammar 5. If we revive this, it should live in a separate file (e.g., cimcore-test.js).
-
-
 describe('#importCimcoreFromFilePath', () => {
   it('Cimcore1: should be able to correctly import specifications instance and then export to identical cimcore', () => {
     const [importedConfigSpecifications, importedSpecifications] = importCimcoreFolder();
-
     //This is the cimcore produced from importedSpecs. Used for verifying fidelity
     const cimcoreSpecifications = convertSpecsToCimcore(importedConfigSpecifications, importedSpecifications);
-
     //All CIMCORE files are verified through string comparison. This is perhaps not ideal as they can still be
     //valid files if the same elemenets are outputted in a different order. However, this should not be a problem
     //for now, as the process that produced the original fixtures and the process that produces the unit test are
     //identical in their ordering of outputs. This change should be a considered update in the future.
-
     const origProjectJSON = importCimcoreProjectFile();
     expect(JSON.stringify(cimcoreSpecifications.projectInfo, null, 2)).to.eql(origProjectJSON);
-
     //meta namespace files
     for (const ns in cimcoreSpecifications.namespaces) { //namespace files
       const origNsJSON = importCimcoreNSFile(ns);
       expect(JSON.stringify(cimcoreSpecifications.namespaces[ns], null, 2)).to.eql(origNsJSON);
     }
-
     //data elements
     for (const de of cimcoreSpecifications.dataElements) { //namespace files
       const origDeJSON = importCimcoreDEFile(de.namespace, de.name);
       expect(JSON.stringify(de, null, 2)).to.eql(origDeJSON);
     }
-
     //valuesets
     for (const vs of cimcoreSpecifications.valueSets) {
       const origVsJSON = importCimcoreVSFile(vs.namespace, vs.name);
       expect(JSON.stringify(vs, null, 2)).to.eql(origVsJSON);
     }
-
     //mappings
     for (const mapping of [...cimcoreSpecifications.mappings]) {
       const origMapJSON = importCimcoreMapFile(mapping.namespace, mapping.name);
       expect(JSON.stringify(mapping, null, 2)).to.eql(origMapJSON);
     }
-
   });
 });
 */
