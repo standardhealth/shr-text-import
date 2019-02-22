@@ -10,7 +10,7 @@ Value = FOO#baz
 
 
 Entry:   TheChild
-"Cannot override the fixed value established by the parent."
+Description: "Cannot override the fixed value established by the parent."
 Value = FOO#bar
 
 
