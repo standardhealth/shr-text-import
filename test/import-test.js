@@ -419,9 +419,10 @@ describe('#importDataElement', () => {
     expectCardOne(entry.value);
     expectPrimitiveValue(entry.value, 'boolean');
     expect(entry.value.constraints).to.have.length(1);
-    expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
+    expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint); 
     expect(entry.value.constraints[0].path).to.be.empty;
-    expect(entry.value.constraints[0].onValue).to.be.true;
+    expect(entry.value.constraints[0].onValue).to.be.undefined;
+    expect(entry.value.constraints[0].value).to.be.true;
   });
 
   it('Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax)', () => {
@@ -432,7 +433,8 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
-    expect(entry.value.constraints[0].onValue).to.be.true;
+    expect(entry.value.constraints[0].onValue).to.be.undefined;
+    expect(entry.value.constraints[0].value).to.be.true;
   });
 
 
