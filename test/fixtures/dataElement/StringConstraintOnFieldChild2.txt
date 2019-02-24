@@ -1,6 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: shr.test
-Uses:      shr.core
+Namespace: StringConstraintOnFieldChild2Out
 
 Entry:  ConstraintOnString
 Description: "Simple example with a fixed string without the element reference."

@@ -1,6 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  shr.test
-Uses:       shr.core // This shouldn't be needed, but due to bug in importer, it is!
+Namespace:  SpecialWordsElementOut
 
 CodeSystem:     FOO = http://foo.org
 

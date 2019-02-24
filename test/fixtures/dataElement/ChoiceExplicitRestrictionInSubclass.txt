@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  shr.test
+Namespace:  choiceExplicitRestrictionInSubclassOut
 
 // Need counterexample where the child values are not subclasses of the parent's value class, which is an error
 // Need counterexample where the child adds a choice not given in the parent, which is an error (for example, if Child.Value included Quantity)

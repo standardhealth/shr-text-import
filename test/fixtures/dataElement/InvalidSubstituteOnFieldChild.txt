@@ -1,6 +1,5 @@
 Grammar:   DataElement 6.0
 Namespace: shr.test
-Uses:      shr.core
 
 Entry:      TheParent
 Property:   TheProperty
