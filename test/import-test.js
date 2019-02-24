@@ -276,12 +276,13 @@ describe('#importDataElement', () => {
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
-  it('Import18: should correctly import an entry with a valueset constraint on the Value keyword', () => {
+  it('Import18: should correctly import an entry with a valueset constraint on inherited value', () => {
     const specifications = importFixture('VSConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'vSConstraintOnValueKeyWordOut', 'ChildElement');
     expect(entry.fields).to.be.empty;
+console.log("Test 18 entry.value = "+JSON.stringify(entry.value)); 
+    expect(entry.value).to.be.instanceof(IncompleteValue);     
     expect(entry.value.card).to.be.undefined;  // failing here
-    expect(entry.value).to.be.instanceof(IncompleteValue);
     expect(entry.value.identifier.isValueKeyWord).to.be.true;
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
