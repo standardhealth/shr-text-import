@@ -800,50 +800,8 @@ console.log("Test 18 entry.value = "+JSON.stringify(entry.value));
 // mlt: modularized config tests. Now located in config-import-test.js
 
 
-/* MK - cutting out CIMCORE tests because the examples are out of date, in Grammar 5. If we revive this, it should live in a separate file (e.g., cimcore-test.js).
-
-
-describe('#importCimcoreFromFilePath', () => {
-  it('Cimcore1: should be able to correctly import specifications instance and then export to identical cimcore', () => {
-    const [importedConfigSpecifications, importedSpecifications] = importCimcoreFolder();
-
-    //This is the cimcore produced from importedSpecs. Used for verifying fidelity
-    const cimcoreSpecifications = convertSpecsToCimcore(importedConfigSpecifications, importedSpecifications);
-
-    //All CIMCORE files are verified through string comparison. This is perhaps not ideal as they can still be
-    //valid files if the same elemenets are outputted in a different order. However, this should not be a problem
-    //for now, as the process that produced the original fixtures and the process that produces the unit test are
-    //identical in their ordering of outputs. This change should be a considered update in the future.
-
-    const origProjectJSON = importCimcoreProjectFile();
-    expect(JSON.stringify(cimcoreSpecifications.projectInfo, null, 2)).to.eql(origProjectJSON);
-
-    //meta namespace files
-    for (const ns in cimcoreSpecifications.namespaces) { //namespace files
-      const origNsJSON = importCimcoreNSFile(ns);
-      expect(JSON.stringify(cimcoreSpecifications.namespaces[ns], null, 2)).to.eql(origNsJSON);
-    }
-
-    //data elements
-    for (const de of cimcoreSpecifications.dataElements) { //namespace files
-      const origDeJSON = importCimcoreDEFile(de.namespace, de.name);
-      expect(JSON.stringify(de, null, 2)).to.eql(origDeJSON);
-    }
-
-    //valuesets
-    for (const vs of cimcoreSpecifications.valueSets) {
-      const origVsJSON = importCimcoreVSFile(vs.namespace, vs.name);
-      expect(JSON.stringify(vs, null, 2)).to.eql(origVsJSON);
-    }
-
-    //mappings
-    for (const mapping of [...cimcoreSpecifications.mappings]) {
-      const origMapJSON = importCimcoreMapFile(mapping.namespace, mapping.name);
-      expect(JSON.stringify(mapping, null, 2)).to.eql(origMapJSON);
-    }
-
-  });
-});
+/* MK - cutting out CIMCORE tests because the examples are out of date, in Grammar 5. If we revive this, it should live in a separate file (e.g., import-cimcore-test.js).
+ mlt: - moved cimcore tests to import-cimcore-test.js.
 */
 
 // mlt: decoupled all shared function tests. Now located in import-helper.js
