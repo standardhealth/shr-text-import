@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: shr.test
+Namespace: basedOnOut
 
 // Need counterexample where the parent class doesn't exist
 // Need counterexample where both the parent and child declare a value

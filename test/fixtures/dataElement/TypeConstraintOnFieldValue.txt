@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  shr.test
+Namespace:  typeConstraintOnFieldValueOut
 
 Element:      Group2
 Property:     HasSimpleValue 0..1

@@ -14,10 +14,10 @@ describe('#preprocessFile', () => {
     const data = importFixture('SimpleEntry');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
-      'shr.test': { 'FOO': 'http://foo.org' }
+      'simpleEntryOut': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'shr.test': { 'SimpleEntry': true }
+      'simpleEntryOut': { 'SimpleEntry': true }
     });
   });
 
@@ -25,10 +25,10 @@ describe('#preprocessFile', () => {
     const data = importFixture('SimpleAbstractElement');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
-      'shr.test': { 'FOO': 'http://foo.org' }
+      'simpleAbstractElementOut': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'shr.test': { 'Simple': true }
+      'simpleAbstractElementOut': { 'Simple': true }
     });
   });
 
@@ -36,21 +36,21 @@ describe('#preprocessFile', () => {
     const data = importFixture('SimpleElement');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
-      'shr.test': { 'FOO': 'http://foo.org' }
+      'simpleElementOut': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'shr.test': { 'Simple': true }
+      'simpleElementOut': { 'Simple': true }
     });
   });
 
   it('Prep4: should correctly preprocess a path definition', () => {
     const data = importFixture('CodedFromPathValueSet');
     expect(data._paths).to.eql({
-      'shr.test': { 'TESTVS': 'http://standardhealthrecord.org/test/vs' }
+      'codedFromPathValueSetOut': { 'TESTVS': 'http://standardhealthrecord.org/test/vs' }
     });
     expect(data._vocabularies).to.eql({});
     expect(data._definitions).to.eql({
-      'shr.test': { 'CodedFromPathValueSet': true }
+      'codedFromPathValueSetOut': { 'CodedFromPathValueSet': true }
     });
   });
 
@@ -58,14 +58,14 @@ describe('#preprocessFile', () => {
     const data = importFixture('CodeSystems');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
-      'shr.test': {
+      'codeSystemsOut': {
         'FOO': 'http://foo.org',
         'BOO': 'http://boo.org',
         'ZOO': 'http://zoo.org'
       }
     });
     expect(data._definitions).to.eql({
-      'shr.test': {
+      'codeSystemsOut': {
         'SimpleGroup': true,
         'Simple': true,
         'Coded': true,

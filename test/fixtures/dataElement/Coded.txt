@@ -1,5 +1,5 @@
 Grammar:        DataElement 6.0
-Namespace:      shr.test
+Namespace:      codedOut
 
 Entry:          Coded
 Description:    "It is a concept entry"

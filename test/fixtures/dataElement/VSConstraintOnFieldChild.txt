@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  shr.test
+Namespace:  vSConstraintOnFieldChildOut
 
 Entry: VSConstraintOnFieldChild
 Description:  "It is a group entry with a valueset constraint on a field's child"
