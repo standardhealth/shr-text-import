@@ -280,7 +280,7 @@ describe('#importDataElement', () => {
     const specifications = importFixture('VSConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'vSConstraintOnValueKeyWordOut', 'ChildElement');
     expect(entry.fields).to.be.empty;
-console.log("Test 18 entry.value = "+JSON.stringify(entry.value)); 
+console.log("Test 18: entry.value = "+JSON.stringify(entry.value)); 
     expect(entry.value).to.be.instanceof(IncompleteValue);     
     expect(entry.value.card).to.be.undefined;  // failing here
     expect(entry.value.identifier.isValueKeyWord).to.be.true;
@@ -309,9 +309,10 @@ console.log("Test 18 entry.value = "+JSON.stringify(entry.value));
     const entry = expectAndGetEntry(specifications, 'codeConstraintOnValueChildOut', 'CodeConstraintOnValueChild');
     expectCardOne(entry.value);
     expectValue(entry.value, 'codeConstraintOnValueChildOut', 'CodedFromValueSet');
-    expect(entry.value.constraints).to.have.length(1);  // fails here
+    expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core','concept')]);
+  console.log("Test 20: entry.value.constraints[0] = "+ JSON.stringify(entry.value.constraints[0]));  // missing path
+    expect(entry.value.constraints[0].path).to.eql([id('codeConstraintOnValueChildOut','CodedFromValueSet')]);   // fails here because the path is missing
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -319,6 +320,7 @@ console.log("Test 18 entry.value = "+JSON.stringify(entry.value));
   it('Import21: should correctly import an entry with a code constraint on the Value keyword', () => {
     const specifications = importFixture('CodeConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'codeConstraintOnValueKeyWordOut', 'ChildElement');
+    console.log("Test 21: entry = "+ JSON.stringify(entry));     
     expect(entry.description).to.be.undefined;
     expect(entry.value.card).to.be.undefined;   // fails here
     expect(entry.value).to.be.instanceof(IncompleteValue);
@@ -501,6 +503,7 @@ console.log("Test 18 entry.value = "+JSON.stringify(entry.value));
     expect(entry.basedOn).to.have.length(1);
     expect(entry.basedOn[0].namespace).to.equal('typeConstraintOnValueOut');
     expect(entry.basedOn[0].name).to.equal('SimpleBase');
+    console.log("Test 34: entry = "+ JSON.stringify(entry));         
     expectCardOne(entry.value);  // fails here (value should be inherited)
     expectValue(entry.value, 'typeConstraintOnValueOut', 'Simple');
     expect(entry.value.constraints).to.have.length(1);
