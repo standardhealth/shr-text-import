@@ -1,13 +1,11 @@
 Grammar:    DataElement 6.0
 Namespace:  shr.base
-Uses:       shr.core
 
 // These are just dummy (incomplete) definitions to satisfy common dependencies
 
-Element:  Entry
-Property: ShrId	1..1
+Element: 	Entry
+Property: 	ShrId	1..1
 Property:	EntryId	1..1
-Property:	Version	0..1
 Property:	EntryType	1..1
 
 	Element:  ShrId
@@ -16,5 +14,5 @@ Property:	EntryType	1..1
 	Element:  EntryId
 	Value:    id
 
-  Element:  EntryType
+	Element:  EntryType
 	Value:    uri

@@ -1,6 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: shr.test
-// Should this fail to because it doesn't have "Uses: other.ns" ?
+Namespace: codeSystemsOut
 
 CodeSystem:     FOO = http://foo.org
 CodeSystem:     BOO = http://boo.org

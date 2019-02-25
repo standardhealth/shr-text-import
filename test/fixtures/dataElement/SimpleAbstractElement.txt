@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  shr.test
+Namespace:  simpleAbstractElementOut
 
 CodeSystem:     FOO = http://foo.org
 
