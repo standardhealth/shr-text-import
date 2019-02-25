@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  shr.test
+Namespace:  vSConstraintOnValueChildOut
 
 Entry:   VSConstraintOnValueChild
 Description:    "It is an entry with a valueset constraint on the value's child"

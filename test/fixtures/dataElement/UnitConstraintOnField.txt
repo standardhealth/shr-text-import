@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: shr.test
+Namespace: unitConstraintOnFieldOut
 Uses:      shr.core
 
 CodeSystem:		  UCUM = http://unitsofmeasure.org

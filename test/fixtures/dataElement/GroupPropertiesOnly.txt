@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: shr.test
+Namespace: groupPropertiesOnlyOut
 
 Element:      GroupPropertiesOnly
 Property:     Simple 0..1
