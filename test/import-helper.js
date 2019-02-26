@@ -8,7 +8,7 @@ const err = require('shr-test-helpers/errors');
 function id(namespace, name) {
   return new Identifier(namespace, name);
 }
-  
+
 // Shorthand PrimitiveIdentifier constructor for more concise code
 function pid(name) {
   return new PrimitiveIdentifier(name);
@@ -87,7 +87,7 @@ function expectField(element, fieldIndex, expectedNamespace, expectedName, expec
   expectValue(sptEl, expectedNamespace, expectedName);
 }
 
-function expectConcept(concept, system, code, display) {
+function expectConcept(concept, system, code, display='') {
   expect(concept.system).equals(system);
   expect(concept.code).equals(code);
   expect(concept.display).equals(display);

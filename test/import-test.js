@@ -15,7 +15,7 @@ describe('#importDataElement', () => {
   });
 
   it('Import01: Check reading the header', () => {
-    const specifications = importFixture('Header'); 
+    const specifications = importFixture('Header');
     const ns = specifications.namespaces.find('headerOut');
     expect(ns.namespace).to.equal('headerOut');
     expect(ns.description).to.equal('The SHR test namespace');
@@ -24,7 +24,7 @@ describe('#importDataElement', () => {
 
   it('Import02: Check reading a simple entry', () => {
     const specifications = importFixture('SimpleEntry');
-    const simple = expectAndGetEntry(specifications, 'simpleEntryOut', 'SimpleEntry'); 
+    const simple = expectAndGetEntry(specifications, 'simpleEntryOut', 'SimpleEntry');
     expect(simple.grammarVersion).to.eql(new Version(6, 0));
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
@@ -94,7 +94,7 @@ describe('#importDataElement', () => {
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
     expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out'); 
+    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
   it('Import08: should correctly import an entry whose value is an element', () => {
@@ -215,7 +215,7 @@ describe('#importDataElement', () => {
     const specifications = importFixture('VSConstraintOnFieldChild');
     const group = expectAndGetEntry(specifications, 'vSConstraintOnFieldChildOut', 'VSConstraintOnFieldChild');
     expect(group.value).to.be.undefined;
-    expect(group.fields).to.have.length(2); 
+    expect(group.fields).to.have.length(2);
     expectField(group, 0, 'vSConstraintOnFieldChildOut', 'Simple', 0, 1);
     expectField(group, 1, 'vSConstraintOnFieldChildOut', 'Complex', 0, 1);
     const cmplx = group.fields[1];
@@ -280,8 +280,8 @@ describe('#importDataElement', () => {
     const specifications = importFixture('VSConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'vSConstraintOnValueKeyWordOut', 'ChildElement');
     expect(entry.fields).to.be.empty;
-console.log("Test 18: entry.value = "+JSON.stringify(entry.value)); 
-    expect(entry.value).to.be.instanceof(IncompleteValue);     
+console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
+    expect(entry.value).to.be.instanceof(IncompleteValue);
     expect(entry.value.card).to.be.undefined;  // failing here
     expect(entry.value.identifier.isValueKeyWord).to.be.true;
     expect(entry.value.constraints).to.have.length(1);
@@ -301,7 +301,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');  
+    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
   it('Import20: should correctly import an entry with a code constraint on the value\'s child', () => {
@@ -320,7 +320,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
   it('Import21: should correctly import an entry with a code constraint on the Value keyword', () => {
     const specifications = importFixture('CodeConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'codeConstraintOnValueKeyWordOut', 'ChildElement');
-    console.log("Test 21: entry = "+ JSON.stringify(entry));     
+    console.log("Test 21: entry = "+ JSON.stringify(entry));
     expect(entry.description).to.be.undefined;
     expect(entry.value.card).to.be.undefined;   // fails here
     expect(entry.value).to.be.instanceof(IncompleteValue);
@@ -361,7 +361,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
     expect(el.constraints[0].path).to.eql([id('codeConstraintOnFieldChildOut','CodedFromVS2')]);
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');    
+    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
 
@@ -376,7 +376,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
  //   expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
     expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units')]);
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');    
+    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
   // MK - I'm unsure if the statement should be Volume[Quantity].Units or Value[Quantity].Units
@@ -390,7 +390,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
    // expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units')]);
    expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
-   if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');     
+   if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
   it('Import27: should correctly import a group with a unit constraint on a field', () => {
@@ -406,7 +406,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
 //    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
     expect(el.constraints[0].path).to.eql([id('shr.core','Units')]);
-    expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter'); 
+    expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
@@ -450,7 +450,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expectCardOne(entry.value);
     expectPrimitiveValue(entry.value, 'boolean');
     expect(entry.value.constraints).to.have.length(1);
-    expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint); 
+    expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
     expect(entry.value.constraints[0].onValue).to.be.undefined;
     expect(entry.value.constraints[0].value).to.be.true;
@@ -467,7 +467,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(entry.value.constraints[0].path).to.be.empty;
     expect(entry.value.constraints[0].onValue).to.be.undefined;
     expect(entry.value.constraints[0].value).to.be.true;
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');   
+    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
 
@@ -503,7 +503,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(entry.basedOn).to.have.length(1);
     expect(entry.basedOn[0].namespace).to.equal('typeConstraintOnValueOut');
     expect(entry.basedOn[0].name).to.equal('SimpleBase');
-    console.log("Test 34: entry = "+ JSON.stringify(entry));         
+    console.log("Test 34: entry = "+ JSON.stringify(entry));
     expectCardOne(entry.value);  // fails here (value should be inherited)
     expectValue(entry.value, 'typeConstraintOnValueOut', 'Simple');
     expect(entry.value.constraints).to.have.length(1);
@@ -783,17 +783,15 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expectChoiceOption(choice.value, 1, 'primitive', 'concept');
 // MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
 // first the fixed boolean choice value
-    const fb = choice.value[0];
-    expect(fb.constraints).to.have.length(1);
-    expect(fb.constraints[0]).to.be.instanceof(BooleanConstraint);
-    expect(fb.constraints[0].path).to.be.empty;
-    expect(fb.constraints[0].value).to.be.true;
-// now the fixed concept choice value
-    const fc = choice.value[1];
-    expect(fc.constraints).to.have.length(1);
-    expect(fc.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(fb.constraints[0].path).to.be.empty;
-    expectConcept(fc.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
+    console.log(choice.value.constraints[1].code);
+    //const fb = choice.value[0];
+    expect(choice.value.constraints).to.have.length(2);
+    expect(choice.value.constraints[0]).to.be.instanceof(BooleanConstraint);
+    expect(choice.value.constraints[0].path).to.be.empty;
+    expect(choice.value.constraints[0].value).to.be.true;
+    expect(choice.value.constraints[1]).to.be.instanceof(CodeConstraint);
+    expect(choice.value.constraints[1].path).to.be.empty;
+    expectConcept(choice.value.constraints[1].code, 'http://foo.org', 'baz');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 });
