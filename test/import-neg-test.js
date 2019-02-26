@@ -57,7 +57,7 @@ describe('#importDataElementNegatives', () => {
     importFixtureFolder('invalidAmbiguousResolution', true);
   });
 
-  it('Neg12: should produce an error message (not a traceback) when there are conflicing code system declarations', () => {
+  it('Neg12: should produce an error message (not a traceback) when there are conflicting code system declarations', () => {
     // MK: I'm not sure that just loading the folder should trigger the checks for ambiguous elements
     importFixtureFolder('invalidConflictingVocab', true);
   });
@@ -109,6 +109,18 @@ describe('#importDataElementNegatives', () => {
   it('Neg24: should produce an error message (not a traceback) when restricting a choice using the only keyword and substituting a class simultaneously', () => {
     importFixture('InvalidSubstituteOnFieldUsingOnly', true);
   });  
+
+  it('Neg25: should produce an error message (not a traceback) when a Parent class referenced by an element does not exist.', () => {
+    importFixture('InvalidParentClass', true);
+  }); 
+
+  it('Neg26: should produce an error message (not a traceback) when both parent and child declare a value with different elements.', () => {
+    importFixture('InvalidParentAndChildValue', true);
+  }); 
+
+  it('Neg27: should produce an error message (not a traceback) when a child declares a property that exists in a parent.', () => {
+    importFixture('InvalidChildProperty', true);
+  }); 
 
 // end of negative examples  
 });
