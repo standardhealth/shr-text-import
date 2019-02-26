@@ -1,9 +1,9 @@
 Grammar:   DataElement 6.0
 Namespace: basedOnOut
 
-// Need counterexample where the parent class doesn't exist
-// Need counterexample where both the parent and child declare a value
-// Need counterexample where child declares a property that exists in a parent
+// Need counterexample where the parent class doesn't exist (mlt: created Neg25)
+// Need counterexample where both the parent and child declare a value (mlt: created Neg26)
+// Need counterexample where child declares a property that exists in a parent (mlt: created Neg27)
 
 Entry:        Child
 Parent:       Base

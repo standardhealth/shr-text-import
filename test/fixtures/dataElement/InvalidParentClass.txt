@@ -1,0 +1,21 @@
+Grammar:   DataElement 6.0
+Namespace: InvalidParentClassOut
+
+// In this counterexample to Import50, the specified parent class, Base1, does not exist
+
+Entry:        Child
+Parent:       Base1
+Value:        Simple
+
+Entry:        Base
+Property:     Coded 0..*
+Property:     Simple2 1..2
+
+Element:       Simple
+Value:         string
+
+Element:       Coded
+Value:         code
+
+Element:       Simple2
+Value:         string
