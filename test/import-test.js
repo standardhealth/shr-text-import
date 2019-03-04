@@ -280,7 +280,7 @@ describe('#importDataElement', () => {
     const specifications = importFixture('VSConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'vSConstraintOnValueKeyWordOut', 'ChildElement');
     expect(entry.fields).to.be.empty;
-console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
+    console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(entry.value).to.be.instanceof(IncompleteValue);
     expect(entry.value.card).to.be.undefined;  // failing here
     expect(entry.value.identifier.isValueKeyWord).to.be.true;
@@ -574,7 +574,7 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expectField(group, 0, 'typeConstraintOnFieldValueOut', 'HasSimpleValue');
     expect(group.fields[0].constraints).to.have.length(1);
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
-    expect(group.fields[0].constraints[0].path).to.be.empty;
+    expect(group.fields[0].constraints[0].path).to.have.length(1);
     expect(group.fields[0].constraints[0].onValue).to.be.false;
     expectIdentifier(group.fields[0].constraints[0].isA, 'typeConstraintOnFieldValueOut', 'Simple2');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
@@ -783,7 +783,6 @@ console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expectChoiceOption(choice.value, 1, 'primitive', 'concept');
 // MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
 // first the fixed boolean choice value
-    console.log(choice.value.constraints[1].code);
     //const fb = choice.value[0];
     expect(choice.value.constraints).to.have.length(2);
     expect(choice.value.constraints[0]).to.be.instanceof(BooleanConstraint);
