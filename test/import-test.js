@@ -311,7 +311,6 @@ describe('#importDataElement', () => {
     expectValue(entry.value, 'codeConstraintOnValueChildOut', 'CodedFromValueSet');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    console.log("Test 20: entry.value.constraints[0] = "+ JSON.stringify(entry.value.constraints[0]));
     expect(entry.value.constraints[0].path).to.eql([pid('concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
@@ -320,7 +319,6 @@ describe('#importDataElement', () => {
   it('Import21: should correctly import an entry with a code constraint on the Value keyword', () => {
     const specifications = importFixture('CodeConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'codeConstraintOnValueKeyWordOut', 'ChildElement');
-    console.log("Test 21: entry = "+ JSON.stringify(entry));
     expect(entry.description).to.be.undefined;
     expect(entry.value.card).to.be.undefined;   // fails here
     expect(entry.value).to.be.instanceof(IncompleteValue);
@@ -709,7 +707,6 @@ describe('#importDataElement', () => {
   it('Import49: should correctly import TBD concept', () => {
     const specifications = importFixture('ConceptTBD');
     const entry = expectAndGetEntry(specifications, 'conceptTBDOut', 'ConceptTBD');
-    console.log(entry);
     // MK: I'm not sure if this test is correct. Is a TBD simply ignored? (in that case, the concepts array length would be 0)
     expect(entry.concepts).to.have.length(1);
     expect(entry.concepts[0]).to.be.instanceOf(TBD);
@@ -785,16 +782,14 @@ describe('#importDataElement', () => {
     expectChoiceValue(choice.value, 2);
     expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
     expectChoiceOption(choice.value, 1, 'primitive', 'concept');
-// MK: I need some help writing this correctly. I'm not sure how to access constraints placed on choice values
-// first the fixed boolean choice value
-    //const fb = choice.value[0];
     expect(choice.value.constraints).to.have.length(2);
     expect(choice.value.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(choice.value.constraints[0].path).to.be.empty;
     expect(choice.value.constraints[0].value).to.be.true;
     expect(choice.value.constraints[1]).to.be.instanceof(CodeConstraint);
     expect(choice.value.constraints[1].path).to.have.length(1);
-    expect(choice.value.constraints[1].path).to.eql([id('primitive','concept')]);
+    // TODO confirm this test case is correct.
+    expect(choice.value.constraints[1].path).to.eql([pid('concept')]);
     expectConcept(choice.value.constraints[1].code, 'http://foo.org', 'baz');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
