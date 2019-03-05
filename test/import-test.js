@@ -312,7 +312,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
   console.log("Test 20: entry.value.constraints[0] = "+ JSON.stringify(entry.value.constraints[0]));  // missing path
-    expect(entry.value.constraints[0].path).to.eql([id('codeConstraintOnValueChildOut','CodedFromValueSet')]);   // fails here because the path is missing
+    expect(entry.value.constraints[0].path).to.eql([id('primitive','concept')]);   // fails here because the path is missing
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -374,7 +374,8 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints).to.have.length(1); // fails here
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
  //   expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units')]);
+    expect(entry.value.constraints[0].path).to.have.length(2);
+    expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('primitive', 'concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -388,7 +389,8 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints).to.have.length(1);  // fails here
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
    // expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
-   expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units')]);
+   expect(entry.value.constraints[0].path).to.have.length(3);
+   expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('primitive', 'concept')]);
    expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -789,7 +791,8 @@ describe('#importDataElement', () => {
     expect(choice.value.constraints[0].path).to.be.empty;
     expect(choice.value.constraints[0].value).to.be.true;
     expect(choice.value.constraints[1]).to.be.instanceof(CodeConstraint);
-    expect(choice.value.constraints[1].path).to.be.empty;
+    expect(choice.value.constraints[1].path).to.have.length(1);
+    expect(choice.value.constraints[1].path).to.eql([id('primitive','concept')]);
     expectConcept(choice.value.constraints[1].code, 'http://foo.org', 'baz');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
