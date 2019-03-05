@@ -311,8 +311,8 @@ describe('#importDataElement', () => {
     expectValue(entry.value, 'codeConstraintOnValueChildOut', 'CodedFromValueSet');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-  console.log("Test 20: entry.value.constraints[0] = "+ JSON.stringify(entry.value.constraints[0]));  // missing path
-    expect(entry.value.constraints[0].path).to.eql([id('primitive','concept')]);   // fails here because the path is missing
+    console.log("Test 20: entry.value.constraints[0] = "+ JSON.stringify(entry.value.constraints[0]));
+    expect(entry.value.constraints[0].path).to.eql([pid('concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -344,7 +344,8 @@ describe('#importDataElement', () => {
     const el = group.fields[1];
     expect(el.constraints).to.have.length(1);   // fails here
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(el.constraints[0].path).to.be.empty;
+    expect(el.constraints[0].path).to.have.length(1);
+    expect(el.constraints[0].path).to.eql([pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -407,7 +408,7 @@ describe('#importDataElement', () => {
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
 //    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
-    expect(el.constraints[0].path).to.eql([id('shr.core','Units')]);
+    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -423,7 +424,7 @@ describe('#importDataElement', () => {
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
 //    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
-    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units')]);
+    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -708,6 +709,7 @@ describe('#importDataElement', () => {
   it('Import49: should correctly import TBD concept', () => {
     const specifications = importFixture('ConceptTBD');
     const entry = expectAndGetEntry(specifications, 'conceptTBDOut', 'ConceptTBD');
+    console.log(entry);
     // MK: I'm not sure if this test is correct. Is a TBD simply ignored? (in that case, the concepts array length would be 0)
     expect(entry.concepts).to.have.length(1);
     expect(entry.concepts[0]).to.be.instanceOf(TBD);
