@@ -536,7 +536,7 @@ describe('#importDataElement', () => {
     expect(group.basedOn).to.have.length(1);
     expectIdentifier(group.basedOn[0], 'typeConstraintOnFieldOut', 'GroupBase');
     expect(group.value).to.be.undefined;
-    expect(group.fields).to.have.length(2);  // MK: changed from 1 to 2 since two fields are inherited: Simple and CodedFromValueSet
+    expect(group.fields).to.have.length(1);
     expectField(group, 0, 'typeConstraintOnFieldOut', 'Simple');
     expect(group.fields[0].constraints).to.have.length(1);
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
@@ -707,9 +707,7 @@ describe('#importDataElement', () => {
   it('Import49: should correctly import TBD concept', () => {
     const specifications = importFixture('ConceptTBD');
     const entry = expectAndGetEntry(specifications, 'conceptTBDOut', 'ConceptTBD');
-    // MK: I'm not sure if this test is correct. Is a TBD simply ignored? (in that case, the concepts array length would be 0)
-    expect(entry.concepts).to.have.length(1);
-    expect(entry.concepts[0]).to.be.instanceOf(TBD);
+    expect(entry.concepts).to.have.length(0);
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
