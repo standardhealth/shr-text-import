@@ -358,7 +358,8 @@ describe('#importDataElement', () => {
     const el = group.fields[1];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(el.constraints[0].path).to.eql([id('codeConstraintOnFieldChildOut','CodedFromVS2')]);
+  //  expect(el.constraints[0].path).to.eql([id('codeConstraintOnFieldChildOut','CodedFromVS2')]);
+  expect(el.constraints[0].path).to.eql([id('codeConstraintOnFieldChildOut','CodedFromVS2'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
@@ -379,7 +380,6 @@ describe('#importDataElement', () => {
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
-  // MK - I'm unsure if the statement should be Volume[Quantity].Units or Value[Quantity].Units
   it('Import26: should correctly import an entry with a unit constraint on the value\'s child', () => {
     const specifications = importFixture('UnitConstraintOnValueChild');
     const entry = expectAndGetEntry(specifications, 'unitConstraintOnValueChildOut', 'UnitConstraintOnValueChild');
