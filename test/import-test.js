@@ -722,10 +722,7 @@ describe('#importDataElement', () => {
     expectCardOne(child.value);
     expectValue(child.value, 'basedOnOut', 'Simple');
     expectNoConstraints(child.value);
-    // MK: Are inherited fields internalized as fields on the child class? In this case, the child has no explicit fields, only the two inherited fields. So I'm not sure if the following expectations are correct:
-    expect(child.fields).to.have.length(2);
-    expectField(entry, 0, 'basedOnOut', 'Coded', 0);
-    expectField(entry, 0, 'basedOnOut', 'Simple2', 1, 2);
+    expect(child.fields).to.have.length(0);
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
