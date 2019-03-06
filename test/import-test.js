@@ -359,7 +359,7 @@ describe('#importDataElement', () => {
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
   //  expect(el.constraints[0].path).to.eql([id('codeConstraintOnFieldChildOut','CodedFromVS2')]);
-    expect(el.constraints[0].path).to.eql([pid('concept')]);  // mlt: path change to primitive concept (??)
+  expect(el.constraints[0].path).to.eql([id('codeConstraintOnFieldChildOut','CodedFromVS2'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
