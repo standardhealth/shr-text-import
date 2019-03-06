@@ -707,10 +707,7 @@ describe('#importDataElement', () => {
   it('Import49: should correctly import TBD concept', () => {
     const specifications = importFixture('ConceptTBD');
     const entry = expectAndGetEntry(specifications, 'conceptTBDOut', 'ConceptTBD');
-    // MK/AC: I'm not sure if this test is correct. Is a TBD simply ignored? (in that case, the concepts array length would be 0)
     expect(entry.concepts).to.have.length(0);
-    //Do not check if TBD is indeed ignored.
-    //expect(entry.concepts[0]).to.be.instanceOf(TBD);
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
