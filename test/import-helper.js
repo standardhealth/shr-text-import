@@ -143,7 +143,7 @@ function importConfigurationFolder(name, hasExpectedErrors = false) {
 
 function checkImportErrors(hasExpectedErrors) {
   const errors = err.errors();
-  console.log('message='+errors.map(e => e.msg).join('; '));
+  //console.log('message='+errors.map(e => e.msg).join('; '));
   if (hasExpectedErrors && errors.length === 0) {
     expect(true, '**Negative Test Failed: No error was reported**').to.be.false;
   } else if (!hasExpectedErrors && errors.length > 0) {
