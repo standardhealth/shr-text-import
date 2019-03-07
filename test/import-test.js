@@ -282,7 +282,7 @@ describe('#importDataElement', () => {
     expect(entry.fields).to.be.empty;
     console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(entry.value).to.be.instanceof(IncompleteValue);
-    expect(entry.value.card).to.be.undefined;  // failing here
+    expectCardOne(entry.value);
     expect(entry.value.identifier.isValueKeyWord).to.be.true;
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
@@ -320,12 +320,13 @@ describe('#importDataElement', () => {
     const specifications = importFixture('CodeConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'codeConstraintOnValueKeyWordOut', 'ChildElement');
     expect(entry.description).to.be.undefined;
-    expect(entry.value.card).to.be.undefined;   // fails here
+    expectCardOne(entry.value);
     expect(entry.value).to.be.instanceof(IncompleteValue);
     expect(entry.value.identifier.isValueKeyWord).to.be.true;
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-    expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].path).to.have.length(1);
+    expect(entry.value.constraints[0].path).to.eql([pid('concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     expect(entry.fields).to.be.empty;
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
@@ -504,9 +505,8 @@ describe('#importDataElement', () => {
     expect(entry.basedOn).to.have.length(1);
     expect(entry.basedOn[0].namespace).to.equal('typeConstraintOnValueOut');
     expect(entry.basedOn[0].name).to.equal('SimpleBase');
-    console.log("Test 34: entry = "+ JSON.stringify(entry));
-    expectCardOne(entry.value);  // fails here (value should be inherited)
-    expectValue(entry.value, 'typeConstraintOnValueOut', 'Simple');
+    expectCardOne(entry.value);
+    expectValue(entry.value, '', '_Value');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(TypeConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
@@ -520,8 +520,8 @@ describe('#importDataElement', () => {
     const entry = expectAndGetEntry(specifications, 'typeConstraintOnValueChildOut', 'TypeConstraintOnValueChild');
     expect(entry.basedOn).to.have.length(1);
     expectIdentifier(entry.basedOn[0], 'typeConstraintOnValueChildOut', 'ComplexBase');
-    expectCardOne(entry.value);   // fails here (value should be inherited)
-    expectValue(entry.value, 'typeConstraintOnValueChildOut', 'Complex');
+    expectCardOne(entry.value);
+    expectValue(entry.value, '', '_Value');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(TypeConstraint);
     expect(entry.value.constraints[0].path).to.eql([id('typeConstraintOnValueChildOut', 'Simple')]);  // should the path include Complex? (yes)
