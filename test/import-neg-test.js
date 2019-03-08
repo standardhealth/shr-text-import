@@ -44,7 +44,7 @@ describe('#importDataElementNegatives', () => {
     importFixture('InvalidNoNamespace', true);
   });
 
-  it('Neg9: should produce an error message (not a traceback) if a child class defines a property it already inherited.', () => {
+  it.skip('Neg9: should produce an error message (not a traceback) if a child class defines a property it already inherited.', () => {
     importFixture('InvalidInheritedFieldDuplicatedInChild', true);
   });
 
@@ -74,59 +74,57 @@ describe('#importDataElementNegatives', () => {
     importFixture('InvalidValueDeclarationWithCardinality', true);
   });
 
-  it('Neg16: should produce an error message (not a traceback) when a child class inherits a value but also defines a value', () => {
+  it.skip('Neg16: should produce an error message (not a traceback) when a child class inherits a value but also defines a value', () => {
     importFixture('InvalidInheritanceValueOverride', true);
   });
 
-  it('Neg17: should produce an error message (not a traceback) when a child class value overrides a required binding', () => {
+  it.skip('Neg17: should produce an error message (not a traceback) when a child class value overrides a required binding', () => {
     importFixture('InvalidValueBindingOverride', true);
-  });  
+  });
 
-  it('Neg18: should produce an error message (not a traceback) when a child class overrides a fixed code value', () => {
+  it.skip('Neg18: should produce an error message (not a traceback) when a child class overrides a fixed code value', () => {
     importFixture('InvalidValueFixedCodeOverride', true);
-  });  
+  });
 
   it('Neg19: should produce an error message (not a traceback) when choice value is constrained without specifying which choice the constraint applies to', () => {
     importFixture('InvalidConstraintOnChoice', true);
-  });  
+  });
 
   it('Neg20: should produce an error message (not a traceback) when substituting a non-subclass for a field', () => {
     importFixture('InvalidSubstituteOnField', true);
-  });  
+  });
 
   it('Neg21: should produce an error message (not a traceback) when substituting a non-subclass for a field child', () => {
     importFixture('InvalidSubstituteOnFieldChild', true);
-  });  
+  });
 
   it('Neg22: should produce an error message (not a traceback) when a field declares a choice', () => {
     importFixture('InvalidDeclarationOfFieldChoice', true);
-  });  
+  });
 
   it('Neg23: should produce an error message (not a traceback) when a class specifies its parent as TBD', () => {
     importFixture('InvalidTBDParent', true);
-  });  
+  });
 
   it('Neg24: should produce an error message (not a traceback) when restricting a choice using the only keyword and substituting a class simultaneously', () => {
     importFixture('InvalidSubstituteOnFieldUsingOnly', true);
-  });  
+  });
 
   it('Neg25: should produce an error message (not a traceback) when a Parent class referenced by an element does not exist.', () => {
     importFixture('InvalidParentClass', true);
-  }); 
+  });
 
   it('Neg26: should produce an error message (not a traceback) when both parent and child declare a value with different elements.', () => {
     importFixture('InvalidParentAndChildValue', true);
-  }); 
+  });
 
   it('Neg27: should produce an error message (not a traceback) when a child declares a property that exists in a parent.', () => {
     importFixture('InvalidChildProperty', true);
-  }); 
+  });
 
   it('Neg28: should produce an error message (not a traceback) when there is a reference to an attribute which has been substituted.', () => {
     importFixture('InvalidReferenceToSubstitutedName', true);
-  }); 
+  });
 
-// end of negative examples  
+// end of negative examples
 });
-
-

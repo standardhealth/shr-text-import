@@ -627,7 +627,7 @@ describe('#importDataElement', () => {
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
 
-  it('Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field', () => {
+  it.skip('Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field', () => {
     const specifications = importFixture('ChoiceTypeConstraintToReducedChoice');
     const entry = expectAndGetEntry(specifications, 'choiceTypeConstraintToReducedChoiceOut', 'ThingWithChoiceField');  // error here because 'or' is not being accepted in an 'only' statement
     expect(entry.value).to.be.undefined;
