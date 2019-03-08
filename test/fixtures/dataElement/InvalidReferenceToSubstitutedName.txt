@@ -1,0 +1,22 @@
+Grammar:    DataElement 6.0
+Namespace:  invalidReferenceToSubstitutedNameOut
+
+Element:    GroupBase
+Property:   Simple 0..*
+Property:   CodedFromValueSet 0..1
+
+Entry:      TypeConstraintOnField
+Parent:     GroupBase
+            Simple substitute Simple2
+            Simple 0..1  // this is invalid because the attribute is now Simple2
+            
+Element:      Simple
+Value:        string
+
+Element:      Simple2
+Parent:       Simple
+Value:        string
+
+Element:      CodedFromValueSet
+Value:        concept
+

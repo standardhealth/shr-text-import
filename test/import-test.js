@@ -788,6 +788,25 @@ describe('#importDataElement', () => {
     expectConcept(choice.value.constraints[1].code, 'http://foo.org', 'baz');
     if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
   });
+
+  it('Import55: should correctly import a group with a cardinality constraint on a substituted element', () => {
+    const specifications = importFixture('SubstituteOnReferenceName');
+    const group = expectAndGetEntry(specifications, 'substituteOnReferenceNameOut', 'TypeConstraintOnField');
+    expect(group.basedOn).to.have.length(1);
+    expectIdentifier(group.basedOn[0], 'substituteOnReferenceNameOut', 'GroupBase');
+    expect(group.value).to.be.undefined;
+    expect(group.fields).to.have.length(2);
+    expectField(group, 0, 'substituteOnReferenceNameOut', 'Simple');
+    expect(group.fields[0].constraints).to.have.length(1);  // mlt: there are 2 constraints in Entry: one TypeConstraint and now one CardConstraint.
+    expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
+    expect(group.fields[0].constraints[0].path).to.be.empty;
+    expect(group.fields[0].constraints[0].onValue).to.be.false;
+    expectIdentifier(group.fields[0].constraints[0].isA, 'substituteOnReferenceNameOut', 'Simple2');
+    expect(group.fields[0].constraints[1]).to.be.instanceof(CardConstraint);
+    expect(group.fields[0].constraints[1].card.min).to.equal(0);
+    expect(group.fields[0].constraints[1].card.max).to.equal(1);
+    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+  });
 });
 
 

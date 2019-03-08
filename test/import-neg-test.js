@@ -122,6 +122,10 @@ describe('#importDataElementNegatives', () => {
     importFixture('InvalidChildProperty', true);
   }); 
 
+  it('Neg28: should produce an error message (not a traceback) when there is a reference to an attribute which has been substituted.', () => {
+    importFixture('InvalidReferenceToSubstitutedName', true);
+  }); 
+
 // end of negative examples  
 });
 
