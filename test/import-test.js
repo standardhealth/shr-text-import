@@ -795,9 +795,10 @@ describe('#importDataElement', () => {
     expect(group.basedOn).to.have.length(1);
     expectIdentifier(group.basedOn[0], 'substituteOnReferenceNameOut', 'GroupBase');
     expect(group.value).to.be.undefined;
-    expect(group.fields).to.have.length(2);
+    expect(group.fields).to.have.length(1);
+    //console.log(group.fields);
     expectField(group, 0, 'substituteOnReferenceNameOut', 'Simple');
-    expect(group.fields[0].constraints).to.have.length(1);  // mlt: there are 2 constraints in Entry: one TypeConstraint and now one CardConstraint.
+    expect(group.fields[0].constraints).to.have.length(2);  
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
     expect(group.fields[0].constraints[0].path).to.be.empty;
     expect(group.fields[0].constraints[0].onValue).to.be.false;
