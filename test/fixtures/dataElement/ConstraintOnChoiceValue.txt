@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: constraintOnChoiceValueOut
+Namespace: constraintOnChoiceValue
 
 CodeSystem:     FOO = http://foo.org
 

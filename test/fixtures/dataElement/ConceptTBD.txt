@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: conceptTBDOut
+Namespace: conceptTBD
 
 CodeSystem:     FOO = http://foo.org
 

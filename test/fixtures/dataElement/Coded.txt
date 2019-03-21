@@ -1,5 +1,5 @@
 Grammar:        DataElement 6.0
-Namespace:      codedOut
+Namespace:      coded
 
 Entry:          Coded
 Description:    "It is a concept entry"

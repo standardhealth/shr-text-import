@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: codeSystemsOut
+Namespace: codeSystems
 
 CodeSystem:     FOO = http://foo.org
 CodeSystem:     BOO = http://boo.org

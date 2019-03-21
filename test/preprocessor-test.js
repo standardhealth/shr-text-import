@@ -9,63 +9,63 @@ describe('#preprocessFile', () => {
   beforeEach(function() {
     err.clear();
   });
-/*
+
   it('Prep1: should correctly preprocess a simple entry definition', () => {
-    const data = importFixture('SimpleEntry');
+    const data = importFixture('simpleEntry');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
-      'simpleEntryOut': { 'FOO': 'http://foo.org' }
+      'simpleEntry': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'simpleEntryOut': { 'SimpleEntry': true }
+      'simpleEntry': { 'SimpleEntry': true }
     });
   });
 
   it('Prep2: should correctly preprocess a simple abstract element definition', () => {
-    const data = importFixture('SimpleAbstractElement');
+    const data = importFixture('simpleAbstractElement');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
-      'simpleAbstractElementOut': { 'FOO': 'http://foo.org' }
+      'simpleAbstractElement': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'simpleAbstractElementOut': { 'Simple': true }
+      'simpleAbstractElement': { 'Simple': true }
     });
   });
 
   it('Prep3: should correctly preprocess a simple element definition', () => {
-    const data = importFixture('SimpleElement');
+    const data = importFixture('simpleElement');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
-      'simpleElementOut': { 'FOO': 'http://foo.org' }
+      'simpleElement': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'simpleElementOut': { 'Simple': true }
+      'simpleElement': { 'Simple': true }
     });
   });
 
   it('Prep4: should correctly preprocess a path definition', () => {
-    const data = importFixture('CodedFromPathValueSet');
+    const data = importFixture('codedFromPathValueSet');
     expect(data._paths).to.eql({
-      'codedFromPathValueSetOut': { 'TESTVS': 'http://standardhealthrecord.org/test/vs' }
+      'codedFromPathValueSet': { 'TESTVS': 'http://standardhealthrecord.org/test/vs' }
     });
     expect(data._vocabularies).to.eql({});
     expect(data._definitions).to.eql({
-      'codedFromPathValueSetOut': { 'CodedFromPathValueSet': true }
+      'codedFromPathValueSet': { 'CodedFromPathValueSet': true }
     });
   });
 
   it('Prep5: should correctly preprocess multiple codesystem definitions in a single namespace', () => {
-    const data = importFixture('CodeSystems');
+    const data = importFixture('codeSystems');
     expect(data._paths).to.eql({});
     expect(data._vocabularies).to.eql({
-      'codeSystemsOut': {
+      'codeSystems': {
         'FOO': 'http://foo.org',
         'BOO': 'http://boo.org',
         'ZOO': 'http://zoo.org'
       }
     });
     expect(data._definitions).to.eql({
-      'codeSystemsOut': {
+      'codeSystems': {
         'SimpleGroup': true,
         'Simple': true,
         'Coded': true,
@@ -73,7 +73,6 @@ describe('#preprocessFile', () => {
       }
     });
   });
-  */
 });
 
 function importFixture(name) {

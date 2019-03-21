@@ -11,7 +11,7 @@ describe('#importConfig', () => {
   beforeEach(function() {
     err.clear();
   });
-/*
+
   it('Config1: should correctly import a basic configuration', () => {
     const configuration = importConfiguration('basicconfig');
     expect(configuration).to.have.all.keys('projectName','projectShorthand','projectURL','provenanceInfo','publisher','contact','fhirURL','implementationGuide');
@@ -157,7 +157,6 @@ describe('#importConfig', () => {
       }]
     }]);
   });
-  */
 });
 // end of describe(#importConfig)
 

@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: conceptMultipleOut
+Namespace: conceptMultiple
 
 CodeSystem:     FOO = http://foo.org
 CodeSystem:     BOO = http://boo.org

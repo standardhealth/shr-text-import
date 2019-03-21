@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  vSConstraintOnFieldWithBindingStrengthOut
+Namespace:  vsConstraintOnFieldWithBindingStrength
 
 Entry: RequiredVSConstraintOnField
 Property: CodedThing 0..1

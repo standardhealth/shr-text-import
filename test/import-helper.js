@@ -117,16 +117,16 @@ function expectNoConstraints(value) {
   }
 }
 
-function importFixture(name, hasExpectedErrors = false) {
+function importFixture(name, dir = "/fixtures/dataElement/", hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
-  const specifications = importFromFilePath(`${__dirname}/fixtures/dataElement/${name}.txt`, null, dependencies);
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, null, dependencies);  
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
 
-function importFixtureFolder(name, hasExpectedErrors = false) {
+function importFixtureFolder(name, dir = "/fixtures/dataElement/", hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
-  const specifications = importFromFilePath(`${__dirname}/fixtures/dataElement/${name}`, null, dependencies);
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}`, null, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
@@ -157,11 +157,11 @@ function checkImportErrors(hasExpectedErrors) {
   }
 }
 
-function testCIMPL6Export(specifications) {
+function testCIMPL6Export(specifications, exportDir = '/fixtures/dataElementExports/') {
   specifications = expand(specifications);
   const expandErrors = err.errors();
   if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}**`).to.be.true;
-  specifications.toCIMPL6('../cimpl6-out/fixtures/dataElement/');
+  specifications.toCIMPL6(exportDir);
   const exportErrors = err.errors();
   if(exportErrors.length > 0) expect(false, `shr-CIMPL6-export: ${exportErrors.map(e => e.msg).join('; ')}**`).to.be.true;
 }

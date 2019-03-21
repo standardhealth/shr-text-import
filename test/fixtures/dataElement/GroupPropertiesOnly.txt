@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: groupPropertiesOnlyOut
+Namespace: groupPropertiesOnly
 
 Element:      GroupPropertiesOnly
 Property:     Simple 0..1

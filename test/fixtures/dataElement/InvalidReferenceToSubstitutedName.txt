@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  invalidReferenceToSubstitutedNameOut
+Namespace:  invalidReferenceToSubstitutedName
 
 Element:    GroupBase
 Property:   Simple 0..*

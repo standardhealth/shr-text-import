@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  usesOut
+Namespace:  uses
 Uses:       shr.test.two, shr.test.three
 
 CodeSystem:     FOO = http://foo.org

@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: invalidChildPropertyOut
+Namespace: invalidChildProperty
 
 // In this counterexample, the child declares a property that exists in a parent
 

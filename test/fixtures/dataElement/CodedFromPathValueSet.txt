@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  codedFromPathValueSetOut
+Namespace:  codedFromPathValueSet
 
 Path: TESTVS = http://standardhealthrecord.org/test/vs
 

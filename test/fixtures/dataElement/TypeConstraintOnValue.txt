@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  typeConstraintOnValueOut
+Namespace:  typeConstraintOnValue
 
 Element:      SimpleBase
 Value:        Simple
