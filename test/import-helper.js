@@ -3,6 +3,8 @@ const {expect} = require('chai');
 const {importFromFilePath, importConfigFromFilePath, importCIMCOREFromFilePath, setLogger} = require('../index');
 const {DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, toCIMPL6} = require('shr-models');
 const err = require('shr-test-helpers/errors');
+const shrexpand = require('shr-expand');
+const expand = shrexpand.expand;
 
 // Shorthand Identifier constructor for more concise code
 function id(namespace, name) {
@@ -149,12 +151,20 @@ function checkImportErrors(hasExpectedErrors) {
   } else if (!hasExpectedErrors && errors.length > 0) {
     expect(false, `**Import Errors: ${errors.map(e => e.msg).join('; ')}**`).to.be.true;
   } else if (hasExpectedErrors) {
-    // Expectation of error was met. But let's print the error messsage anyway
+    // Expectation of getting an error was met. But let's print the error messsage to make sure it is an accurate description of the error.
     const message = `    The following test passed, error message:  ${errors.map(e => e.msg).join('; ')}`;
     console.log(message);
   }
 }
 
+function testCIMPL6Export(specifications) {
+  specifications = expand(specifications);
+  const expandErrors = err.errors();
+  if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}**`).to.be.true;
+  specifications.toCIMPL6('../cimpl6-out/fixtures/dataElement/');
+  const exportErrors = err.errors();
+  if(exportErrors.length > 0) expect(false, `shr-CIMPL6-export: ${exportErrors.map(e => e.msg).join('; ')}**`).to.be.true;
+}
 
 /*
 function importCimcoreNSFile(namespace, numExpectedErrors = 0) {
@@ -250,4 +260,4 @@ module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetD
 
 */
 
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6 };
+module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export };

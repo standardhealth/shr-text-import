@@ -1,12 +1,17 @@
 const fs = require('fs');
 const {expect} = require('chai');
 const {setLogger} = require('../index');
-const {id, pid, expectAndGetElement, expectAndGetEntry, expectValue, expectPrimitiveValue, expectChoiceValue, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder } = require('../test/import-helper');
+const {id, pid, expectAndGetElement, expectAndGetEntry, expectValue, expectPrimitiveValue, expectChoiceValue, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, testCIMPL6Export } = require('../test/import-helper');
 const {Version, IncompleteValue, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, TBD, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
 const err = require('shr-test-helpers/errors');
+const shrexpand = require('shr-expand');
+const expand = shrexpand.expand;
+const errorLogger = err.logger();
 
+shrexpand.setLogger(errorLogger)
 // Set the logger -- this is needed for detecting and checking errors
-setLogger(err.logger());
+setLogger(errorLogger);
+
 const writeCIMPL6 = true;
 
 describe('#importDataElement', () => {
@@ -19,7 +24,7 @@ describe('#importDataElement', () => {
     const ns = specifications.namespaces.find('headerOut');
     expect(ns.namespace).to.equal('headerOut');
     expect(ns.description).to.equal('The SHR test namespace');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
 });
 
   it('Import02: Check reading a simple entry', () => {
@@ -32,7 +37,7 @@ describe('#importDataElement', () => {
     expect(simple.isAbstract).to.be.false;
     expectPrimitiveValue(simple.value, 'string');
     expectNoConstraints(simple.value);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import03: should correctly import a simple element', () => {
@@ -45,7 +50,7 @@ describe('#importDataElement', () => {
     expect(simple.isAbstract).to.be.false;
     expectPrimitiveValue(simple.value, 'string');
     expectNoConstraints(simple.value);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import04: should correctly import a simple abstract element', () => {
@@ -58,7 +63,7 @@ describe('#importDataElement', () => {
     expectCardOne(simple.value);
     expectPrimitiveValue(simple.value, 'string');
     expectNoConstraints(simple.value);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import05: should correctly import an entry whose value is a concept', () => {
@@ -68,7 +73,7 @@ describe('#importDataElement', () => {
     expectCardOne(coded.value);
     expectPrimitiveValue(coded.value, 'concept');
     expectNoConstraints(coded.value);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import06: should correctly import an entry with a code from a valueset', () => {
@@ -81,7 +86,7 @@ describe('#importDataElement', () => {
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
     expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import07: should correctly import an entry with a code from a valueset using a path', () => {
@@ -94,7 +99,7 @@ describe('#importDataElement', () => {
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
     expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import08: should correctly import an entry whose value is an element', () => {
@@ -103,32 +108,8 @@ describe('#importDataElement', () => {
     expect(simple.description).to.equal('Value is a reference to a simple element');
     expectCardOne(simple.value);
     expectNoConstraints(simple.value);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
-
-  /*it('Import09: should correctly import a special entry', () => {
-    const specifications = importFixture('SpecialWordsElement');
-    const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
-    expect(parent.grammarVersion).to.eql(new Version(6, 0));
-    expectMinMax(parent.value, 0, 1);
-    expectPrimitiveValue(parent.value, 'string');
-    const child = expectAndGetEntry(specifications, 'shr.test', 'SpecialChild');
-    expect(child.basedOn).to.have.length(1);
-    expect(child.basedOn[0].namespace).to.equal('shr.test');
-    expect(child.basedOn[0].name).to.equal('SpecialParent');
-    // The _Value identifier is set as the value. Do I love this? No. But that's
-    // how it already worked -- probably to avoid having to resolve the value
-    // (and leave it to shr-expand to do that work).
-    expect(child.value.identifier.isValueKeyWord).to.be.true;
-    expectMinMax(child.value, 1, 1);
-    expect(child.fields).to.have.length(1);
-    expectField(child, 0, '', '_Entry', 1, 1);
-    expect(child.fields[0].constraints).to.have.length(1);
-    expect(child.fields[0].constraints[0]).to.be.instanceof(CardConstraint);
-    expect(child.fields[0].constraints[0].path).to.eql([id('shr.core', 'Version')]);
-    expect(child.fields[0].constraints[0].card.min).to.equal(0);
-    expect(child.fields[0].constraints[0].card.max).to.equal(0);
-  });*/
 
   it('Import10: should correctly import a group element without a value', () => {
     const specifications = importFixture('GroupPropertiesOnly');
@@ -140,7 +121,7 @@ describe('#importDataElement', () => {
     expectField(group, 2, 'groupPropertiesOnlyOut', 'Simple2', 1);
     expectField(group, 3, 'groupPropertiesOnlyOut', 'Thing', 1, 1);
     expectNoConstraints(group.fields);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
 
@@ -156,7 +137,7 @@ describe('#importDataElement', () => {
     expectField(group, 2, 'groupValueAndPropertiesOut', 'Simple2', 1);
     expectField(group, 3, 'groupValueAndPropertiesOut', 'Thing', 1, 1);
     expectNoConstraints(group.fields);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   // Constraints
@@ -173,7 +154,7 @@ describe('#importDataElement', () => {
     expect(cst.path).to.be.empty;
     expect(cst.valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded2');
     expect(cst.bindingStrength).to.equal(REQUIRED);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import13: should correctly import an entry with a valueset constraint on the child\'s value', () => {
@@ -193,7 +174,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[1].path).to.eql([id('vSConstraintOnValueChildOut', 'CodedFromValueSet')]);
     expect(entry.value.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(entry.value.constraints[1].bindingStrength).to.equal(REQUIRED);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import14: should correctly import a group with a valueset constraint on a field', () => {
@@ -208,7 +189,7 @@ describe('#importDataElement', () => {
     expect(cmplx.constraints).to.have.length(1);   // failing here
     expect(cmplx.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(cmplx.constraints[0].bindingStrength).to.equal(EXAMPLE);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import15: should correctly import a group with a valueset constraint on a field\'s child', () => {
@@ -228,7 +209,7 @@ describe('#importDataElement', () => {
     expect(cmplx.constraints[1].path).to.eql([id('vSConstraintOnFieldChildOut', 'CodedFromValueSet')]);
     expect(cmplx.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(cmplx.constraints[1].bindingStrength).to.equal(REQUIRED);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import16: should correctly import entries with valueset constraints on value with a binding strength', () => {
@@ -250,7 +231,7 @@ describe('#importDataElement', () => {
       expect(cst.valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
       expect(cst.bindingStrength).to.equal(answerKey[testCase]);
     }
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import17: should correctly import entries with a valueset constraint on a field with a binding strength', () => {
@@ -273,14 +254,14 @@ describe('#importDataElement', () => {
       expect(cmplx.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded2');
       expect(cmplx.constraints[0].bindingStrength).to.equal(answerKey[testCase]);
     }
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import18: should correctly import an entry with a valueset constraint on inherited value', () => {
     const specifications = importFixture('VSConstraintOnValueKeyWord');
     const entry = expectAndGetEntry(specifications, 'vSConstraintOnValueKeyWordOut', 'ChildElement');
     expect(entry.fields).to.be.empty;
-    console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
+  //  console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(entry.value).to.be.instanceof(IncompleteValue);
     expectCardOne(entry.value);
     expect(entry.value.identifier.isValueKeyWord).to.be.true;
@@ -289,7 +270,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0].path).to.be.empty;
     expect(entry.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(entry.value.constraints[0].bindingStrength).to.equal(REQUIRED);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import19: should correctly import an entry with a code constraint on the value', () => {
@@ -301,7 +282,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import20: should correctly import an entry with a code constraint on the value\'s child', () => {
@@ -313,7 +294,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
     expect(entry.value.constraints[0].path).to.eql([pid('concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import21: should correctly import an entry with a code constraint on the Value keyword', () => {
@@ -329,7 +310,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0].path).to.eql([pid('concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     expect(entry.fields).to.be.empty;
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import22: should correctly import a group with a code constraint on a field', () => {
@@ -346,7 +327,7 @@ describe('#importDataElement', () => {
     expect(el.constraints[0].path).to.have.length(1);
     expect(el.constraints[0].path).to.eql([pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import23: should correctly import a group with a code constraint on a field\'s child', () => {
@@ -362,7 +343,7 @@ describe('#importDataElement', () => {
   //  expect(el.constraints[0].path).to.eql([id('codeConstraintOnFieldChildOut','CodedFromVS2')]);
   expect(el.constraints[0].path).to.eql([id('codeConstraintOnFieldChildOut','CodedFromVS2'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
 
@@ -378,7 +359,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0].path).to.have.length(2);
     expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('primitive', 'concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import26: should correctly import an entry with a unit constraint on the value\'s child', () => {
@@ -392,7 +373,7 @@ describe('#importDataElement', () => {
    expect(entry.value.constraints[0].path).to.have.length(3);
    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('primitive', 'concept')]);
    expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
-   if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+   if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import27: should correctly import a group with a unit constraint on a field', () => {
@@ -409,7 +390,7 @@ describe('#importDataElement', () => {
 //    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
     expect(el.constraints[0].path).to.eql([id('shr.core','Units'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import28: should correctly import a group with a unit constraint on a field\'s child', () => {
@@ -425,7 +406,7 @@ describe('#importDataElement', () => {
 //    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
     expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import29: should correctly import a group with an includes code constraint on a field', () => {
@@ -442,7 +423,7 @@ describe('#importDataElement', () => {
     expect(el.constraints[1]).to.be.instanceof(IncludesCodeConstraint);
     expect(el.constraints[1].path).to.be.empty;
     expectConcept(el.constraints[1].code, 'http://foo.org', 'baz', 'FooBaz');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
 
@@ -456,7 +437,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0].path).to.be.empty;
     expect(entry.value.constraints[0].onValue).to.be.undefined;
     expect(entry.value.constraints[0].value).to.be.true;
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax)', () => {
@@ -469,7 +450,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0].path).to.be.empty;
     expect(entry.value.constraints[0].onValue).to.be.undefined;
     expect(entry.value.constraints[0].value).to.be.true;
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
 
@@ -482,7 +463,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(entry.value.constraints[0].path).to.eql([pid('boolean')]);
     expect(entry.value.constraints[0].value).to.be.false;
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import33: should correctly import a group with a boolean constraint on a field\'s child', () => {
@@ -496,7 +477,7 @@ describe('#importDataElement', () => {
     expect(el.constraints[0]).to.be.instanceof(BooleanConstraint);
     expect(el.constraints[0].path).to.eql([pid('boolean')]);
     expect(el.constraints[0].value).to.be.true;
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import34: should correctly import an entry based on an element and substituting the value', () => {
@@ -512,7 +493,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0].path).to.be.empty;
     expect(entry.value.constraints[0].onValue).to.be.false;
     expectIdentifier(entry.value.constraints[0].isA, 'typeConstraintOnValueOut', 'Simple2');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import35: should correctly import an entry based on an element and substitute the value\'s child', () => {
@@ -527,7 +508,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0].path).to.eql([id('typeConstraintOnValueChildOut', 'Simple')]);  // should the path include Complex? (yes)
     expect(entry.value.constraints[0].onValue).to.be.false;
     expectIdentifier(entry.value.constraints[0].isA, 'typeConstraintOnValueChildOut', 'Simple2');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import36: should correctly import a group with a type constraint on a field', () => {
@@ -543,11 +524,11 @@ describe('#importDataElement', () => {
     expect(group.fields[0].constraints[0].path).to.be.empty;
     expect(group.fields[0].constraints[0].onValue).to.be.false;
     expectIdentifier(group.fields[0].constraints[0].isA, 'typeConstraintOnFieldOut', 'Simple2');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import37: should correctly import a group with a cardinality constraint and a type constraint on a field\'s child', () => {
-    const specifications = importFixture('TypeConstraintOnFieldChild');
+    const specifications = importFixture('typeConstraintOnFieldChild');
     const group = expectAndGetEntry(specifications, 'typeConstraintOnFieldChildOut', 'TypeConstraintOnFieldChild');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
@@ -562,7 +543,7 @@ describe('#importDataElement', () => {
     expect(cmplx.constraints[1].path).to.eql([id('typeConstraintOnFieldChildOut', 'Simple')]);
     expect(cmplx.constraints[1].onValue).to.be.false;
     expectIdentifier(cmplx.constraints[1].isA, 'typeConstraintOnFieldChildOut', 'Simple2');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import38: should correctly import a group with a type constraint on a field\'s value', () => {
@@ -578,7 +559,7 @@ describe('#importDataElement', () => {
     expect(group.fields[0].constraints[0].path).to.have.length(1);
     expect(group.fields[0].constraints[0].onValue).to.be.false;
     expectIdentifier(group.fields[0].constraints[0].isA, 'typeConstraintOnFieldValueOut', 'Simple2');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   // Choices
@@ -594,7 +575,7 @@ describe('#importDataElement', () => {
     // MK: not sure what the following two statements are asserting
     expectNoConstraints(choice.value);
     expectNoConstraints(choice.value.options);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
 
@@ -610,7 +591,7 @@ describe('#importDataElement', () => {
     expect(entry.fields[0].constraints[0].onValue).to.be.true;
     // MK:onValue is true because it is a constraint on the value of ChoiceElement.
     expectPrimitiveIdentifier(entry.fields[0].constraints[0].isA, 'dateTime');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import42: should correctly import an entry with a value choice constraint (to non-primitive) on a choice field', () => {
@@ -624,7 +605,7 @@ describe('#importDataElement', () => {
     expect(entry.fields[0].constraints[0].path).to.be.empty;
     expect(entry.fields[0].constraints[0].onValue).to.be.true;
     expectIdentifier(entry.fields[0].constraints[0].isA, 'choiceTypeConstraintToNonPrimitiveOut', 'DateTimeString');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it.skip('Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field', () => {
@@ -642,7 +623,7 @@ describe('#importDataElement', () => {
     expectChoiceValue(choice.value, 2);
     expectChoiceOption(choice.value, 0, 'primitive', 'dateTime');
     expectChoiceOption(choice.value, 1, 'choiceTypeConstraintToReducedChoiceOut', 'DateTimeString');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import44: should correctly import an entry with a value choice inheriting from a parent with a simple value field', () => {
@@ -656,7 +637,7 @@ describe('#importDataElement', () => {
     // MK: not sure what the following two statements are asserting
     expectNoConstraints(entry.value);
     expectNoConstraints(entry.value.options);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import45: should correctly import an entry with a card constraint on the value\'s child', () => {
@@ -669,7 +650,7 @@ describe('#importDataElement', () => {
     expect(entry.value.constraints[0].path).to.eql([id('cardConstraintOnValueChildOut','Thing2')]);
     expect(entry.value.constraints[0].card.min).to.equal(1);
     expect(entry.value.constraints[0].card.max).to.equal(2);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import46: should correctly import a group with a card constraint on a field\'s child', () => {
@@ -684,7 +665,7 @@ describe('#importDataElement', () => {
     expect(el.constraints[0].path).to.eql([id('cardConstraintOnFieldChildOut', 'Thing2')]);
     expect(el.constraints[0].card.min).to.equal(1);
     expect(el.constraints[0].card.max).to.equal(2);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import47: should correctly import single concept', () => {
@@ -692,7 +673,7 @@ describe('#importDataElement', () => {
     const entry = expectAndGetEntry(specifications, 'conceptSingleOut', 'ConceptSingle');
     expect(entry.concepts).to.have.length(1);
     expectConcept(entry.concepts[0], 'http://foo.org', 'bar');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import48: should correctly import multiple concepts', () => {
@@ -701,14 +682,14 @@ describe('#importDataElement', () => {
     expect(entry.concepts).to.have.length(2);
     expectConcept(entry.concepts[0], 'http://foo.org', 'bar');
     expectConcept(entry.concepts[1], 'http://boo.org', 'baz');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import49: should correctly import TBD concept', () => {
     const specifications = importFixture('ConceptTBD');
     const entry = expectAndGetEntry(specifications, 'conceptTBDOut', 'ConceptTBD');
     expect(entry.concepts).to.have.length(0);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import50: should correctly import a simple parent-child relationship', () => {
@@ -721,7 +702,7 @@ describe('#importDataElement', () => {
     expectValue(child.value, 'basedOnOut', 'Simple');
     expectNoConstraints(child.value);
     expect(child.fields).to.have.length(0);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import51: should correctly import multiple elements in a single namespace', () => {
@@ -738,7 +719,7 @@ describe('#importDataElement', () => {
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
     expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import52: should correctly resolve URL, URN, and URN OID vocabularies', () => {
@@ -748,7 +729,7 @@ describe('#importDataElement', () => {
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
     expectConcept(simple.concepts[1], 'urn:iso:std:iso:4217', 'baz', 'Foobaz');
     expectConcept(simple.concepts[2], 'urn:oid:2.16.840.1.114222.4.11.826', 'bam', 'Foobam');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import53: should correctly resolve elements and vocabularies from other namespaces', () => {
@@ -767,7 +748,7 @@ describe('#importDataElement', () => {
     expectPrimitiveValue(two.value, 'string');
     expectNoConstraints(two.value);
     expect(specifications.dataElements.namespaces).not.to.contain('shr.test.three');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import54: should be able to apply a fixed concept to a choice value', () => {
@@ -786,7 +767,7 @@ describe('#importDataElement', () => {
     // TODO confirm this test case is correct.
     expect(choice.value.constraints[1].path).to.eql([pid('concept')]);
     expectConcept(choice.value.constraints[1].code, 'http://foo.org', 'baz');
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 
   it('Import55: should correctly import a group with a cardinality constraint on a substituted element', () => {
@@ -806,7 +787,7 @@ describe('#importDataElement', () => {
     expect(group.fields[0].constraints[1]).to.be.instanceof(CardConstraint);
     expect(group.fields[0].constraints[1].card.min).to.equal(0);
     expect(group.fields[0].constraints[1].card.max).to.equal(1);
-    if(writeCIMPL6) specifications.toCIMPL6('../cimpl6-out');
+    if(writeCIMPL6) testCIMPL6Export(specifications);
   });
 });
 
@@ -820,3 +801,29 @@ describe('#importDataElement', () => {
 */
 
 // mlt: decoupled all shared function tests. Now located in import-helper.js
+
+
+/*it('Import09: should correctly import a special entry', () => {
+    const specifications = importFixture('SpecialWordsElement');
+    const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
+    expect(parent.grammarVersion).to.eql(new Version(6, 0));
+    expectMinMax(parent.value, 0, 1);
+    expectPrimitiveValue(parent.value, 'string');
+    const child = expectAndGetEntry(specifications, 'shr.test', 'SpecialChild');
+    expect(child.basedOn).to.have.length(1);
+    expect(child.basedOn[0].namespace).to.equal('shr.test');
+    expect(child.basedOn[0].name).to.equal('SpecialParent');
+    // The _Value identifier is set as the value. Do I love this? No. But that's
+    // how it already worked -- probably to avoid having to resolve the value
+    // (and leave it to shr-expand to do that work).
+    expect(child.value.identifier.isValueKeyWord).to.be.true;
+    expectMinMax(child.value, 1, 1);
+    expect(child.fields).to.have.length(1);
+    expectField(child, 0, '', '_Entry', 1, 1);
+    expect(child.fields[0].constraints).to.have.length(1);
+    expect(child.fields[0].constraints[0]).to.be.instanceof(CardConstraint);
+    expect(child.fields[0].constraints[0].path).to.eql([id('shr.core', 'Version')]);
+    expect(child.fields[0].constraints[0].card.min).to.equal(0);
+    expect(child.fields[0].constraints[0].card.max).to.equal(0);
+  });
+  */

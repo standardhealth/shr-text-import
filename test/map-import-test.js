@@ -10,7 +10,7 @@ describe('#importMapping', () => {
   beforeEach(function() {
     err.clear();
   });
-
+/*
   it('Map1: should correctly import a simple mapping', () => {
     const specifications =  importFixture('SimpleMapping');
     expectVersions(specifications, new mdls.Version(4,1));
@@ -66,6 +66,7 @@ describe('#importMapping', () => {
       new mdls.CardinalityMappingRule('k.l.m', new mdls.Cardinality(1))
     ]);
   });
+  */
 });
 
 // Shorthand Identifier constructor for more concise code
