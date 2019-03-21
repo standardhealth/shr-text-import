@@ -1,4 +1,5 @@
 const fs = require('fs');
+var path = require('path');
 const {expect} = require('chai');
 const {importFromFilePath, importConfigFromFilePath, importCIMCOREFromFilePath, setLogger} = require('../index');
 const {DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, toCIMPL6} = require('shr-models');
@@ -147,9 +148,9 @@ function checkImportErrors(hasExpectedErrors) {
   const errors = err.errors();
   //console.log('message='+errors.map(e => e.msg).join('; '));
   if (hasExpectedErrors && errors.length === 0) {
-    expect(true, '**Negative Test Failed: No error was reported**').to.be.false;
+    expect(true, 'Negative Test Failed: No error was reported').to.be.false;
   } else if (!hasExpectedErrors && errors.length > 0) {
-    expect(false, `**Import Errors: ${errors.map(e => e.msg).join('; ')}**`).to.be.true;
+    expect(false, `Import Errors: ${errors.map(e => e.msg).join('; ')}`).to.be.true;
   } else if (hasExpectedErrors) {
     // Expectation of getting an error was met. But let's print the error messsage to make sure it is an accurate description of the error.
     const message = `    The following test passed, error message:  ${errors.map(e => e.msg).join('; ')}`;
@@ -160,11 +161,32 @@ function checkImportErrors(hasExpectedErrors) {
 function testCIMPL6Export(specifications, exportDir = '/fixtures/dataElementExports/') {
   specifications = expand(specifications);
   const expandErrors = err.errors();
-  if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}**`).to.be.true;
-  specifications.toCIMPL6(exportDir);
+  if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}`).to.be.true;
+  specifications.toCIMPL6(`${__dirname}`+exportDir);
   const exportErrors = err.errors();
-  if(exportErrors.length > 0) expect(false, `shr-CIMPL6-export: ${exportErrors.map(e => e.msg).join('; ')}**`).to.be.true;
+  if(exportErrors.length > 0) expect(false, `shr-CIMPL6-export: ${exportErrors.map(e => e.msg).join('; ')}`).to.be.true;
 }
+
+/**
+ * Remove directory recursively
+ * @param {string} dir_path
+ * @see https://stackoverflow.com/a/42505874/3027390
+ */
+function emptyThenRmdir(dir_path) {
+  if (fs.existsSync(dir_path)) {
+      fs.readdirSync(dir_path).forEach(function(entry) {
+          var entry_path = path.join(dir_path, entry);
+          if (fs.lstatSync(entry_path).isDirectory()) {
+            emptyThenRmdir(entry_path);
+          } else {
+              fs.unlinkSync(entry_path);
+          }
+      });
+      fs.rmdirSync(dir_path);
+  }
+}
+
+module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export, emptyThenRmdir };
 
 /*
 function importCimcoreNSFile(namespace, numExpectedErrors = 0) {
@@ -260,4 +282,4 @@ module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetD
 
 */
 
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export };
+

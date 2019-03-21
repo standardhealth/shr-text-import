@@ -12,9 +12,17 @@ shrexpand.setLogger(errorLogger)
 // Set the logger -- this is needed for detecting and checking errors
 setLogger(errorLogger);
 
+//------------------- Controlling the Test -------------------------
 
+// Run import tests and expand and export to CIMPL6, writing the re-constituted files to dataElementExports
+// Change first argument to false to only test the importer.
 testImport(true, "/fixtures/dataElement/");
-//testImport(false, "/fixtures/dataElementExports/")
+// PHASE 2 (comment out if not desired): This re-runs the tests by importing the files that were exported to dataElementExports (only valid if files were exported in phase 1)
+testImport(false, "/fixtures/dataElementExports/");
+// not yet tested
+// emptyThenRmdir(`${__dirname}/fixtures/dataElementExports');
+
+//------------------- The Tests -------------------------
 
 function testImport(testExport, fixtureDir) {
 describe('#importDataElement', () => {
