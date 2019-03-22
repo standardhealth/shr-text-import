@@ -31,12 +31,13 @@ testImportExport(phase3, "/fixtures/dataElementExports/", "#re-importExportedFil
 
 
 function testImportExport(phase2, importDir, describeString) {
+
 describe(describeString, () => {
   beforeEach(function() {
     err.clear();
   });
-
-  it('Import01: Check reading the header, file = ', () => {
+  
+  it('Import01: Check reading the header, file = header', () => {
     const file = 'header';
     const specifications = importFixture(file, importDir);
     ns = specifications.namespaces.find(file);
@@ -45,7 +46,7 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-  it('Import02: Check reading a simple entry, file = ', () => {
+  it('Import02: Check reading a simple entry, file = simpleEntry', () => {
     const nspace = file = 'simpleEntry';
     const specifications = importFixture(file, importDir);
     const simple = expectAndGetEntry(specifications, nspace, 'SimpleEntry');
@@ -59,8 +60,8 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-  it('Import03: should correctly import a simple element, file = ', () => {
-    const nspace = file = 'simpleElement'
+  it('Import03: should correctly import a simple element, file = simpleElement', () => {
+    const nspace = file = 'simpleElement';
     const specifications = importFixture(file, importDir);
     const simple = expectAndGetElement(specifications, nspace, 'Simple');
     expect(simple.concepts).to.have.length(1);
@@ -73,7 +74,7 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-  it('Import04: should correctly import a simple abstract element', () => {
+  it('Import04: should correctly import a simple abstract element, file = simpleAbstractElement', () => {
     const nspace = file = 'simpleAbstractElement';
     const specifications = importFixture(file, importDir);
     const simple = expectAndGetElement(specifications, nspace, 'Simple');
@@ -87,7 +88,7 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-  it('Import05: should correctly import an entry whose value is a concept', () => {
+  it('Import05: should correctly import an entry whose value is a concept, file = coded', () => {
     const nspace = file = 'coded';
     const specifications = importFixture(file, importDir);
     const coded = expectAndGetEntry(specifications, nspace, 'Coded');
@@ -98,7 +99,7 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-  it('Import06: should correctly import an entry with a code from a valueset', () => {
+  it('Import06: should correctly import an entry with a code from a valueset, file = codedFromValueSet', () => {
     const nspace = file = 'codedFromValueSet';
     const specifications = importFixture(file, importDir);
     const coded = expectAndGetEntry(specifications, nspace, 'CodedFromValueSet');
@@ -113,7 +114,7 @@ describe(describeString, () => {
   });
 
 
-  it('Import07: should correctly import an entry with a code from a valueset using a path', () => {
+  it('Import07: should correctly import an entry with a code from a valueset using a path, file = codedFromPathValueSet', () => {
     const nspace = file = 'codedFromPathValueSet';
     const specifications = importFixture(file, importDir);
     const coded = expectAndGetEntry(specifications, nspace, 'CodedFromPathValueSet');
@@ -128,7 +129,7 @@ describe(describeString, () => {
   });
 
 
-  it('Import08: should correctly import an entry whose value is an element', () => {
+  it('Import08: should correctly import an entry whose value is an element, file = valueIsElement', () => {
     const nspace = file = 'valueIsElement';
     const specifications = importFixture(file, importDir);
     const simple = expectAndGetEntry(specifications, nspace, 'ValueIsElement');
@@ -139,7 +140,7 @@ describe(describeString, () => {
   });
 
 
-  it('Import10: should correctly import a group element without a value', () => {
+  it('Import10: should correctly import a group element without a value, file = groupPropertiesOnly', () => {
     const nspace = file = 'groupPropertiesOnly';
     const specifications = importFixture(file, importDir);
     const group = expectAndGetElement(specifications, nspace, 'GroupPropertiesOnly');
@@ -154,7 +155,7 @@ describe(describeString, () => {
   });
 
   
-  it('Import11: should correctly import a group entry with both a value and properties', () => {
+  it('Import11: should correctly import a group entry with both a value and properties, file = groupValueAndProperties', () => {
     const nspace = file = 'groupValueAndProperties';
     const specifications = importFixture(file, importDir);
     const group = expectAndGetElement(specifications, nspace, 'GroupValueAndProperties');
@@ -172,9 +173,9 @@ describe(describeString, () => {
 
   // Constraints
 
-  it('Import12: should correctly import an entry with a valueset constraint on the value', () => {
-    const specifications = importFixture(file, importDir);
+  it('Import12: should correctly import an entry with a valueset constraint on the value, file = vsConstraintOnValue', () => {
     const nspace = file = 'vsConstraintOnValue';
+    const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'VSConstraintOnValue');
     expect(entry.description).to.equal('It is an entry with a valueset constraint on the value');
     expectCardOne(entry.value);
@@ -189,7 +190,7 @@ describe(describeString, () => {
   });
 
 
-  it('Import13: should correctly import an entry with a valueset constraint on the child\'s value', () => {
+  it('Import13: should correctly import an entry with a valueset constraint on the child\'s value, file = vsConstraintOnValueChild', () => {
     const nspace = file = 'vsConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'VSConstraintOnValueChild');
@@ -211,7 +212,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import14: should correctly import a group with a valueset constraint on a field', () => {
+  it('Import14: should correctly import a group with a valueset constraint on a field, file = vsConstraintOnField', () => {
     const nspace = file = 'vsConstraintOnField';
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'VSConstraintOnField');
@@ -228,7 +229,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import15: should correctly import a group with a valueset constraint on a field\'s child', () => {
+  it('Import15: should correctly import a group with a valueset constraint on a field\'s child, file = vsConstraintOnFieldChild', () => {
     const nspace = file = 'vsConstraintOnFieldChild';
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'VSConstraintOnFieldChild');
@@ -250,7 +251,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import16: should correctly import entries with valueset constraints on value with a binding strength', () => {
+  it('Import16: should correctly import entries with valueset constraints on value with a binding strength, file = vsConstraintOnValueWithBindingStrength', () => {
     const nspace = file = 'vsConstraintOnValueWithBindingStrength' ;
     const specifications = importFixture(file, importDir);
     const answerKey = {
@@ -274,7 +275,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import17: should correctly import entries with a valueset constraint on a field with a binding strength', () => {
+  it('Import17: should correctly import entries with a valueset constraint on a field with a binding strength, file = vsConstraintOnFieldWithBindingStrength', () => {
     const nspace = file = 'vsConstraintOnFieldWithBindingStrength';
     const specifications = importFixture(file, importDir);
     const answerKey = {
@@ -299,7 +300,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import18: should correctly import an entry with a valueset constraint on inherited value', () => {
+  it('Import18: should correctly import an entry with a valueset constraint on inherited value, file = vsConstraintOnValueKeyWord', () => {
     const nspace = file = 'vsConstraintOnValueKeyWord' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ChildElement');
@@ -317,7 +318,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import19: should correctly import an entry with a code constraint on the value', () => {
+  it('Import19: should correctly import an entry with a code constraint on the value, file = codeConstraintOnValue', () => {
     const nspace = file = 'codeConstraintOnValue' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'CodeConstraintOnValue');
@@ -331,7 +332,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import20: should correctly import an entry with a code constraint on the value\'s child', () => {
+  it('Import20: should correctly import an entry with a code constraint on the value\'s child, file = codeConstraintOnValueChild', () => {
     const nspace = file = 'codeConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'CodeConstraintOnValueChild');
@@ -345,7 +346,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import21: should correctly import an entry with a code constraint on the Value keyword', () => {
+  it('Import21: should correctly import an entry with a code constraint on the Value keyword, file = codeConstraintOnValueKeyWord', () => {
     const nspace = file = 'codeConstraintOnValueKeyWord' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ChildElement');
@@ -363,7 +364,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import22: should correctly import a group with a code constraint on a field', () => {
+  it('Import22: should correctly import a group with a code constraint on a field, file = codeConstraintOnField', () => {
     const nspace = file = 'codeConstraintOnField' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'CodeConstraintOnField');
@@ -382,7 +383,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import23: should correctly import a group with a code constraint on a field\'s child', () => {
+  it('Import23: should correctly import a group with a code constraint on a field\'s child, file = codeConstraintOnFieldChild', () => {
     const nspace = file = 'codeConstraintOnFieldChild' ;
     const specifications = importFixture(file, importDir);   // failing to load file
     const group = expectAndGetEntry(specifications, nspace, 'CodeConstraintOnFieldChild');
@@ -400,7 +401,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import25: should correctly import an entry with a unit constraint on the value', () => {
+  it('Import25: should correctly import an entry with a unit constraint on the value, file = unitConstraintOnValue', () => {
     const nspace = file = 'unitConstraintOnValue' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'UnitConstraintOnValue');
@@ -416,7 +417,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import26: should correctly import an entry with a unit constraint on the value\'s child', () => {
+  it('Import26: should correctly import an entry with a unit constraint on the value\'s child, file = unitConstraintOnValueChild', () => {
     const nspace = file = 'unitConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'UnitConstraintOnValueChild');
@@ -432,7 +433,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import27: should correctly import a group with a unit constraint on a field', () => {
+  it('Import27: should correctly import a group with a unit constraint on a field, file = unitConstraintOnField', () => {
     const nspace = file = 'unitConstraintOnField' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'UnitConstraintOnField');
@@ -451,7 +452,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import28: should correctly import a group with a unit constraint on a field\'s child', () => {
+  it('Import28: should correctly import a group with a unit constraint on a field\'s child, file = unitConstraintOnFieldChild', () => {
     const nspace = file = 'unitConstraintOnFieldChild' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'UnitConstraintOnFieldChild');
@@ -469,7 +470,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import29: should correctly import a group with an includes code constraint on a field', () => {
+  it('Import29: should correctly import a group with an includes code constraint on a field, file = includesCodeConstraints', () => {
     const nspace = file = 'includesCodeConstraints' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'IncludesCodeConstraintOnField');
@@ -488,7 +489,7 @@ describe(describeString, () => {
   });
 
 
-  it('Import30: should correctly import an entry with a boolean constraint on the value', () => {
+  it('Import30: should correctly import an entry with a boolean constraint on the value, file = booleanConstraintOnValue', () => {
     const nspace = file = 'booleanConstraintOnValue' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'BooleanConstraintOnValue');
@@ -503,7 +504,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax)', () => {
+  it('Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax), file = booleanConstraintOnValue2', () => {
     const nspace = file = 'booleanConstraintOnValue2' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'BooleanConstraintOnValue');
@@ -518,7 +519,7 @@ describe(describeString, () => {
   });
 
 
-  it('Import32: should correctly import an entry with a boolean constraint on the value\'s child', () => {
+  it('Import32: should correctly import an entry with a boolean constraint on the value\'s child, file = booleanConstraintOnValueChild', () => {
     const nspace = file = 'booleanConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'BooleanConstraintOnValueChild');
@@ -532,7 +533,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import33: should correctly import a group with a boolean constraint on a field\'s child', () => {
+  it('Import33: should correctly import a group with a boolean constraint on a field\'s child, file = booleanConstraintOnFieldChild', () => {
     const nspace = file = 'booleanConstraintOnFieldChild' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'BooleanConstraintOnFieldChild');
@@ -548,7 +549,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import34: should correctly import an entry based on an element and substituting the value', () => {
+  it('Import34: should correctly import an entry based on an element and substituting the value, file = typeConstraintOnValue', () => {
     const nspace = file = 'typeConstraintOnValue' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnValue');
@@ -566,7 +567,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import35: should correctly import an entry based on an element and substitute the value\'s child', () => {
+  it('Import35: should correctly import an entry based on an element and substitute the value\'s child, file = typeConstraintOnValueChild', () => {
     const nspace = file = 'typeConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnValueChild');
@@ -583,7 +584,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import36: should correctly import a group with a type constraint on a field', () => {
+  it('Import36: should correctly import a group with a type constraint on a field, file = typeConstraintOnField', () => {
     const nspace = file = 'typeConstraintOnField' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnField');
@@ -601,7 +602,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import37: should correctly import a group with a cardinality constraint and a type constraint on a field\'s child', () => {
+  it('Import37: should correctly import a group with a cardinality constraint and a type constraint on a field\'s child, file = typeConstraintOnFieldChild', () => {
     const nspace = file = 'typeConstraintOnFieldChild' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnFieldChild');
@@ -622,7 +623,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import38: should correctly import a group with a type constraint on a field\'s value', () => {
+  it('Import38: should correctly import a group with a type constraint on a field\'s value, file = typeConstraintOnFieldValue', () => {
     const nspace = file = 'typeConstraintOnFieldValue' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnFieldValue');
@@ -641,7 +642,7 @@ describe(describeString, () => {
 
   // Choices
   
-  it('Import40: should correctly import a choice entry', () => {
+  it('Import40: should correctly import a choice entry, file = choiceType', () => {
     const nspace = file = 'choiceType' ;
     const specifications = importFixture(file, importDir);
     const choice = expectAndGetElement(specifications, nspace, 'ChoiceElement');
@@ -657,7 +658,7 @@ describe(describeString, () => {
   });
 
 
-  it('Import41: should correctly import an entry with a value choice constraint (to primitive) on a choice field', () => {
+  it('Import41: should correctly import an entry with a value choice constraint (to primitive) on a choice field, file = choiceTypeConstraintToPrimitive', () => {
     const nspace = file = 'choiceTypeConstraintToPrimitive' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ThingWithChoiceField');
@@ -674,7 +675,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import42: should correctly import an entry with a value choice constraint (to non-primitive) on a choice field', () => {
+  it('Import42: should correctly import an entry with a value choice constraint (to non-primitive) on a choice field, file = choiceTypeConstraintToNonPrimitive', () => {
     const nspace = file = 'choiceTypeConstraintToNonPrimitive' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ThingWithChoiceField');
@@ -690,7 +691,7 @@ describe(describeString, () => {
   });
   
 
-  it.skip('Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field', () => {
+  it.skip('Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field, file = choiceTypeConstraintToReducedChoice', () => {
     const nspace = file = 'choiceTypeConstraintToReducedChoice' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ThingWithChoiceField');  // error here because 'or' is not being accepted in an 'only' statement
@@ -710,7 +711,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import44: should correctly import an entry with a value choice inheriting from a parent with a simple value field', () => {
+  it('Import44: should correctly import an entry with a value choice inheriting from a parent with a simple value field, file = choiceExplicitRestrictionInSubclass', () => {
     const nspace = file = 'choiceExplicitRestrictionInSubclass' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ChildWithSpecificDateTypes');
@@ -726,7 +727,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import45: should correctly import an entry with a card constraint on the value\'s child', () => {
+  it('Import45: should correctly import an entry with a card constraint on the value\'s child, file = cardConstraintOnValueChild', () => {
     const nspace = file = 'cardConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'CardConstraintOnValueChild');
@@ -741,7 +742,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import46: should correctly import a group with a card constraint on a field\'s child', () => {
+  it('Import46: should correctly import a group with a card constraint on a field\'s child, file = cardConstraintOnFieldChild', () => {
     const nspace = file = 'cardConstraintOnFieldChild';
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'CardConstraintOnFieldChild');
@@ -758,7 +759,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import47: should correctly import single concept', () => {
+  it('Import47: should correctly import single concept, file = conceptSingle', () => {
     const nspace = file = 'conceptSingle';
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ConceptSingle');
@@ -768,7 +769,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import48: should correctly import multiple concepts', () => {
+  it('Import48: should correctly import multiple concepts, file = conceptMultiple', () => {
     const nspace = file = 'conceptMultiple';
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ConceptMultiple');
@@ -779,7 +780,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import49: should correctly import TBD concept', () => {
+  it('Import49: should correctly import TBD concept, file = conceptTBD', () => {
     const nspace = file = 'conceptTBD';
     const specifications = importFixture(file, importDir);
     const entry = expectAndGetEntry(specifications, nspace, 'ConceptTBD');
@@ -788,8 +789,8 @@ describe(describeString, () => {
   });
   
 
-  it('Import50: should correctly import a simple parent-child relationship', () => {
-    const nspace = file = 'BasedOn';
+  it('Import50: should correctly import a simple parent-child relationship, file = basedOn', () => {
+    const nspace = file = 'basedOn';
     const specifications = importFixture(file, importDir);
     const child = expectAndGetEntry(specifications, nspace, 'Child');
     expect(child.basedOn).to.have.length(1);
@@ -803,7 +804,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import51: should correctly import multiple elements in a single namespace', () => {
+  it('Import51: should correctly import multiple elements in a single namespace, file = multipleElementNamespace', () => {
     const nspace = file = 'multipleElementNamespace';
     const specifications = importFixture(file, importDir);
     const simple = expectAndGetEntry(specifications, nspace, 'SimpleDate');
@@ -822,7 +823,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import52: should correctly resolve URL, URN, and URN OID vocabularies', () => {
+  it('Import52: should correctly resolve URL, URN, and URN OID vocabularies, file = vocabularies', () => {
     const nspace = file = 'vocabularies';
     const specifications = importFixture(file, importDir);
     const simple = expectAndGetEntry(specifications, nspace, 'Simple');
@@ -834,7 +835,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import53: should correctly resolve elements and vocabularies from other namespaces', () => {
+  it('Import53: should correctly resolve elements and vocabularies from other namespaces, file = uses', () => {
     const nspace = file = 'uses';
     const specifications = importFixtureFolder(file, importDir);
     const one = expectAndGetEntry(specifications, nspace, 'One');
@@ -855,7 +856,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import54: should be able to apply a fixed concept to a choice value', () => {
+  it('Import54: should be able to apply a fixed concept to a choice value, file = constraintOnChoiceValue', () => {
     const nspace = file = 'constraintOnChoiceValue';
     const specifications = importFixture(file, importDir);
     const choice = expectAndGetElement(specifications, nspace, 'ConstraintOnChoiceValue');
@@ -876,7 +877,7 @@ describe(describeString, () => {
   });
   
 
-  it('Import55: should correctly import a group with a cardinality constraint on a substituted element', () => {
+  it('Import55: should correctly import a group with a cardinality constraint on a substituted element, file = substituteOnReferenceName', () => {
     const nspace = file = 'substituteOnReferenceName' ;
     const specifications = importFixture(file, importDir);
     const group = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnField');
@@ -910,7 +911,7 @@ describe(describeString, () => {
 // mlt: decoupled all shared function tests. Now located in import-helper.js
 
 
-/*it('Import09: should correctly import a special entry', () => {
+/*it('Import09: should correctly import a special entry, file = ', () => {
     const specifications = importFixture('SpecialWordsElement');
     const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
     expect(parent.grammarVersion).to.eql(new Version(6, 0));
