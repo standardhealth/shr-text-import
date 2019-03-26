@@ -9,7 +9,7 @@ Property: Complex 0..1
           Complex.Simple substitute Simple2
 
 Element:      Complex
-Property:     Simple 0..1
+Property:     Simple 0..2
 
 Element:      Simple
 Value:        string
