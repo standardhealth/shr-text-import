@@ -1,11 +1,9 @@
-const fs = require('fs');
 const {expect} = require('chai');
 const {setLogger} = require('../index');
 const {id, pid, expectAndGetElement, expectAndGetEntry, expectValue, expectPrimitiveValue, expectChoiceValue, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, testCIMPL6Export } = require('../test/import-helper');
 const {Version, IncompleteValue, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, TBD, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
 const err = require('shr-test-helpers/errors');
 const shrexpand = require('shr-expand');
-const expand = shrexpand.expand;
 const errorLogger = err.logger();
 
 shrexpand.setLogger(errorLogger)
@@ -14,8 +12,6 @@ setLogger(errorLogger);
 
 //------------------- Controlling the Tests -------------------------
 
-// PHASE 1: Run import tests (always true)
-const phase1 = true; 
 // PHASE 2: Expand and Export: Write the re-constituted files to dataElementExports
 const phase2 = true;
 // PHASE 3 (comment out if not desired): This re-runs the tests by importing the files that were exported to dataElementExports (only valid if files were exported in phase 1)
@@ -23,10 +19,10 @@ const phase3 = true;
 
 //------------------- The Tests -------------------------
 
-testImportExport(phase2, "/fixtures/dataElement/", '#importDataElement');
-testImportExport(phase3, "/fixtures/dataElementExports/", "#re-importExportedFiles");
+testImportExport(phase2, '/fixtures/dataElement/', '#importDataElement');
+testImportExport(phase3, '/build/dataElementExports/', '#re-importExportedFiles');
 // removal of exports directory is not yet tested
-// emptyThenRmdir(`${__dirname}/fixtures/dataElementExports');
+// emptyThenRmdir(`${__dirname}/build/dataElementExports');
 
 
 
