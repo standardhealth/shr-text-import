@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  typeConstraintOnFieldOut
+Namespace:  typeConstraintOnField
 
 Element:    GroupBase
 Property:   Simple 0..1

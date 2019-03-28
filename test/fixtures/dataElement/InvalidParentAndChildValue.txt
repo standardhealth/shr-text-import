@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: invalidParentAndChildValueOut
+Namespace: invalidParentAndChildValue
 
 // In this counterexample, both parent and child declare a value with different elements.
 

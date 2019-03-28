@@ -1,5 +1,5 @@
 Grammar:     DataElement 6.0
-Namespace:   simpleEntryOut
+Namespace:   simpleEntry
 Description: "The SHR test namespace"
 
  CodeSystem:     FOO = http://foo.org

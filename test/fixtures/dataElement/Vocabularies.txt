@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  vocabulariesOut
+Namespace:  vocabularies
 
 CodeSystem:     FOOURL = http://foo.org
 CodeSystem:     FOOURN = urn:iso:std:iso:4217

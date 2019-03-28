@@ -1,3 +1,3 @@
 Grammar:     DataElement 6.0
-Namespace:   headerOut
+Namespace:   header
 Description: "The SHR test namespace"

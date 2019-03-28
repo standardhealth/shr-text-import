@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: booleanConstraintOnValueChildOut
+Namespace: booleanConstraintOnValueChild
 
 
 Entry:   BooleanConstraintOnValueChild

@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  vSConstraintOnValueChildOut
+Namespace:  vsConstraintOnValueChild
 
 Entry:   VSConstraintOnValueChild
 Description:    "It is an entry with a valueset constraint on the value's child"

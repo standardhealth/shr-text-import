@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  choiceTypeConstraintToReducedChoiceOut
+Namespace:  choiceTypeConstraintToReducedChoice
 
 Element:  ChoiceElement
 Value:    date or dateTime or DateTimeString

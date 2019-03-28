@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: basedOnOut
+Namespace: basedOn
 
 // Need counterexample where the parent class doesn't exist (mlt: created Neg25)
 // Need counterexample where both the parent and child declare a value (mlt: created Neg26)

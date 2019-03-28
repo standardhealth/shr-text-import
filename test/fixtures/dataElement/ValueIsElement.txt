@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  valueIsElementOut
+Namespace:  valueIsElement
 
 Entry:          ValueIsElement
 Description:    "Value is a reference to a simple element"

@@ -1,8 +1,9 @@
 const fs = require('fs');
 const {expect} = require('chai');
-const {importFromFilePath, importConfigFromFilePath, importCIMCOREFromFilePath, setLogger} = require('../index');
+const {importFromFilePath, importConfigFromFilePath, importCIMCOREFromFilePath} = require('../index');
 const {DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, toCIMPL6} = require('shr-models');
 const err = require('shr-test-helpers/errors');
+const {expand} = require('shr-expand');
 
 // Shorthand Identifier constructor for more concise code
 function id(namespace, name) {
@@ -115,16 +116,16 @@ function expectNoConstraints(value) {
   }
 }
 
-function importFixture(name, hasExpectedErrors = false) {
+function importFixture(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
-  const specifications = importFromFilePath(`${__dirname}/fixtures/dataElement/${name}.txt`, null, dependencies);
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, null, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
 
-function importFixtureFolder(name, hasExpectedErrors = false) {
+function importFixtureFolder(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
-  const specifications = importFromFilePath(`${__dirname}/fixtures/dataElement/${name}`, null, dependencies);
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}`, null, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
@@ -145,18 +146,46 @@ function checkImportErrors(hasExpectedErrors) {
   const errors = err.errors();
   //console.log('message='+errors.map(e => e.msg).join('; '));
   if (hasExpectedErrors && errors.length === 0) {
-    expect(true, '**Negative Test Failed: No error was reported**').to.be.false;
+    expect(true, 'Negative Test Failed: No error was reported').to.be.false;
   } else if (!hasExpectedErrors && errors.length > 0) {
-    expect(false, `**Import Errors: ${errors.map(e => e.msg).join('; ')}**`).to.be.true;
+    expect(false, `Import Errors: ${errors.map(e => e.msg).join('; ')}`).to.be.true;
   } else if (hasExpectedErrors) {
-    // Expectation of error was met. But let's print the error messsage anyway
+    // Expectation of getting an error was met. But let's print the error messsage to make sure it is an accurate description of the error.
     const message = `    The following test passed, error message:  ${errors.map(e => e.msg).join('; ')}`;
     console.log(message);
   }
 }
 
+function testCIMPL6Export(specifications, exportDir = '/build/dataElementExports/') {
+  specifications = expand(specifications);
+  const expandErrors = err.errors();
+  if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}`).to.be.true;
+  specifications.toCIMPL6(`${__dirname}`+exportDir);
+  const exportErrors = err.errors();
+  if(exportErrors.length > 0) expect(false, `shr-CIMPL6-export: ${exportErrors.map(e => e.msg).join('; ')}`).to.be.true;
+}
 
-/*
+/**
+ * Remove directory recursively
+ * @param {string} dir_path
+ * @see https://stackoverflow.com/a/42505874/3027390
+ */
+/* NOT YET TESTED
+function emptyThenRmdir(dir_path) {
+  if (fs.existsSync(dir_path)) {
+      fs.readdirSync(dir_path).forEach(function(entry) {
+          var entry_path = path.join(dir_path, entry);
+          if (fs.lstatSync(entry_path).isDirectory()) {
+            emptyThenRmdir(entry_path);
+          } else {
+              fs.unlinkSync(entry_path);
+          }
+      });
+      fs.rmdirSync(dir_path);
+  }
+}
+*/
+
 function importCimcoreNSFile(namespace, numExpectedErrors = 0) {
   namespace = namespace.replace(/\./g,'-');
   const configuration = fs.readFileSync(`${__dirname}/fixtures/cimcore/${namespace}/${namespace}.json`, 'utf8');
@@ -246,8 +275,4 @@ function convertSpecsToCimcore(configSpecifications, expSpecifications) {
   return cimcoreSpecifications;
 }
 
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, checkImportErrors, convertSpecsToCimcore };
-
-*/
-
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6 };
+module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export, /*emptyThenRmdir,*/ importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, convertSpecsToCimcore };

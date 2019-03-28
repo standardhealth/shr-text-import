@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: StringConstraintOnFieldChild2Out
+Namespace: StringConstraintOnFieldChild2
 
 Entry:  ConstraintOnString
 Description: "Simple example with a fixed string without the element reference."

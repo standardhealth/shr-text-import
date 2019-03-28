@@ -26,10 +26,12 @@
     "eslint": "^3.6.1",
     "mocha": "^3.5.3",
     "shr-models": "^5.6.0",
-    "shr-test-helpers": "^5.2.2"
+    "shr-test-helpers": "^5.2.2",
+    "shr-expand": "^5.7.0"
   },
   "peerDependencies": {
     "bunyan": "^1.8.9",
-    "shr-models": "^5.6.0"
+    "shr-models": "^5.6.0",
+    "shr-expand": "^5.7.0"
   }
 }

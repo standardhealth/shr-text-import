@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  substituteOnReferenceNameOut
+Namespace:  substituteOnReferenceName
 
 Element:    GroupBase
 Property:   Simple 0..*

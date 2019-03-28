@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: booleanConstraintOnValue2Out
+Namespace: booleanConstraintOnValue2
 
 Entry:   BooleanConstraintOnValue
 Description:    "It is an entry with a boolean constraint on the value"

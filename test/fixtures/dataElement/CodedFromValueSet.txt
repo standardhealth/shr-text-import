@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  codedFromValueSetOut
+Namespace:  codedFromValueSet
 
 Entry:          CodedFromValueSet
 Description:    "It is a coded entry"

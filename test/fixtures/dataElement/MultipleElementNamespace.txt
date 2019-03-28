@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: multipleElementNamespaceOut
+Namespace: multipleElementNamespace
 
 Entry:          SimpleDate
 Description:    "It is a simple date entry"
