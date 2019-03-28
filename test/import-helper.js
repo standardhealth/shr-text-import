@@ -1,11 +1,9 @@
 const fs = require('fs');
-var path = require('path');
 const {expect} = require('chai');
-const {importFromFilePath, importConfigFromFilePath, importCIMCOREFromFilePath, setLogger} = require('../index');
+const {importFromFilePath, importConfigFromFilePath, importCIMCOREFromFilePath} = require('../index');
 const {DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, toCIMPL6} = require('shr-models');
 const err = require('shr-test-helpers/errors');
-const shrexpand = require('shr-expand');
-const expand = shrexpand.expand;
+const {expand} = require('shr-expand');
 
 // Shorthand Identifier constructor for more concise code
 function id(namespace, name) {
@@ -118,14 +116,14 @@ function expectNoConstraints(value) {
   }
 }
 
-function importFixture(name, dir = "/fixtures/dataElement/", hasExpectedErrors = false) {
+function importFixture(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
-  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, null, dependencies);  
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, null, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
 
-function importFixtureFolder(name, dir = "/fixtures/dataElement/", hasExpectedErrors = false) {
+function importFixtureFolder(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
   const specifications = importFromFilePath(`${__dirname}`+dir+`${name}`, null, dependencies);
   checkImportErrors(hasExpectedErrors);
@@ -158,7 +156,7 @@ function checkImportErrors(hasExpectedErrors) {
   }
 }
 
-function testCIMPL6Export(specifications, exportDir = '/fixtures/dataElementExports/') {
+function testCIMPL6Export(specifications, exportDir = '/build/dataElementExports/') {
   specifications = expand(specifications);
   const expandErrors = err.errors();
   if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}`).to.be.true;
@@ -172,6 +170,7 @@ function testCIMPL6Export(specifications, exportDir = '/fixtures/dataElementExpo
  * @param {string} dir_path
  * @see https://stackoverflow.com/a/42505874/3027390
  */
+/* NOT YET TESTED
 function emptyThenRmdir(dir_path) {
   if (fs.existsSync(dir_path)) {
       fs.readdirSync(dir_path).forEach(function(entry) {
@@ -185,10 +184,8 @@ function emptyThenRmdir(dir_path) {
       fs.rmdirSync(dir_path);
   }
 }
+*/
 
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export, emptyThenRmdir };
-
-/*
 function importCimcoreNSFile(namespace, numExpectedErrors = 0) {
   namespace = namespace.replace(/\./g,'-');
   const configuration = fs.readFileSync(`${__dirname}/fixtures/cimcore/${namespace}/${namespace}.json`, 'utf8');
@@ -278,8 +275,4 @@ function convertSpecsToCimcore(configSpecifications, expSpecifications) {
   return cimcoreSpecifications;
 }
 
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, checkImportErrors, convertSpecsToCimcore };
-
-*/
-
-
+module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export, /*emptyThenRmdir,*/ importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, convertSpecsToCimcore };
