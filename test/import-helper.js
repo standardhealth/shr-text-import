@@ -120,7 +120,7 @@ function expectNoConstraints(value) {
 
 function importFixture(name, dir = "/fixtures/dataElement/", hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
-  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, null, dependencies);  
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, null, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
@@ -162,6 +162,7 @@ function testCIMPL6Export(specifications, exportDir = '/fixtures/dataElementExpo
   specifications = expand(specifications);
   const expandErrors = err.errors();
   if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}`).to.be.true;
+  console.log(expandErrors);
   specifications.toCIMPL6(`${__dirname}`+exportDir);
   const exportErrors = err.errors();
   if(exportErrors.length > 0) expect(false, `shr-CIMPL6-export: ${exportErrors.map(e => e.msg).join('; ')}`).to.be.true;
@@ -281,5 +282,3 @@ function convertSpecsToCimcore(configSpecifications, expSpecifications) {
 module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, checkImportErrors, convertSpecsToCimcore };
 
 */
-
-
