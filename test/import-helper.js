@@ -160,7 +160,6 @@ function testCIMPL6Export(specifications, exportDir = '/build/dataElementExports
   specifications = expand(specifications);
   const expandErrors = err.errors();
   if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}`).to.be.true;
-  console.log(expandErrors);
   specifications.toCIMPL6(`${__dirname}`+exportDir);
   const exportErrors = err.errors();
   if(exportErrors.length > 0) expect(false, `shr-CIMPL6-export: ${exportErrors.map(e => e.msg).join('; ')}`).to.be.true;

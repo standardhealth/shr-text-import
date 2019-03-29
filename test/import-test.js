@@ -32,7 +32,7 @@ describe(describeString, () => {
   beforeEach(function() {
     err.clear();
   });
-  
+
   it('Import01: Check reading the header, file = header', () => {
     const file = 'header';
     const specifications = importFixture(file, importDir);
@@ -150,7 +150,7 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-  
+
   it('Import11: should correctly import a group entry with both a value and properties, file = groupValueAndProperties', () => {
     const nspace = file = 'groupValueAndProperties';
     const specifications = importFixture(file, importDir);
@@ -206,7 +206,7 @@ describe(describeString, () => {
     expect(entry.value.constraints[1].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import14: should correctly import a group with a valueset constraint on a field, file = vsConstraintOnField', () => {
     const nspace = file = 'vsConstraintOnField';
@@ -223,7 +223,7 @@ describe(describeString, () => {
     expect(cmplx.constraints[0].bindingStrength).to.equal(EXAMPLE);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import15: should correctly import a group with a valueset constraint on a field\'s child, file = vsConstraintOnFieldChild', () => {
     const nspace = file = 'vsConstraintOnFieldChild';
@@ -245,7 +245,7 @@ describe(describeString, () => {
     expect(cmplx.constraints[1].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import16: should correctly import entries with valueset constraints on value with a binding strength, file = vsConstraintOnValueWithBindingStrength', () => {
     const nspace = file = 'vsConstraintOnValueWithBindingStrength' ;
@@ -269,7 +269,7 @@ describe(describeString, () => {
     }
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import17: should correctly import entries with a valueset constraint on a field with a binding strength, file = vsConstraintOnFieldWithBindingStrength', () => {
     const nspace = file = 'vsConstraintOnFieldWithBindingStrength';
@@ -294,7 +294,7 @@ describe(describeString, () => {
     }
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import18: should correctly import an entry with a valueset constraint on inherited value, file = vsConstraintOnValueKeyWord', () => {
     const nspace = file = 'vsConstraintOnValueKeyWord' ;
@@ -312,7 +312,7 @@ describe(describeString, () => {
     expect(entry.value.constraints[0].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import19: should correctly import an entry with a code constraint on the value, file = codeConstraintOnValue', () => {
     const nspace = file = 'codeConstraintOnValue' ;
@@ -326,7 +326,7 @@ describe(describeString, () => {
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import20: should correctly import an entry with a code constraint on the value\'s child, file = codeConstraintOnValueChild', () => {
     const nspace = file = 'codeConstraintOnValueChild' ;
@@ -340,7 +340,7 @@ describe(describeString, () => {
     expectConcept(entry.value.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import21: should correctly import an entry with a code constraint on the Value keyword, file = codeConstraintOnValueKeyWord', () => {
     const nspace = file = 'codeConstraintOnValueKeyWord' ;
@@ -358,7 +358,7 @@ describe(describeString, () => {
     expect(entry.fields).to.be.empty;
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import22: should correctly import a group with a code constraint on a field, file = codeConstraintOnField', () => {
     const nspace = file = 'codeConstraintOnField' ;
@@ -377,7 +377,7 @@ describe(describeString, () => {
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import23: should correctly import a group with a code constraint on a field\'s child, file = codeConstraintOnFieldChild', () => {
     const nspace = file = 'codeConstraintOnFieldChild' ;
@@ -395,7 +395,7 @@ describe(describeString, () => {
     expectConcept(el.constraints[0].code, 'http://foo.org', 'bar', 'FooBar');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import25: should correctly import an entry with a unit constraint on the value, file = unitConstraintOnValue', () => {
     const nspace = file = 'unitConstraintOnValue' ;
@@ -411,7 +411,7 @@ describe(describeString, () => {
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import26: should correctly import an entry with a unit constraint on the value\'s child, file = unitConstraintOnValueChild', () => {
     const nspace = file = 'unitConstraintOnValueChild' ;
@@ -427,7 +427,7 @@ describe(describeString, () => {
    expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
    if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import27: should correctly import a group with a unit constraint on a field, file = unitConstraintOnField', () => {
     const nspace = file = 'unitConstraintOnField' ;
@@ -446,7 +446,7 @@ describe(describeString, () => {
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import28: should correctly import a group with a unit constraint on a field\'s child, file = unitConstraintOnFieldChild', () => {
     const nspace = file = 'unitConstraintOnFieldChild' ;
@@ -464,7 +464,7 @@ describe(describeString, () => {
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import29: should correctly import a group with an includes code constraint on a field, file = includesCodeConstraints', () => {
     const nspace = file = 'includesCodeConstraints' ;
@@ -498,7 +498,7 @@ describe(describeString, () => {
     expect(entry.value.constraints[0].value).to.be.true;
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax), file = booleanConstraintOnValue2', () => {
     const nspace = file = 'booleanConstraintOnValue2' ;
@@ -527,7 +527,7 @@ describe(describeString, () => {
     expect(entry.value.constraints[0].value).to.be.false;
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import33: should correctly import a group with a boolean constraint on a field\'s child, file = booleanConstraintOnFieldChild', () => {
     const nspace = file = 'booleanConstraintOnFieldChild' ;
@@ -543,7 +543,7 @@ describe(describeString, () => {
     expect(el.constraints[0].value).to.be.true;
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import34: should correctly import an entry based on an element and substituting the value, file = typeConstraintOnValue', () => {
     const nspace = file = 'typeConstraintOnValue' ;
@@ -561,7 +561,7 @@ describe(describeString, () => {
     expectIdentifier(entry.value.constraints[0].isA, nspace, 'Simple2');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import35: should correctly import an entry based on an element and substitute the value\'s child, file = typeConstraintOnValueChild', () => {
     const nspace = file = 'typeConstraintOnValueChild' ;
@@ -578,7 +578,7 @@ describe(describeString, () => {
     expectIdentifier(entry.value.constraints[0].isA, nspace, 'Simple2');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import36: should correctly import a group with a type constraint on a field, file = typeConstraintOnField', () => {
     const nspace = file = 'typeConstraintOnField' ;
@@ -596,7 +596,7 @@ describe(describeString, () => {
     expectIdentifier(group.fields[0].constraints[0].isA, nspace, 'Simple2');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import37: should correctly import a group with a cardinality constraint and a type constraint on a field\'s child, file = typeConstraintOnFieldChild', () => {
     const nspace = file = 'typeConstraintOnFieldChild' ;
@@ -617,7 +617,7 @@ describe(describeString, () => {
     expectIdentifier(cmplx.constraints[1].isA, nspace, 'Simple2');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import38: should correctly import a group with a type constraint on a field\'s value, file = typeConstraintOnFieldValue', () => {
     const nspace = file = 'typeConstraintOnFieldValue' ;
@@ -637,7 +637,7 @@ describe(describeString, () => {
   });
 
   // Choices
-  
+
   it('Import40: should correctly import a choice entry, file = choiceType', () => {
     const nspace = file = 'choiceType' ;
     const specifications = importFixture(file, importDir);
@@ -669,7 +669,7 @@ describe(describeString, () => {
     expectPrimitiveIdentifier(entry.fields[0].constraints[0].isA, 'dateTime');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import42: should correctly import an entry with a value choice constraint (to non-primitive) on a choice field, file = choiceTypeConstraintToNonPrimitive', () => {
     const nspace = file = 'choiceTypeConstraintToNonPrimitive' ;
@@ -685,7 +685,7 @@ describe(describeString, () => {
     expectIdentifier(entry.fields[0].constraints[0].isA, nspace, 'DateTimeString');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it.skip('Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field, file = choiceTypeConstraintToReducedChoice', () => {
     const nspace = file = 'choiceTypeConstraintToReducedChoice' ;
@@ -705,7 +705,7 @@ describe(describeString, () => {
     expectChoiceOption(choice.value, 1, nspace, 'DateTimeString');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import44: should correctly import an entry with a value choice inheriting from a parent with a simple value field, file = choiceExplicitRestrictionInSubclass', () => {
     const nspace = file = 'choiceExplicitRestrictionInSubclass' ;
@@ -721,7 +721,7 @@ describe(describeString, () => {
     expectNoConstraints(entry.value.options);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import45: should correctly import an entry with a card constraint on the value\'s child, file = cardConstraintOnValueChild', () => {
     const nspace = file = 'cardConstraintOnValueChild' ;
@@ -736,7 +736,7 @@ describe(describeString, () => {
     expect(entry.value.constraints[0].card.max).to.equal(2);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import46: should correctly import a group with a card constraint on a field\'s child, file = cardConstraintOnFieldChild', () => {
     const nspace = file = 'cardConstraintOnFieldChild';
@@ -753,7 +753,7 @@ describe(describeString, () => {
     expect(el.constraints[0].card.max).to.equal(2);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import47: should correctly import single concept, file = conceptSingle', () => {
     const nspace = file = 'conceptSingle';
@@ -763,7 +763,7 @@ describe(describeString, () => {
     expectConcept(entry.concepts[0], 'http://foo.org', 'bar');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import48: should correctly import multiple concepts, file = conceptMultiple', () => {
     const nspace = file = 'conceptMultiple';
@@ -774,7 +774,7 @@ describe(describeString, () => {
     expectConcept(entry.concepts[1], 'http://boo.org', 'baz');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import49: should correctly import TBD concept, file = conceptTBD', () => {
     const nspace = file = 'conceptTBD';
@@ -783,7 +783,7 @@ describe(describeString, () => {
     expect(entry.concepts).to.have.length(0);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import50: should correctly import a simple parent-child relationship, file = basedOn', () => {
     const nspace = file = 'basedOn';
@@ -798,7 +798,7 @@ describe(describeString, () => {
     expect(child.fields).to.have.length(0);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import51: should correctly import multiple elements in a single namespace, file = multipleElementNamespace', () => {
     const nspace = file = 'multipleElementNamespace';
@@ -817,7 +817,7 @@ describe(describeString, () => {
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import52: should correctly resolve URL, URN, and URN OID vocabularies, file = vocabularies', () => {
     const nspace = file = 'vocabularies';
@@ -829,7 +829,7 @@ describe(describeString, () => {
     expectConcept(simple.concepts[2], 'urn:oid:2.16.840.1.114222.4.11.826', 'bam', 'Foobam');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import53: should correctly resolve elements and vocabularies from other namespaces, file = uses', () => {
     const nspace = file = 'uses';
@@ -850,7 +850,7 @@ describe(describeString, () => {
     expect(specifications.dataElements.namespaces).not.to.contain('shr.test.three');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import54: should be able to apply a fixed concept to a choice value, file = constraintOnChoiceValue', () => {
     const nspace = file = 'constraintOnChoiceValue';
@@ -871,7 +871,7 @@ describe(describeString, () => {
     expectConcept(choice.value.constraints[1].code, 'http://foo.org', 'baz');
     if(phase2) testCIMPL6Export(specifications);
   });
-  
+
 
   it('Import55: should correctly import a group with a cardinality constraint on a substituted element, file = substituteOnReferenceName', () => {
     const nspace = file = 'substituteOnReferenceName' ;
@@ -883,7 +883,7 @@ describe(describeString, () => {
     expect(group.fields).to.have.length(1);
     //console.log(group.fields);
     expectField(group, 0, nspace, 'Simple');
-    expect(group.fields[0].constraints).to.have.length(2);  
+    expect(group.fields[0].constraints).to.have.length(2);
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
     expect(group.fields[0].constraints[0].path).to.be.empty;
     expect(group.fields[0].constraints[0].onValue).to.be.false;
