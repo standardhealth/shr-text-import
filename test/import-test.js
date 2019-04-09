@@ -218,7 +218,7 @@ describe(describeString, () => {
     expectNoConstraints(group.fields[0]);
     expectField(group, 1, nspace, 'CodedFromValueSet', 0, 1);
     const cmplx = group.fields[1];
-    expect(cmplx.constraints).to.have.length(1);   // failing here
+    expect(cmplx.constraints).to.have.length(1);
     expect(cmplx.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
     expect(cmplx.constraints[0].bindingStrength).to.equal(EXAMPLE);
     if(phase2) testCIMPL6Export(specifications);
