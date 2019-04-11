@@ -13,14 +13,14 @@ setLogger(errorLogger);
 //------------------- Controlling the Tests -------------------------
 
 // PHASE 2: Expand and Export: Write the re-constituted files to dataElementExports
-const phase2 = true;
+const phase2 = false;
 // PHASE 3 (comment out if not desired): This re-runs the tests by importing the files that were exported to dataElementExports (only valid if files were exported in phase 1)
-const phase3 = true;
+//const phase3 = false;
 
 //------------------- The Tests -------------------------
 
 testImportExport(phase2, '/fixtures/dataElement/', '#importDataElement');
-testImportExport(phase3, '/build/dataElementExports/', '#re-importExportedFiles');
+//testImportExport(phase3, '/build/dataElementExports/', '#re-importExportedFiles');
 // removal of exports directory is not yet tested
 // emptyThenRmdir(`${__dirname}/build/dataElementExports');
 
