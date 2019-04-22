@@ -8,7 +8,7 @@ Property: Complex 0..1
           Complex.Simple 1..2
           Complex.Simple substitute Simple2
 
-Group:        Complex  // changed Entry to Group
+Entry:        Complex
 Property:     Simple 0..2
 
 Element:      Simple
