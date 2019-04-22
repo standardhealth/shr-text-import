@@ -1,7 +1,7 @@
 Grammar:   DataElement 6.0
 Namespace: groupPropertiesOnly
 
-Group:        GroupPropertiesOnly
+Entry:        GroupPropertiesOnly  // Change to Group
 Property:     Simple 0..1
 Property:     Coded 0..*
 Property:     Simple2 1..*

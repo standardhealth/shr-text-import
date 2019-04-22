@@ -16,7 +16,7 @@ Element:      Simple2
 Parent:       Simple
 Value:        string
 
-Group:        HasSimpleValue
+Element:      HasSimpleValue
 Value:        Simple
 
 

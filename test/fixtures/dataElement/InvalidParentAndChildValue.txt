@@ -7,11 +7,11 @@ Element:      Child
 Parent:       Base
 Value:        Simple
 
-Entry:        Base
+Element:      Base
 Value:        Simple2
 
-Element:       Simple
-Value:         string
+Element:      Simple
+Value:        string
 
-Element:       Simple2
-Value:         string
+Element:      Simple2
+Value:        string

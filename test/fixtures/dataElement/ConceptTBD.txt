@@ -5,7 +5,7 @@ CodeSystem:     FOO = http://foo.org
 
 Entry:          ConceptTBD
 Concept:        TBD
-Property:       Simple
+Property:       Simple 1..2
 
 Element:        Simple
 Value:          string

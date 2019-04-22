@@ -2,8 +2,8 @@ Grammar:   DataElement 6.0
 Namespace: groupValueAndProperties
 
 // This is not valid 6.0
-Group:        GroupValueAndProperties
-//Value:        concept
+Entry:        GroupValueAndProperties  // Change to Group
+Value:        concept
 Property:     Simple 0..1
 Property:     Coded 0..*
 Property:     Simple2 1..*

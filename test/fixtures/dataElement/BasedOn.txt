@@ -7,7 +7,7 @@ Namespace: basedOn
 
 Entry:        Child
 Parent:       Base
-Property:     Simple
+Property:     Simple 0..1
 
 Entry:        Base
 Property:     Coded 0..*

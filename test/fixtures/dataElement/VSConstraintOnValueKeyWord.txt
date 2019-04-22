@@ -6,7 +6,6 @@ Value:    CodedElement
 
 Element:    ChildElement
 Parent:   BaseElement
-// not using _Value in 6.0 !
 Value[CodedElement] from http://standardhealthrecord.org/test/vs/Coded (required)
 
 Element:   CodedElement

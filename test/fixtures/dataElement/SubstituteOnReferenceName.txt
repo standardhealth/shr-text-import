@@ -1,11 +1,11 @@
 Grammar:    DataElement 6.0
 Namespace:  substituteOnReferenceName
 
-Group:    GroupBase
+Entry:      GroupBase   // change to Group
 Property:   Simple 0..*
 Property:   CodedFromValueSet 0..1
 
-Group:      TypeConstraintOnField
+Entry:      TypeConstraintOnField   // change to Group
 Parent:     GroupBase
             Simple substitute Simple2
             Simple2 0..1

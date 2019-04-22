@@ -3,10 +3,10 @@ Namespace:   codeConstraintOnValueKeyWord
 
 CodeSystem:     FOO = http://foo.org
 
-Entry:     BaseElement
-Property:  CodedElement
+Element:     BaseElement
+Value:  CodedElement
 
-Entry:   ChildElement
+Element:   ChildElement
 Parent:   BaseElement
 CodedElement = FOO#bar "FooBar"
 
