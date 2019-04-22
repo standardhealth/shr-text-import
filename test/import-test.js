@@ -25,7 +25,6 @@ testImportExport(phase2, '/fixtures/dataElement/', '#importDataElement');
 // emptyThenRmdir(`${__dirname}/build/dataElementExports');
 
 
-
 function testImportExport(phase2, importDir, describeString) {
 
 describe(describeString, () => {
@@ -51,8 +50,8 @@ describe(describeString, () => {
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
     expect(simple.description).to.equal('It is a simple entry');
     expect(simple.isAbstract).to.be.false;
-    expectPrimitiveValue(simple.value, 'string');
-    expectNoConstraints(simple.value);
+    expect(simple.fields).to.have.length(1);
+    expectField(simple, 0, nspace, 'Bar', 0, 1);
     if(phase2) testCIMPL6Export(specifications);
   });
 
@@ -77,18 +76,16 @@ describe(describeString, () => {
     expect(simple.isAbstract).to.be.true;
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
-    expect(simple.description).to.equal('It is a simple element');
-    expectCardOne(simple.value);
-    expectPrimitiveValue(simple.value, 'string');
-    expectNoConstraints(simple.value);
+    expect(simple.description).to.equal('It is an abstract entry');
+    expect(simple.fields).to.have.length(1);
+    expectField(simple, 0, nspace, 'Bar', 0);
     if(phase2) testCIMPL6Export(specifications);
   });
 
-  it('Import05: should correctly import an entry whose value is a concept, file = coded', () => {
+  it('Import05: should correctly import an element whose value is a concept, file = coded', () => {
     const nspace = file = 'coded';
     const specifications = importFixture(file, importDir);
-    const coded = expectAndGetEntry(specifications, nspace, 'Coded');
-    expect(coded.description).to.equal('It is a concept entry');
+    const coded = expectAndGetElement(specifications, nspace, 'Coded');
     expectCardOne(coded.value);
     expectPrimitiveValue(coded.value, 'concept');
     expectNoConstraints(coded.value);
@@ -98,8 +95,7 @@ describe(describeString, () => {
   it('Import06: should correctly import an entry with a code from a valueset, file = codedFromValueSet', () => {
     const nspace = file = 'codedFromValueSet';
     const specifications = importFixture(file, importDir);
-    const coded = expectAndGetEntry(specifications, nspace, 'CodedFromValueSet');
-    expect(coded.description).to.equal('It is a coded entry');
+    const coded = expectAndGetElement(specifications, nspace, 'CodedFromValueSet');
     expectCardOne(coded.value);
     expectPrimitiveValue(coded.value, 'concept');
     expect(coded.value.constraints).to.have.length(1);
@@ -108,13 +104,11 @@ describe(describeString, () => {
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
-
 
   it('Import07: should correctly import an entry with a code from a valueset using a path, file = codedFromPathValueSet', () => {
     const nspace = file = 'codedFromPathValueSet';
     const specifications = importFixture(file, importDir);
-    const coded = expectAndGetEntry(specifications, nspace, 'CodedFromPathValueSet');
-    expect(coded.description).to.equal('It is a coded entry that uses a valueset with a path');
+    const coded = expectAndGetElement(specifications, nspace, 'CodedFromPathValueSet');
     expectCardOne(coded.value);
     expectPrimitiveValue(coded.value, 'concept');
     expect(coded.value.constraints).to.have.length(1);
@@ -124,22 +118,20 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-
   it('Import08: should correctly import an entry whose value is an element, file = valueIsElement', () => {
     const nspace = file = 'valueIsElement';
     const specifications = importFixture(file, importDir);
-    const simple = expectAndGetEntry(specifications, nspace, 'ValueIsElement');
-    expect(simple.description).to.equal('Value is a reference to a simple element');
+    const simple = expectAndGetElement(specifications, nspace, 'ValueIsElement');
     expectCardOne(simple.value);
     expectNoConstraints(simple.value);
     if(phase2) testCIMPL6Export(specifications);
   });
 
 
-  it('Import10: should correctly import a group element without a value, file = groupPropertiesOnly', () => {
+  it('Import10: should correctly import an entry with multiple properties, file = groupPropertiesOnly', () => {
     const nspace = file = 'groupPropertiesOnly';
     const specifications = importFixture(file, importDir);
-    const group = expectAndGetElement(specifications, nspace, 'GroupPropertiesOnly');
+    const group = expectAndGetEntry(specifications, nspace, 'GroupPropertiesOnly');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(4);
     expectField(group, 0, nspace, 'Simple', 0, 1);
@@ -151,10 +143,10 @@ describe(describeString, () => {
   });
 
 
-  it('Import11: should correctly import a group entry with both a value and properties, file = groupValueAndProperties', () => {
+  it('Import11: For backwards compatibility ONLY, it should correctly import a group with both a value and properties, file = groupValueAndProperties', () => {
     const nspace = file = 'groupValueAndProperties';
     const specifications = importFixture(file, importDir);
-    const group = expectAndGetElement(specifications, nspace, 'GroupValueAndProperties');
+    const group = expectAndGetEntry(specifications, nspace, 'GroupValueAndProperties');
     expectCardOne(group.value);
     expectPrimitiveValue(group.value, 'concept');
     expectNoConstraints(group.value);
@@ -172,7 +164,7 @@ describe(describeString, () => {
   it('Import12: should correctly import an entry with a valueset constraint on the value, file = vsConstraintOnValue', () => {
     const nspace = file = 'vsConstraintOnValue';
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'VSConstraintOnValue');
+    const entry = expectAndGetElement(specifications, nspace, 'VSConstraintOnValue');
     expect(entry.description).to.equal('It is an entry with a valueset constraint on the value');
     expectCardOne(entry.value);
     expectValue(entry.value, nspace, 'CodedFromValueSet');
@@ -189,7 +181,7 @@ describe(describeString, () => {
   it('Import13: should correctly import an entry with a valueset constraint on the child\'s value, file = vsConstraintOnValueChild', () => {
     const nspace = file = 'vsConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'VSConstraintOnValueChild');
+    const entry = expectAndGetElement(specifications, nspace, 'VSConstraintOnValueChild');
     expectCardOne(entry.value);
     expect(entry.fields).to.be.empty;
     expectValue(entry.value, nspace, 'Complex');
@@ -199,7 +191,6 @@ describe(describeString, () => {
     expect(entry.value.constraints[0].card.min).to.equal(1);
     expect(entry.value.constraints[0].card.max).to.equal(2);
     expect(entry.value.constraints[0].path).to.eql([id(nspace, 'CodedFromValueSet')]);
-    // constraint[1]: Complex.CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded (required)
     expect(entry.value.constraints[1]).to.be.instanceof(ValueSetConstraint);
     expect(entry.value.constraints[1].path).to.eql([id(nspace, 'CodedFromValueSet')]);
     expect(entry.value.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
@@ -246,7 +237,6 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-
   it('Import16: should correctly import entries with valueset constraints on value with a binding strength, file = vsConstraintOnValueWithBindingStrength', () => {
     const nspace = file = 'vsConstraintOnValueWithBindingStrength' ;
     const specifications = importFixture(file, importDir);
@@ -257,7 +247,7 @@ describe(describeString, () => {
       'ExampleVSConstraintOnValue': EXAMPLE
     };
     for (const testCase of Object.keys(answerKey)) {
-      const entry = expectAndGetEntry(specifications, nspace, testCase);
+      const entry = expectAndGetElement(specifications, nspace, testCase);
       expectCardOne(entry.value);
       expectPrimitiveValue(entry.value, 'concept');
       expect(entry.value.constraints).to.have.length(1);
@@ -299,7 +289,7 @@ describe(describeString, () => {
   it('Import18: should correctly import an entry with a valueset constraint on inherited value, file = vsConstraintOnValueKeyWord', () => {
     const nspace = file = 'vsConstraintOnValueKeyWord' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'ChildElement');
+    const entry = expectAndGetElement(specifications, nspace, 'ChildElement');
     expect(entry.fields).to.be.empty;
   //  console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(entry.value).to.be.instanceof(IncompleteValue);
@@ -317,7 +307,7 @@ describe(describeString, () => {
   it('Import19: should correctly import an entry with a code constraint on the value, file = codeConstraintOnValue', () => {
     const nspace = file = 'codeConstraintOnValue' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'CodeConstraintOnValue');
+    const entry = expectAndGetElement(specifications, nspace, 'CodeConstraintOnValue');
     expectCardOne(entry.value);
     expectPrimitiveValue(entry.value, 'concept');
     expect(entry.value.constraints).to.have.length(1);
@@ -331,7 +321,7 @@ describe(describeString, () => {
   it('Import20: should correctly import an entry with a code constraint on the value\'s child, file = codeConstraintOnValueChild', () => {
     const nspace = file = 'codeConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'CodeConstraintOnValueChild');
+    const entry = expectAndGetElement(specifications, nspace, 'CodeConstraintOnValueChild');
     expectCardOne(entry.value);
     expectValue(entry.value, nspace, 'CodedFromValueSet');
     expect(entry.value.constraints).to.have.length(1);
@@ -341,11 +331,10 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-
-  it('Import21: should correctly import an entry with a code constraint on the Value keyword, file = codeConstraintOnValueKeyWord', () => {
+  it('Import21: should correctly import an element with a code constraint on the Value keyword, file = codeConstraintOnValueKeyWord', () => {
     const nspace = file = 'codeConstraintOnValueKeyWord' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'ChildElement');
+    const entry = expectAndGetElement(specifications, nspace, 'ChildElement');
     expect(entry.description).to.be.undefined;
     expectCardOne(entry.value);
     expect(entry.value).to.be.instanceof(IncompleteValue);
@@ -400,7 +389,7 @@ describe(describeString, () => {
   it('Import25: should correctly import an entry with a unit constraint on the value, file = unitConstraintOnValue', () => {
     const nspace = file = 'unitConstraintOnValue' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'UnitConstraintOnValue');
+    const entry = expectAndGetElement(specifications, nspace, 'UnitConstraintOnValue');
     expectCardOne(entry.value);
     expectValue(entry.value, 'shr.core', 'Quantity');
     expect(entry.value.constraints).to.have.length(1); // fails here
@@ -416,7 +405,7 @@ describe(describeString, () => {
   it('Import26: should correctly import an entry with a unit constraint on the value\'s child, file = unitConstraintOnValueChild', () => {
     const nspace = file = 'unitConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'UnitConstraintOnValueChild');
+    const entry = expectAndGetElement(specifications, nspace, 'UnitConstraintOnValueChild');
     expectCardOne(entry.value);
     expectValue(entry.value, nspace, 'Volume');
     expect(entry.value.constraints).to.have.length(1);  // fails here
@@ -488,7 +477,7 @@ describe(describeString, () => {
   it('Import30: should correctly import an entry with a boolean constraint on the value, file = booleanConstraintOnValue', () => {
     const nspace = file = 'booleanConstraintOnValue' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'BooleanConstraintOnValue');
+    const entry = expectAndGetElement(specifications, nspace, 'BooleanConstraintOnValue');
     expectCardOne(entry.value);
     expectPrimitiveValue(entry.value, 'boolean');
     expect(entry.value.constraints).to.have.length(1);
@@ -503,7 +492,7 @@ describe(describeString, () => {
   it('Import31: should correctly import an entry with a boolean constraint on the value (alternate syntax), file = booleanConstraintOnValue2', () => {
     const nspace = file = 'booleanConstraintOnValue2' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'BooleanConstraintOnValue');
+    const entry = expectAndGetElement(specifications, nspace, 'BooleanConstraintOnValue');
     expectCardOne(entry.value);
     expectPrimitiveValue(entry.value, 'boolean');
     expect(entry.value.constraints).to.have.length(1);
@@ -518,7 +507,7 @@ describe(describeString, () => {
   it('Import32: should correctly import an entry with a boolean constraint on the value\'s child, file = booleanConstraintOnValueChild', () => {
     const nspace = file = 'booleanConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'BooleanConstraintOnValueChild');
+    const entry = expectAndGetElement(specifications, nspace, 'BooleanConstraintOnValueChild');
     expectCardOne(entry.value);
     expectValue(entry.value, nspace, 'SimpleBoolean');
     expect(entry.value.constraints).to.have.length(1);
@@ -545,10 +534,10 @@ describe(describeString, () => {
   });
 
 
-  it('Import34: should correctly import an entry based on an element and substituting the value, file = typeConstraintOnValue', () => {
+  it('Import34: should correctly import an element based on an element and substituting the value, file = typeConstraintOnValue', () => {
     const nspace = file = 'typeConstraintOnValue' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnValue');
+    const entry = expectAndGetElement(specifications, nspace, 'TypeConstraintOnValue');
     expect(entry.basedOn).to.have.length(1);
     expect(entry.basedOn[0].namespace).to.equal(nspace);
     expect(entry.basedOn[0].name).to.equal('SimpleBase');
@@ -566,7 +555,7 @@ describe(describeString, () => {
   it('Import35: should correctly import an entry based on an element and substitute the value\'s child, file = typeConstraintOnValueChild', () => {
     const nspace = file = 'typeConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnValueChild');
+    const entry = expectAndGetElement(specifications, nspace, 'TypeConstraintOnValueChild');
     expect(entry.basedOn).to.have.length(1);
     expectIdentifier(entry.basedOn[0], nspace, 'ComplexBase');
     expectCardOne(entry.value);
@@ -710,7 +699,7 @@ describe(describeString, () => {
   it('Import44: should correctly import an entry with a value choice inheriting from a parent with a simple value field, file = choiceExplicitRestrictionInSubclass', () => {
     const nspace = file = 'choiceExplicitRestrictionInSubclass' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'ChildWithSpecificDateTypes');
+    const entry = expectAndGetElement(specifications, nspace, 'ChildWithSpecificDateTypes');
     expectCardOne(entry.value);
     expectChoiceValue(entry.value, 3);
     expectChoiceOption(entry.value, 0, nspace, 'DateString');
@@ -726,7 +715,7 @@ describe(describeString, () => {
   it('Import45: should correctly import an entry with a card constraint on the value\'s child, file = cardConstraintOnValueChild', () => {
     const nspace = file = 'cardConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
-    const entry = expectAndGetEntry(specifications, nspace, 'CardConstraintOnValueChild');
+    const entry = expectAndGetElement(specifications, nspace, 'CardConstraintOnValueChild');
     expectCardOne(entry.value);
     expectValue(entry.value, nspace, 'Thing1');
     expect(entry.value.constraints).to.have.length(1);
@@ -792,10 +781,8 @@ describe(describeString, () => {
     expect(child.basedOn).to.have.length(1);
     expect(child.basedOn[0].namespace).to.equal(nspace);
     expect(child.basedOn[0].name).to.equal('Base');
-    expectCardOne(child.value);
-    expectValue(child.value, nspace, 'Simple');
-    expectNoConstraints(child.value);
-    expect(child.fields).to.have.length(0);
+    expect(child.fields).to.have.length(1);
+    expectField(child, 0, nspace, 'Simple', 0, 1);
     if(phase2) testCIMPL6Export(specifications);
   });
 
@@ -803,7 +790,7 @@ describe(describeString, () => {
   it('Import51: should correctly import multiple elements in a single namespace, file = multipleElementNamespace', () => {
     const nspace = file = 'multipleElementNamespace';
     const specifications = importFixture(file, importDir);
-    const simple = expectAndGetEntry(specifications, nspace, 'SimpleDate');
+    const simple = expectAndGetElement(specifications, nspace, 'SimpleDate');
     expectCardOne(simple.value);
     expectPrimitiveValue(simple.value, 'date');
     expectNoConstraints(simple.value);
@@ -834,14 +821,14 @@ describe(describeString, () => {
   it('Import53: should correctly resolve elements and vocabularies from other namespaces, file = uses', () => {
     const nspace = file = 'uses';
     const specifications = importFixtureFolder(file, importDir);
-    const one = expectAndGetEntry(specifications, nspace, 'One');
+    const one = expectAndGetElement(specifications, nspace, 'One');
     expect(one.concepts).to.have.length(2);
     expectConcept(one.concepts[0], 'http://foo.org', 'bar');
     expectConcept(one.concepts[1], 'http://moo.org', 'car');
     expectCardOne(one.value);
     expectValue(one.value, 'shr.test.two', 'Two');
     expectNoConstraints(one.value);
-    const two = expectAndGetEntry(specifications, 'shr.test.two', 'Two');
+    const two = expectAndGetElement(specifications, 'shr.test.two', 'Two');
     expect(two.concepts).to.have.length(1);
     expectConcept(two.concepts[0], 'http://zoo.org', 'bear');
     expectCardOne(two.value);
@@ -893,6 +880,7 @@ describe(describeString, () => {
     expect(group.fields[0].constraints[1].card.max).to.equal(1);
     if(phase2) testCIMPL6Export(specifications);
   });
+
 });
 }
 
@@ -906,28 +894,3 @@ describe(describeString, () => {
 
 // mlt: decoupled all shared function tests. Now located in import-helper.js
 
-
-/*it('Import09: should correctly import a special entry, file = ', () => {
-    const specifications = importFixture('SpecialWordsElement');
-    const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
-    expect(parent.grammarVersion).to.eql(new Version(6, 0));
-    expectMinMax(parent.value, 0, 1);
-    expectPrimitiveValue(parent.value, 'string');
-    const child = expectAndGetEntry(specifications, 'shr.test', 'SpecialChild');
-    expect(child.basedOn).to.have.length(1);
-    expect(child.basedOn[0].namespace).to.equal('shr.test');
-    expect(child.basedOn[0].name).to.equal('SpecialParent');
-    // The _Value identifier is set as the value. Do I love this? No. But that's
-    // how it already worked -- probably to avoid having to resolve the value
-    // (and leave it to shr-expand to do that work).
-    expect(child.value.identifier.isValueKeyWord).to.be.true;
-    expectMinMax(child.value, 1, 1);
-    expect(child.fields).to.have.length(1);
-    expectField(child, 0, '', '_Entry', 1, 1);
-    expect(child.fields[0].constraints).to.have.length(1);
-    expect(child.fields[0].constraints[0]).to.be.instanceof(CardConstraint);
-    expect(child.fields[0].constraints[0].path).to.eql([id('shr.core', 'Version')]);
-    expect(child.fields[0].constraints[0].card.min).to.equal(0);
-    expect(child.fields[0].constraints[0].card.max).to.equal(0);
-  });
-  */

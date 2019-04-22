@@ -6,7 +6,7 @@ CodeSystem:     BOO = http://boo.org
 
 Entry:          ConceptMultiple
 Concept:        FOO#bar, BOO#baz
-Value:          Simple
+Property:       Simple 0..1
 
 Element:        Simple
 Value:          string

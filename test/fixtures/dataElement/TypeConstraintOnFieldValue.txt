@@ -16,7 +16,6 @@ Element:      Simple2
 Parent:       Simple
 Value:        string
 
-
 Element:      HasSimpleValue
 Value:        Simple
 

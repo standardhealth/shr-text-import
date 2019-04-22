@@ -5,7 +5,7 @@ CodeSystem:     FOO = http://foo.org
 
 Entry:          ConceptSingle
 Concept:        FOO#bar
-Value:          Simple
+Property:       Simple 0..1
 
 Element:        Simple
 Value:          string

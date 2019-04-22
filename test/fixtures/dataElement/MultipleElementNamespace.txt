@@ -1,7 +1,9 @@
 Grammar:   DataElement 6.0
 Namespace: multipleElementNamespace
 
-Entry:          SimpleDate
+// Test is nothing more than having two elements in one namespace
+
+Element:        SimpleDate
 Description:    "It is a simple date entry"
 Value:          date
 

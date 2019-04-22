@@ -7,4 +7,7 @@ Description: "The SHR test namespace"
 Entry:          SimpleEntry
 Concept:        FOO #bar "Foobar"
 Description:    "It is a simple entry"
-Value:          string
+Property:       Bar 0..1
+
+Element:        Bar
+Value:          boolean

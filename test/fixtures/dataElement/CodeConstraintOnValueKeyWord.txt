@@ -3,12 +3,12 @@ Namespace:   codeConstraintOnValueKeyWord
 
 CodeSystem:     FOO = http://foo.org
 
-Entry:   BaseElement
-Value:   CodedElement
+Element:     BaseElement
+Value:  CodedElement
 
-Entry:   ChildElement
+Element:   ChildElement
 Parent:   BaseElement
-Value = FOO#bar "FooBar"
+CodedElement = FOO#bar "FooBar"
 
 Element:   CodedElement
 Value:     concept from http://standardhealthrecord.org/test/vs/Coded (required)

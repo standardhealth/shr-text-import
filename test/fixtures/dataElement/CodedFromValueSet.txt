@@ -1,6 +1,6 @@
 Grammar:    DataElement 6.0
 Namespace:  codedFromValueSet
 
-Entry:          CodedFromValueSet
-Description:    "It is a coded entry"
+Element:          CodedFromValueSet
+Description:    "It is a coded element"
 Value:          concept from http://standardhealthrecord.org/test/vs/Coded (required)

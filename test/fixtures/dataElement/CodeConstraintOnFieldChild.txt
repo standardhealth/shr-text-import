@@ -11,7 +11,7 @@ CodedFromValueSet.CodedFromVS2 = FOO#bar "FooBar"
 Element:        Simple
 Value:          string
 
-Element:        CodedFromValueSet
+Group:          CodedFromValueSet  // Changed Element to Group
 Property:       CodedFromVS2 0..1
 
 Element:        CodedFromVS2

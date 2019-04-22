@@ -4,10 +4,10 @@ Namespace: shr.test
 Entry:      TheParent
 Property:   TheProperty
 
-    Element:    TheProperty
+    Group:      TheProperty
     Property:   Simple1
 
-    Element:    TheProperty
+    Group:      TheProperty
     Property:   Simple2
 
     Element:    Simple1

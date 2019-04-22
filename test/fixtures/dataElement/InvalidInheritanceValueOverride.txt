@@ -2,11 +2,11 @@ Grammar:   DataElement 6.0
 Namespace: shr.test
 
 Entry:   BasedOn
-Value:   Simple from 
+Property:   Simple
 
-Entry:      InvalidInheritanceValueOverride
+Entry:    InvalidInheritanceValueOverride
 Parent:  BasedOn
-    Value from 
+Simple2 from http://standardhealthrecord.org/test/vs/Coded (required)
 
 Element:    Simple
 Value:      concept

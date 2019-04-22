@@ -3,7 +3,7 @@ Namespace:  shr.base
 
 // These are just dummy (incomplete) definitions to satisfy common dependencies
 
-Element: 	Entry
+Entry: 		Entry
 Property: 	ShrId	1..1
 Property:	EntryId	1..1
 Property:	EntryType	1..1

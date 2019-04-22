@@ -1,10 +1,10 @@
 Grammar:   DataElement 6.0
 Namespace: shr.test
 
-Entry:   BasedOn
+Element:   BasedOn
 Value:   Simple from http://standardhealthrecord.org/test/vs/Coded (required)
 
-Entry:   InvalidValueBindingOverride
+Element:   InvalidValueBindingOverride
 Parent:  BasedOn
 Value from http://standardhealthrecord.org/test/vs/Coded2 (required)
 

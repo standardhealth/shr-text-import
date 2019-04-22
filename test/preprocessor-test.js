@@ -17,7 +17,7 @@ describe('#preprocessFile', () => {
       'simpleEntry': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'simpleEntry': { 'SimpleEntry': true }
+      'simpleEntry': { 'SimpleEntry': true, 'Bar':true }
     });
   });
 
@@ -28,7 +28,7 @@ describe('#preprocessFile', () => {
       'simpleAbstractElement': { 'FOO': 'http://foo.org' }
     });
     expect(data._definitions).to.eql({
-      'simpleAbstractElement': { 'Simple': true }
+      'simpleAbstractElement': { 'Simple': true, 'Bar':true }
     });
   });
 

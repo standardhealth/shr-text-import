@@ -1,14 +1,14 @@
 Grammar:    DataElement 6.0
 Namespace:  vsConstraintOnValueWithBindingStrength
 
-Entry:   RequiredVSConstraintOnValue
+Element: RequiredVSConstraintOnValue
 Value:   concept from http://standardhealthrecord.org/test/vs/Coded (required)
 
-Entry:   ExtensibleVSConstraintOnValue
+Element: ExtensibleVSConstraintOnValue
 Value:   concept from http://standardhealthrecord.org/test/vs/Coded (extensible)
 
-Entry:   PreferredVSConstraintOnValue
+Element: PreferredVSConstraintOnValue
 Value:   concept from http://standardhealthrecord.org/test/vs/Coded (preferred)
 
-Entry:   ExampleVSConstraintOnValue
+Element: ExampleVSConstraintOnValue
 Value:   concept from http://standardhealthrecord.org/test/vs/Coded (example)
