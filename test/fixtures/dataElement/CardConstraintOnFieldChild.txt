@@ -7,7 +7,7 @@ Description:  "It is a group entry with a card constraint on a field's child"
 Property:     Thing1 0..*
               Thing1.Thing2 1..2
 
-Element:      Thing1   // Change to Group
+Group:        Thing1   // Changed Element to Group
 Property:     Thing2 0..*
 
 Element:      Thing2

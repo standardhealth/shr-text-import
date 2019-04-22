@@ -7,7 +7,7 @@ Value:          Complex
 Value[Complex].CodedFromValueSet 1..2
 Value[Complex].CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded (required)
 
-Element:          Complex   // change to Group
+Group:          Complex   // changed Element to Group
 Property:       Simple 0..1
 Property:       CodedFromValueSet 1..*
 

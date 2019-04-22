@@ -22,7 +22,7 @@ Element:  DateDate
 Parent:   DateType
 Value:    date
 
-Element:    DateRange   // change to Group
+Group:    DateRange   // changed Element to Group
 Parent:   DateType
 Property: LowDate 1..1
 Property: HighDate 0..1

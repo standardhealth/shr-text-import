@@ -11,7 +11,7 @@ Complex.CodedFromValueSet from http://standardhealthrecord.org/test/vs/Coded (re
 Element:        Simple
 Value:          string
 
-Element:        Complex  // Change to Group
+Group:        Complex  // Changed Element to Group
 Property:       Simple 0..1
 Property:       CodedFromValueSet 1..*
 
