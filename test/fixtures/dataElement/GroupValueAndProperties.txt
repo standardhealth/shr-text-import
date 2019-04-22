@@ -2,7 +2,7 @@ Grammar:   DataElement 6.0
 Namespace: groupValueAndProperties
 
 // Mixing Value and Properties will be denigrated beyond 6.1
-Group:        GroupValueAndProperties  // Changed Entry to Group
+Entry:        GroupValueAndProperties
 Value:        concept
 Property:     Simple 0..1
 Property:     Coded 0..*
