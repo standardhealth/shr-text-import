@@ -1,7 +1,7 @@
 Grammar:   DataElement 6.0
 Namespace: booleanConstraintOnFieldChild
 
-Entry:   BooleanConstraintOnFieldChild
+Entry:          BooleanConstraintOnFieldChild
 Description:    "It is a group entry with a boolean constraint on a field's child"
 Property:       SimpleBoolean 0..1 
                 SimpleBoolean[boolean] = true

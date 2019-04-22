@@ -5,5 +5,8 @@ CodeSystem:     FOO = http://foo.org
 
 Abstract:       Simple
 Concept:        FOO #bar
-Description:    "It is a simple element"
+Description:    "It is an abstract entry"
+Property:       Bar
+
+Element:        Bar
 Value:          string

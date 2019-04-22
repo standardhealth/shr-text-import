@@ -4,7 +4,7 @@ Namespace:  typeConstraintOnValue
 Element:      SimpleBase
 Value:        Simple
 
-Entry:      TypeConstraintOnValue
+Element:    TypeConstraintOnValue
 Parent:     SimpleBase
 Description:  "It is a simple element based on SimpleBase and specializing the value"
 Value[Simple] substitute Simple2

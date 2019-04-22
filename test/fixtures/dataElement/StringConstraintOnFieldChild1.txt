@@ -1,7 +1,7 @@
 Grammar:   DataElement 6.0
 Namespace: StringConstraintOnFieldChild1
 
-Entry:  ConstraintOnString
+Element:  ConstraintOnString
 Description: "Simple example with a fixed string."
 Value:   SimpleString
 Value[SimpleString] = "myString"

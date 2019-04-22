@@ -1,10 +1,10 @@
 Grammar:     DataElement 6.0
 Namespace:   vsConstraintOnValueKeyWord
 
-Entry:    BaseElement
+Element:    BaseElement
 Value:    CodedElement
 
-Entry:    ChildElement
+Element:    ChildElement
 Parent:   BaseElement
 // not using _Value in 6.0 !
 Value[CodedElement] from http://standardhealthrecord.org/test/vs/Coded (required)

@@ -25,7 +25,6 @@ testImportExport(phase2, '/fixtures/dataElement/', '#importDataElement');
 // emptyThenRmdir(`${__dirname}/build/dataElementExports');
 
 
-
 function testImportExport(phase2, importDir, describeString) {
 
 describe(describeString, () => {
@@ -906,28 +905,3 @@ describe(describeString, () => {
 
 // mlt: decoupled all shared function tests. Now located in import-helper.js
 
-
-/*it('Import09: should correctly import a special entry, file = ', () => {
-    const specifications = importFixture('SpecialWordsElement');
-    const parent = expectAndGetEntry(specifications, 'shr.test', 'SpecialParent');
-    expect(parent.grammarVersion).to.eql(new Version(6, 0));
-    expectMinMax(parent.value, 0, 1);
-    expectPrimitiveValue(parent.value, 'string');
-    const child = expectAndGetEntry(specifications, 'shr.test', 'SpecialChild');
-    expect(child.basedOn).to.have.length(1);
-    expect(child.basedOn[0].namespace).to.equal('shr.test');
-    expect(child.basedOn[0].name).to.equal('SpecialParent');
-    // The _Value identifier is set as the value. Do I love this? No. But that's
-    // how it already worked -- probably to avoid having to resolve the value
-    // (and leave it to shr-expand to do that work).
-    expect(child.value.identifier.isValueKeyWord).to.be.true;
-    expectMinMax(child.value, 1, 1);
-    expect(child.fields).to.have.length(1);
-    expectField(child, 0, '', '_Entry', 1, 1);
-    expect(child.fields[0].constraints).to.have.length(1);
-    expect(child.fields[0].constraints[0]).to.be.instanceof(CardConstraint);
-    expect(child.fields[0].constraints[0].path).to.eql([id('shr.core', 'Version')]);
-    expect(child.fields[0].constraints[0].card.min).to.equal(0);
-    expect(child.fields[0].constraints[0].card.max).to.equal(0);
-  });
-  */

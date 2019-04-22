@@ -1,6 +1,6 @@
 Grammar:        DataElement 6.0
 Namespace:      coded
 
-Entry:          Coded
-Description:    "It is a concept entry"
+Element:        Coded
+Description:    "It is a concept element"
 Value:          concept

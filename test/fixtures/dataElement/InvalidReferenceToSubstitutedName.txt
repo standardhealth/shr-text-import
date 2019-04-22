@@ -1,9 +1,8 @@
 Grammar:    DataElement 6.0
 Namespace:  invalidReferenceToSubstitutedName
 
-Element:    GroupBase
+Entry:      GroupBase
 Property:   Simple 0..*
-Property:   CodedFromValueSet 0..1
 
 Entry:      TypeConstraintOnField
 Parent:     GroupBase
@@ -16,7 +15,4 @@ Value:        string
 Element:      Simple2
 Parent:       Simple
 Value:        string
-
-Element:      CodedFromValueSet
-Value:        concept
 

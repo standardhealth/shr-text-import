@@ -3,6 +3,10 @@ Namespace:  shr.test.two
 Uses:       shr.test.three
 
 Entry:          Two
-Concept:        ZOO #bear
+Concept:        ZOO#bear
 Description:    "It is an entry that uses other namespaces too"
+Property:       Foo
+
+Element:        Foo
+Description:    "It is a Foo"
 Value:          string

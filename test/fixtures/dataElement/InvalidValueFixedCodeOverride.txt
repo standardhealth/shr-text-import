@@ -3,12 +3,13 @@ Namespace: shr.test
 
 CodeSystem:     FOO = http://foo.org
 
-Entry:   TheParent
+Element:   TheParent
 Value:   concept
 Value = FOO#baz
 
 
-Entry:   TheChild
+Element:   TheChild
+Parent:  TheParent
 Description: "Cannot override the fixed value established by the parent."
 Value = FOO#bar
 

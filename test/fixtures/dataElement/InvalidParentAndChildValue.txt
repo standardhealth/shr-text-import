@@ -3,20 +3,15 @@ Namespace: invalidParentAndChildValue
 
 // In this counterexample, both parent and child declare a value with different elements.
 
-Entry:        Child
+Element:      Child
 Parent:       Base
 Value:        Simple
 
 Entry:        Base
-Property:     Coded 0..*
-Property:     Simple2 1..2
 Value:        Simple2
 
 Element:       Simple
 Value:         string
-
-Element:       Coded
-Value:         code
 
 Element:       Simple2
 Value:         string

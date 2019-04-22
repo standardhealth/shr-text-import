@@ -2,9 +2,9 @@ Grammar:   DataElement 6.0
 Namespace: booleanConstraintOnValueChild
 
 
-Entry:   BooleanConstraintOnValueChild
+Entry:          BooleanConstraintOnValueChild
 Description:    "It is an entry with a boolean constraint on the value's child"
-Value:          SimpleBoolean
+Property:       SimpleBoolean
                 SimpleBoolean[boolean] = false
 
 Element:        SimpleBoolean

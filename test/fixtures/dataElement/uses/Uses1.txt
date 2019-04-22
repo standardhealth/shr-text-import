@@ -7,4 +7,4 @@ CodeSystem:     FOO = http://foo.org
 Entry:          One
 Concept:        FOO #bar, MOO #car
 Description:    "It is an entry that uses other namespaces"
-Value:          Two
+Property:        Two

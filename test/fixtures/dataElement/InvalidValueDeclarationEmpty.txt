@@ -1,7 +1,7 @@
 Grammar:   DataElement 6.0
 Namespace: shr.test
 
-Entry:          InvalidValueDeclaration
+Element:          InvalidValueDeclaration
 Description:    "Can't have an empty value."
 Value:        // missing  
 

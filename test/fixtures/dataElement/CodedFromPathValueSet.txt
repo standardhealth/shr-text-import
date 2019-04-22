@@ -3,6 +3,6 @@ Namespace:  codedFromPathValueSet
 
 Path: TESTVS = http://standardhealthrecord.org/test/vs
 
-Entry:          CodedFromPathValueSet
+Element:        CodedFromPathValueSet
 Description:    "It is a coded entry that uses a valueset with a path"
 Value:          concept from TESTVS/Coded (required)

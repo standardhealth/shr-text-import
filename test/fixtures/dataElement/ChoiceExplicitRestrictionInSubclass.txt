@@ -4,13 +4,13 @@ Namespace:  choiceExplicitRestrictionInSubclass
 // Need counterexample where the child values are not subclasses of the parent's value class, which is an error
 // Need counterexample where the child adds a choice not given in the parent, which is an error (for example, if Child.Value included Quantity)
 
-Entry:    ParentWithAnyDateTypeValue
+Element:  ParentWithAnyDateTypeValue
 Value:    DateType
 
-    Abstract:  DateType
-    Description:    "Parent for several date types"
+    Element:      DateType
+    Description:  "Parent for several date types"
 
-Entry:    ChildWithSpecificDateTypes
+Element:  ChildWithSpecificDateTypes
 Parent:   ParentWithAnyDateTypeValue
 Value:    DateString or DateDate or DateRange
 
@@ -22,7 +22,7 @@ Element:  DateDate
 Parent:   DateType
 Value:    date
 
-Element:  DateRange
+Group:    DateRange
 Parent:   DateType
 Property: LowDate 1..1
 Property: HighDate 0..1
