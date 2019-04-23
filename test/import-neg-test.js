@@ -12,7 +12,7 @@ const dir = "/fixtures/dataElement/";
 describe('#importDataElementNegatives', () => {
   beforeEach(function() {
     err.clear();
-  });  
+  });
 
   it('Neg1: should produce an error message (not a traceback) when a keyword is not followed by a colon', () => {
     importFixture('InvalidSyntaxMissingColon', dir, true);
@@ -45,7 +45,9 @@ describe('#importDataElementNegatives', () => {
   it('Neg8: should produce an error message (not a traceback) if the file lacks a namespace declaration.', () => {
     importFixture('InvalidNoNamespace', dir, true);
   });
-
+  /* This is something which is discovered by the expander and will not be tracked
+  initially by the importer.
+  */
   it.skip('Neg9: should produce an error message (not a traceback) if a child class defines a property it already inherited.', () => {
     importFixture('InvalidInheritedFieldDuplicatedInChild', dir, true);
   });
@@ -75,15 +77,21 @@ describe('#importDataElementNegatives', () => {
   it('Neg15: should produce an error message (not a traceback) when a value declares cardinality', () => {
     importFixture('InvalidValueDeclarationWithCardinality',dir, true);
   });
-
+  /* This is something which is discovered by the expander and will not be tracked
+  initially by the importer.
+  */
   it.skip('Neg16: should produce an error message (not a traceback) when a child class inherits a value but also defines a value', () => {
     importFixture('InvalidInheritanceValueOverride', dir, true);
   });
-
+  /* This is something which is discovered by the expander and will not be tracked
+  initially by the importer.
+  */
   it.skip('Neg17: should produce an error message (not a traceback) when a child class value overrides a required binding', () => {
     importFixture('InvalidValueBindingOverride', dir, true);
   });
-
+  /* This is something which is discovered by the expander and will not be tracked
+  initially by the importer.
+  */
   it.skip('Neg18: should produce an error message (not a traceback) when a child class overrides a fixed code value', () => {
     importFixture('InvalidValueFixedCodeOverride', dir, true);
   });
@@ -115,8 +123,10 @@ describe('#importDataElementNegatives', () => {
   it('Neg25: should produce an error message (not a traceback) when a Parent class referenced by an element does not exist.', () => {
     importFixture('InvalidParentClass', dir, true);
   });
-
-  it('Neg26: should produce an error message (not a traceback) when both parent and child declare a value with different elements.', () => {
+  /* This is something which is discovered by the expander and will not be tracked
+  initially by the importer.
+  */
+  it.skip('Neg26: should produce an error message (not a traceback) when both parent and child declare a value with different elements.', () => {
     importFixture('InvalidParentAndChildValue', dir, true);
   });
 

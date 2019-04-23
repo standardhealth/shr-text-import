@@ -8,7 +8,7 @@ Value:  CodedElement
 
 Element:   ChildElement
 Parent:   BaseElement
-CodedElement = FOO#bar "FooBar"
+Value[CodedElement] = FOO#bar "FooBar"
 
 Element:   CodedElement
 Value:     concept from http://standardhealthrecord.org/test/vs/Coded (required)

@@ -131,7 +131,7 @@ describe(describeString, () => {
   it('Import10: should correctly import an entry with multiple properties, file = groupPropertiesOnly', () => {
     const nspace = file = 'groupPropertiesOnly';
     const specifications = importFixture(file, importDir);
-    const group = expectAndGetEntry(specifications, nspace, 'GroupPropertiesOnly');
+    const group = expectAndGetElement(specifications, nspace, 'GroupPropertiesOnly');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(4);
     expectField(group, 0, nspace, 'Simple', 0, 1);
@@ -675,7 +675,9 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-
+  /* Test is being skipped because currently the case of having an "only" constraint
+  does not support multiple options.
+  */
   it.skip('Import43: should correctly import an entry with a value choice constraint (to a reduced choice) on a choice field, file = choiceTypeConstraintToReducedChoice', () => {
     const nspace = file = 'choiceTypeConstraintToReducedChoice' ;
     const specifications = importFixture(file, importDir);
@@ -863,7 +865,7 @@ describe(describeString, () => {
   it('Import55: should correctly import a group with a cardinality constraint on a substituted element, file = substituteOnReferenceName', () => {
     const nspace = file = 'substituteOnReferenceName' ;
     const specifications = importFixture(file, importDir);
-    const group = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnField');
+    const group = expectAndGetElement(specifications, nspace, 'TypeConstraintOnField');
     expect(group.basedOn).to.have.length(1);
     expectIdentifier(group.basedOn[0], nspace, 'GroupBase');
     expect(group.value).to.be.undefined;
@@ -893,4 +895,3 @@ describe(describeString, () => {
 */
 
 // mlt: decoupled all shared function tests. Now located in import-helper.js
-
