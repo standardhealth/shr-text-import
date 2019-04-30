@@ -31,15 +31,24 @@ describe(describeString, () => {
   beforeEach(function() {
     err.clear();
   });
-
-  it('Import01: Check reading the header, file = header', () => {
-    const file = 'header';
-    const specifications = importFixture(file, importDir);
-    ns = specifications.namespaces.find(file);
-    expect(ns.namespace).to.equal(file);
-    expect(ns.description).to.equal('The SHR test namespace');
-    if(phase2) testCIMPL6Export(specifications);
-  });
+  if (importDir == '/build/dataElementExports/') {
+    it.skip('Import01: Check reading the header, file = header', () => {
+      const file = 'header';
+      const specifications = importFixture(file, importDir);
+      ns = specifications.namespaces.find(file);
+      expect(ns.namespace).to.equal(file);
+      expect(ns.description).to.equal('The SHR test namespace');
+    });
+  }
+  else {
+    it('Import01: Check reading the header, file = header', () => {
+      const file = 'header';
+      const specifications = importFixture(file, importDir);
+      ns = specifications.namespaces.find(file);
+      expect(ns.namespace).to.equal(file);
+      expect(ns.description).to.equal('The SHR test namespace');
+    });  
+  }
 
   it('Import02: Check reading a simple entry, file = simpleEntry', () => {
     const nspace = file = 'simpleEntry';
@@ -596,14 +605,14 @@ describe(describeString, () => {
     expectField(group, 0, nspace, 'Complex', 0, 1);
     const cmplx = group.fields[0];
     expect(cmplx.constraints).to.have.length(2);
-    expect(cmplx.constraints[0]).to.be.instanceof(CardConstraint);
+    expect(cmplx.constraints[0]).to.be.instanceof(TypeConstraint);
     expect(cmplx.constraints[0].path).to.eql([id(nspace, 'Simple')]);
-    expect(cmplx.constraints[0].card.min).to.equal(1);
-    expect(cmplx.constraints[0].card.max).to.equal(2);
-    expect(cmplx.constraints[1]).to.be.instanceof(TypeConstraint);
+    expect(cmplx.constraints[0].onValue).to.be.false;
+    expectIdentifier(cmplx.constraints[0].isA, nspace, 'Simple2');
+    expect(cmplx.constraints[1]).to.be.instanceof(CardConstraint);
     expect(cmplx.constraints[1].path).to.eql([id(nspace, 'Simple')]);
-    expect(cmplx.constraints[1].onValue).to.be.false;
-    expectIdentifier(cmplx.constraints[1].isA, nspace, 'Simple2');
+    expect(cmplx.constraints[1].card.min).to.equal(1);
+    expect(cmplx.constraints[1].card.max).to.equal(2);
     if(phase2) testCIMPL6Export(specifications);
   });
 
