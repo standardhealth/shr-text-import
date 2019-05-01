@@ -1,0 +1,12 @@
+Grammar:   DataElement 6.0
+Namespace: valueOnlyConstraint
+
+Element:    ChoiceElement
+Description:    "A element with three choices"
+Value:      boolean or concept or Quantity
+
+Element:    ReducedChoiceElement
+Based on:   ChoiceElement
+Value only boolean
+
+

@@ -695,23 +695,6 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-
-  it('Import44: should correctly import an entry with a value choice inheriting from a parent with a simple value field, file = choiceExplicitRestrictionInSubclass', () => {
-    const nspace = file = 'choiceExplicitRestrictionInSubclass' ;
-    const specifications = importFixture(file, importDir);
-    const entry = expectAndGetElement(specifications, nspace, 'ChildWithSpecificDateTypes');
-    expectCardOne(entry.value);
-    expectChoiceValue(entry.value, 3);
-    expectChoiceOption(entry.value, 0, nspace, 'DateString');
-    expectChoiceOption(entry.value, 1, nspace, 'DateDate');
-    expectChoiceOption(entry.value, 2, nspace, 'DateRange');
-    // MK: not sure what the following two statements are asserting
-    expectNoConstraints(entry.value);
-    expectNoConstraints(entry.value.options);
-    if(phase2) testCIMPL6Export(specifications);
-  });
-
-
   it('Import45: should correctly import an entry with a card constraint on the value\'s child, file = cardConstraintOnValueChild', () => {
     const nspace = file = 'cardConstraintOnValueChild' ;
     const specifications = importFixture(file, importDir);
@@ -880,6 +863,19 @@ describe(describeString, () => {
     expect(group.fields[0].constraints[1].card.max).to.equal(1);
     if(phase2) testCIMPL6Export(specifications);
   });
+
+  it('Import56: should correctly import an element with a child that restricts the number of choices.', () => {
+    const nspace = file = 'valueOnlyConstraint' ;
+    const specifications = importFixture(file, importDir);
+    const child = expectAndGetElement(specifications, nspace, 'ReducedChoiceElement');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
+    expectCardOne(child.value);
+    expectChoiceValue(child.value, 1);
+    expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
+    if(phase2) testCIMPL6Export(specifications);
+  });
+
 
 });
 }
