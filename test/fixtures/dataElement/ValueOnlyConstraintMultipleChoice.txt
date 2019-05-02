@@ -1,0 +1,11 @@
+Grammar:   DataElement 6.0
+Namespace: valueOnlyConstraintMultipleChoice
+
+Element:    ChoiceElement
+Description:    "A element with three choices"
+Value:      boolean or concept or integer or uri or decimal or string
+
+Element:    ReducedChoiceElement
+Parent:   ChoiceElement
+Value only boolean or integer or concept or uri
+
