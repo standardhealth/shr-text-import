@@ -7,5 +7,4 @@ Value:      boolean or concept or integer or uri or decimal or string
 
 Element:    ReducedChoiceElement
 Parent:   ChoiceElement
-Value only boolean or integer or concept or uri
-
+Value only decimal or integer or concept or uri
