@@ -3,10 +3,8 @@ Namespace: valueOnlyConstraint
 
 Element:    ChoiceElement
 Description:    "A element with three choices"
-Value:      boolean or concept or Quantity
+Value:      boolean or concept or integer
 
 Element:    ReducedChoiceElement
-Based on:   ChoiceElement
+Parent:   ChoiceElement
 Value only boolean
-
-

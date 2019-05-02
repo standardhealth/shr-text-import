@@ -47,7 +47,7 @@ describe(describeString, () => {
       ns = specifications.namespaces.find(file);
       expect(ns.namespace).to.equal(file);
       expect(ns.description).to.equal('The SHR test namespace');
-    });  
+    });
   }
 
   it('Import02: Check reading a simple entry, file = simpleEntry', () => {
@@ -882,8 +882,9 @@ describe(describeString, () => {
     expect(child.basedOn).to.have.length(1);
     expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
     expectCardOne(child.value);
+    console.log(child.value)
     expectChoiceValue(child.value, 1);
-    expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
+    expectChoiceOption(child.value, 0, 'primitive', 'boolean');
     if(phase2) testCIMPL6Export(specifications);
   });
 
