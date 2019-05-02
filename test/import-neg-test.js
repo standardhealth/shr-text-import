@@ -127,5 +127,25 @@ describe('#importDataElementNegatives', () => {
   it('Neg28: should produce an error message (not a traceback) when there is a reference to an attribute which has been substituted.', () => {
     importFixture('InvalidReferenceToSubstitutedName', dir, true);
   });
+// needs expander
+  it.skip('Neg29: should produce an error message (not a traceback) when a value-only constraint attempts to constrain the value to a type not offered by the parent.', () => {
+    importFixture('InvalidValueOnlyConstraintSingleChoice', dir, true);
+  });
+
+  it.skip('Neg30: should produce an error message (not a traceback) when a value-only constraint with multiple choices has a choice not in the parent.', () => {
+    importFixture('InvalidValueOnlyConstraintInheritedMultipleChoice', dir, true);
+  });
+
+  it.skip('Neg31: should produce an error message (not a traceback) when a reduced choice element using a value-only constraint attempts to constrain to a type that is not a child of the value type in the parent.', () => {
+    importFixture('InvalidValueOnlyConstraintInheritedSingleChoice', dir, true);
+  });
+
+  it.skip('Neg32: should produce an error message (not a traceback) when a reduced choice element using a value-only constraint includes an element inconsistent with the choice types in the parent.', () => {
+    importFixture('InvalidValueOnlyConstraintInheritedFromMultipleToMultiple', dir, true);
+  });
+
+
+
+
 // end of negative examples
 });
