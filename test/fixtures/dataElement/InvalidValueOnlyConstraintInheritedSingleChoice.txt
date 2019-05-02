@@ -16,20 +16,20 @@ Value only ValueChild2
 
     Element:    ValueChild1
     Parent:     ValueParent
-    Value from TestVS1
+    Value[concept] from TestVS1
 
     Element:    ValueChild2
 // invalid    Parent:     ValueParent
-    Value from TestVS2 
+    Value[concept] from TestVS2 
 
     Element:    ValueChild3
     Parent:     ValueParent
-    Value from TestVS3 
+    Value[concept] from TestVS3 
 
     Element:    ValueChild4
     Parent:     ValueParent
-    Value from TestVS4  
+    Value[concept] from TestVS4  
 
     Element:    ValueChild5
     Parent:     ValueParent
-    Value from TestVS5 
+    Value[concept] from TestVS5 
