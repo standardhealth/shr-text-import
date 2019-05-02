@@ -875,8 +875,8 @@ describe(describeString, () => {
     if(phase2) testCIMPL6Export(specifications);
   });
 
-  it('Import56: should correctly import an element with a child that restricts the number of choices.', () => {
-    const nspace = file = 'valueOnlyConstraint' ;
+  it('Import56: should correctly import an element with a child that restricts the number of choices to one choice from the parent choices.', () => {
+    const nspace = file = 'valueOnlyConstraintSingleChoice' ;
     const specifications = importFixture(file, importDir);
     const child = expectAndGetElement(specifications, nspace, 'ReducedChoiceElement');
     expect(child.basedOn).to.have.length(1);
@@ -884,9 +884,97 @@ describe(describeString, () => {
     expectCardOne(child.value);
     console.log(child.value)
     expectChoiceValue(child.value, 1);
-    expectChoiceOption(child.value, 0, 'primitive', 'boolean');
+    expectChoiceOption(choice.value, 0, 'primitive', 'concept');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/TestVS3');
     if(phase2) testCIMPL6Export(specifications);
   });
+
+  it('Import57: should correctly import an element with a child that restricts the number of choices to two that are a subset of the parent choices.', () => {
+    const nspace = file = 'valueOnlyConstraintDoubleChoice' ;
+    const specifications = importFixture(file, importDir);
+    const child = expectAndGetElement(specifications, nspace, 'ReducedChoiceElement');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
+    expectCardOne(child.value);
+    expectChoiceValue(child.value, 2);
+    expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
+    expectChoiceOption(choice.value, 1, 'primitive', 'integer');
+    if(phase2) testCIMPL6Export(specifications);
+  });
+
+  it('Import58: should correctly import an element with a child that has multiple choices that are a subset of the parent choices.', () => {
+    const nspace = file = 'valueOnlyConstraintDoubleChoice' ;
+    const specifications = importFixture(file, importDir);
+    const child = expectAndGetElement(specifications, nspace, 'ReducedChoiceElement');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
+    expectCardOne(child.value);
+    expectChoiceValue(child.value, 4);
+    expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
+    expectChoiceOption(choice.value, 1, 'primitive', 'integer');
+    expectChoiceOption(choice.value, 0, 'primitive', 'concept');
+    expectChoiceOption(choice.value, 1, 'primitive', 'uri');
+    if(phase2) testCIMPL6Export(specifications);
+  });
+
+  it('Import59: should correctly import an element with a child that has multiple choices that are a subset of the parent choices.', () => {
+    const nspace = file = 'valueOnlyConstraintMultipleChoice' ;
+    const specifications = importFixture(file, importDir);
+    const child = expectAndGetElement(specifications, nspace, 'ReducedChoiceElement');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
+    expectCardOne(child.value);
+    expectChoiceValue(child.value, 4);
+    expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
+    expectChoiceOption(choice.value, 1, 'primitive', 'integer');
+    expectChoiceOption(choice.value, 0, 'primitive', 'concept');
+    expectChoiceOption(choice.value, 1, 'primitive', 'uri');
+    if(phase2) testCIMPL6Export(specifications);
+  });
+
+  it('Import60: should correctly import an element with a child that has a single value choice whose type is a subclass of the parent value type.', () => {
+    const nspace = file = 'valueOnlyConstraintInheritedSingleChoice' ;
+    const specifications = importFixture(file, importDir);
+    const child = expectAndGetElement(specifications, nspace, 'ReducedChoiceElement');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
+    expectCardOne(child.value);
+    expectChoiceValue(child.value, 1);
+    expectChoiceOption(choice.value, 0, nspace, 'ValueChild2');
+    if(phase2) testCIMPL6Export(specifications);
+  });
+
+  it('Import61: should correctly import an element with a child that has a multiple value choices whose types are a subclasses of the parent value type.', () => {
+    const nspace = file = 'valueOnlyConstraintInheritedMultipleChoice' ;
+    const specifications = importFixture(file, importDir);
+    const child = expectAndGetElement(specifications, nspace, 'ReducedChoiceElement');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
+    expectCardOne(child.value);
+    expectChoiceValue(child.value, 2);
+    expectChoiceOption(choice.value, 0, nspace, 'ValueChild2');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/TestVS2');
+    expectChoiceOption(choice.value, 0, nspace, 'ValueChild4');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/TestVS4');
+    if(phase2) testCIMPL6Export(specifications);
+  });
+
+
+  it('Import62: should correctly import an element with a child that has a multiple value choices whose types are a subclasses of a parent with multiple value types.', () => {
+    const nspace = file = 'valueOnlyConstraintInheritedFromMultipleToMultiple' ;
+    const specifications = importFixture(file, importDir);
+    const child = expectAndGetElement(specifications, nspace, 'ReducedChoiceElement');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
+    expectCardOne(child.value);
+    expectChoiceValue(child.value, 2);
+    expectChoiceOption(choice.value, 0, nspace, 'ValueChild2');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/TestVS2');
+    expectChoiceOption(choice.value, 0, nspace, 'ValueChild4');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/TestVS4');
+    if(phase2) testCIMPL6Export(specifications);
+  });
+
 
 
 });

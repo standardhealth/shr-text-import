@@ -1,5 +1,5 @@
 Grammar:   DataElement 6.0
-Namespace: valueOnlyConstraint
+Namespace: valueOnlyConstraintDoubleChoice
 
 Element:    ChoiceElement
 Description:    "A element with three choices"
@@ -7,4 +7,4 @@ Value:      boolean or concept or integer
 
 Element:    ReducedChoiceElement
 Parent:   ChoiceElement
-Value only boolean
+Value only boolean or integer
