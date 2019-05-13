@@ -115,17 +115,34 @@ function expectNoConstraints(value) {
     expect(value.hasConstraints).to.be.false;
   }
 }
-
+const testConfig = {
+    "projectName":"Test Project",
+    "projectShorthand":"TEST",
+    "projectURL":"http://standardhealthrecord.org",
+    "fhirURL": "http://standardhealthrecord.org/fhir",
+    "implementationGuide": {
+      "npmName": "basic",
+      "version": "1.2.3",
+      "indexContent": "basicindexcontent.html"
+    },
+    "publisher":"Test Publisher",
+    "contact":[{
+        "telecom":[{
+          "system":"url",
+          "value":"http://test.org"
+        }]
+    }]
+};
 function importFixture(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
-  const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
-  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, null, dependencies);
+  const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`, testConfig);
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, testConfig, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
 
 function importFixtureFolder(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
-  const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`);
-  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}`, null, dependencies);
+  const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`, testConfig);
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}`, testConfig, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }

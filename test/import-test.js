@@ -303,7 +303,8 @@ describe(describeString, () => {
   //  console.log("Test 18: entry.value = "+JSON.stringify(entry.value));
     expect(entry.value).to.be.instanceof(IncompleteValue);
     expectCardOne(entry.value);
-    expect(entry.value.identifier.isValueKeyWord).to.be.true;
+    expect(entry.value.identifier.isValueKeyWord).to.be.false;
+    expectValue(entry.value, nspace, 'CodedElement');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
@@ -347,7 +348,8 @@ describe(describeString, () => {
     expect(entry.description).to.be.undefined;
     expectCardOne(entry.value);
     expect(entry.value).to.be.instanceof(IncompleteValue);
-    expect(entry.value.identifier.isValueKeyWord).to.be.true;
+    expect(entry.value.identifier.isValueKeyWord).to.be.false;
+    expectValue(entry.value, nspace, 'CodedElement');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
     expect(entry.value.constraints[0].path).to.have.length(1);
@@ -551,7 +553,7 @@ describe(describeString, () => {
     expect(entry.basedOn[0].namespace).to.equal(nspace);
     expect(entry.basedOn[0].name).to.equal('SimpleBase');
     expectCardOne(entry.value);
-    expectValue(entry.value, '', '_Value');
+    expectValue(entry.value, nspace, 'Simple');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(TypeConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
@@ -568,7 +570,7 @@ describe(describeString, () => {
     expect(entry.basedOn).to.have.length(1);
     expectIdentifier(entry.basedOn[0], nspace, 'ComplexBase');
     expectCardOne(entry.value);
-    expectValue(entry.value, '', '_Value');
+    expectValue(entry.value, nspace, 'Complex');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(TypeConstraint);
     expect(entry.value.constraints[0].path).to.eql([id(nspace, 'Simple')]);  // should the path include Complex? (yes)
@@ -846,9 +848,10 @@ describe(describeString, () => {
     expect(choice.value.constraints[0].path).to.be.empty;
     expect(choice.value.constraints[0].value).to.be.true;
     expect(choice.value.constraints[1]).to.be.instanceof(CodeConstraint);
-    expect(choice.value.constraints[1].path).to.have.length(1);
+    console.log(choice.value.constraints[1].path);
+    expect(choice.value.constraints[1].path).to.be.empty;
     // TODO confirm this test case is correct.
-    expect(choice.value.constraints[1].path).to.eql([pid('concept')]);
+    //expect(choice.value.constraints[1].path).to.eql([pid('concept')]);
     expectConcept(choice.value.constraints[1].code, 'http://foo.org', 'baz');
     if(phase2) testCIMPL6Export(specifications);
   });
@@ -862,7 +865,6 @@ describe(describeString, () => {
     expectIdentifier(group.basedOn[0], nspace, 'GroupBase');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
-    //console.log(group.fields);
     expectField(group, 0, nspace, 'Simple');
     expect(group.fields[0].constraints).to.have.length(2);
     expect(group.fields[0].constraints[0]).to.be.instanceof(TypeConstraint);
@@ -882,10 +884,9 @@ describe(describeString, () => {
     expect(child.basedOn).to.have.length(1);
     expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
     expectCardOne(child.value);
-    console.log(child.value)
     expectChoiceValue(child.value, 1);
-    expectChoiceOption(choice.value, 0, 'primitive', 'concept');
-    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/TestVS3');
+    expectChoiceOption(child.value, 0, 'primitive', 'concept');
+    expect(child.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/shr/test/vs/TestVS3');
     if(phase2) testCIMPL6Export(specifications);
   });
 
@@ -897,8 +898,8 @@ describe(describeString, () => {
     expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
     expectCardOne(child.value);
     expectChoiceValue(child.value, 2);
-    expectChoiceOption(choice.value, 0, 'primitive', 'boolean');
-    expectChoiceOption(choice.value, 1, 'primitive', 'integer');
+    expectChoiceOption(child.value, 0, 'primitive', 'boolean');
+    expectChoiceOption(child.value, 1, 'primitive', 'integer');
     if(phase2) testCIMPL6Export(specifications);
   });
 
@@ -911,10 +912,10 @@ describe(describeString, () => {
     expectIdentifier(child.basedOn[0], nspace, 'ChoiceElement');
     expectCardOne(child.value);
     expectChoiceValue(child.value, 4);
-    expectChoiceOption(choice.value, 0, 'primitive', 'decimal');
-    expectChoiceOption(choice.value, 1, 'primitive', 'integer');
-    expectChoiceOption(choice.value, 2, 'primitive', 'concept');
-    expectChoiceOption(choice.value, 3, 'primitive', 'uri');
+    expectChoiceOption(child.value, 0, 'primitive', 'decimal');
+    expectChoiceOption(child.value, 1, 'primitive', 'integer');
+    expectChoiceOption(child.value, 2, 'primitive', 'concept');
+    expectChoiceOption(child.value, 3, 'primitive', 'uri');
     if(phase2) testCIMPL6Export(specifications);
   });
 
