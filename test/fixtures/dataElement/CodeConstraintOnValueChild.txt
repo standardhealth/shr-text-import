@@ -10,4 +10,4 @@ Value:          CodedFromValueSet
 Value[CodedFromValueSet] = FOO#bar "FooBar"
 
 Element:        CodedFromValueSet
-Value:          concept from http://standardhealthrecord.org/test/vs/Coded (required)
+Value:          concept from http://standardhealthrecord.org/shr/test/vs/Coded (required)

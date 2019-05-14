@@ -15,4 +15,4 @@ Group:          CodedFromValueSet  // Changed Element to Group
 Property:       CodedFromVS2 0..1
 
 Element:        CodedFromVS2
-Value:          concept from http://standardhealthrecord.org/test/vs/Coded (required)
+Value:          concept from http://standardhealthrecord.org/shr/test/vs/Coded (required)

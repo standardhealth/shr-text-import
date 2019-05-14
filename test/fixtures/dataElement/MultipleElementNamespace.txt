@@ -9,4 +9,4 @@ Value:          date
 
 Element:        Coded
 Description:    "It is a coded element"
-Value:          concept from http://standardhealthrecord.org/test/vs/Coded (required)
+Value:          concept from http://standardhealthrecord.org/shr/test/vs/Coded (required)

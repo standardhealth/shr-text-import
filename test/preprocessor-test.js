@@ -46,7 +46,7 @@ describe('#preprocessFile', () => {
   it('Prep4: should correctly preprocess a path definition', () => {
     const data = importFixture('codedFromPathValueSet');
     expect(data._paths).to.eql({
-      'codedFromPathValueSet': { 'TESTVS': 'http://standardhealthrecord.org/test/vs' }
+      'codedFromPathValueSet': { 'TESTVS': 'http://standardhealthrecord.org/shr/test/vs' }
     });
     expect(data._vocabularies).to.eql({});
     expect(data._definitions).to.eql({

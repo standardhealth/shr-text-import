@@ -11,4 +11,4 @@ Property:       Coded 1..*
                 Coded += FOO#baz "FooBaz"
 
 Element:        Coded
-Value:          concept from http://standardhealthrecord.org/test/vs/Coded (example)
+Value:          concept from http://standardhealthrecord.org/shr/test/vs/Coded (example)

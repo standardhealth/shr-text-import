@@ -6,7 +6,7 @@ Value:    CodedElement
 
 Element:    ChildElement
 Parent:   BaseElement
-Value[CodedElement] from http://standardhealthrecord.org/test/vs/Coded (required)
+Value[CodedElement] from http://standardhealthrecord.org/shr/test/vs/Coded (required)
 
 Element:   CodedElement
 Value:     concept

@@ -4,6 +4,7 @@ const {id, pid, expectAndGetElement, expectAndGetEntry, expectValue, expectPrimi
 const {Version, IncompleteValue, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, TBD, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
 const err = require('shr-test-helpers/errors');
 const shrexpand = require('shr-expand');
+const fs = require('fs');
 const errorLogger = err.logger();
 
 shrexpand.setLogger(errorLogger)
@@ -20,6 +21,8 @@ const phase3 = true;
 //------------------- The Tests -------------------------
 
 testImportExport(phase2, '/fixtures/dataElement/', '#importDataElement');
+fs.copyFileSync(`${__dirname}/fixtures/dataElement/_dependencies/core_vs.txt`, `${__dirname}/build/dataElementExports/_dependencies/core_vs.txt`);
+fs.copyFileSync(`${__dirname}/fixtures/dataElement/_dependencies/test_vs.txt`, `${__dirname}/build/dataElementExports/_dependencies/test_vs.txt`);
 testImportExport(phase3, '/build/dataElementExports/', '#re-importExportedFiles');
 // removal of exports directory is not yet tested
 // emptyThenRmdir(`${__dirname}/build/dataElementExports');
@@ -109,7 +112,7 @@ describe(describeString, () => {
     expectPrimitiveValue(coded.value, 'concept');
     expect(coded.value.constraints).to.have.length(1);
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
-    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/shr/test/vs/Coded');
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
@@ -122,7 +125,7 @@ describe(describeString, () => {
     expectPrimitiveValue(coded.value, 'concept');
     expect(coded.value.constraints).to.have.length(1);
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
-    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/shr/test/vs/Coded');
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
@@ -181,7 +184,7 @@ describe(describeString, () => {
     const cst = entry.value.constraints[0];
     expect(cst).to.be.instanceof(ValueSetConstraint);
     expect(cst.path).to.be.empty;
-    expect(cst.valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded2');
+    expect(cst.valueSet).to.equal('http://standardhealthrecord.org/shr/test/vs/Coded2');
     expect(cst.bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
@@ -202,7 +205,7 @@ describe(describeString, () => {
     expect(entry.value.constraints[0].path).to.eql([id(nspace, 'CodedFromValueSet')]);
     expect(entry.value.constraints[1]).to.be.instanceof(ValueSetConstraint);
     expect(entry.value.constraints[1].path).to.eql([id(nspace, 'CodedFromValueSet')]);
-    expect(entry.value.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+    expect(entry.value.constraints[1].valueSet).to.equal('http://standardhealthrecord.org/shr/test/vs/Coded');
     expect(entry.value.constraints[1].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
@@ -263,7 +266,7 @@ describe(describeString, () => {
       let cst = entry.value.constraints[0];
       expect(cst).to.be.instanceof(ValueSetConstraint);
       expect(cst.path).to.eql([]);
-      expect(cst.valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+      expect(cst.valueSet).to.equal('http://standardhealthrecord.org/shr/test/vs/Coded');
       expect(cst.bindingStrength).to.equal(answerKey[testCase]);
     }
     if(phase2) testCIMPL6Export(specifications);
@@ -308,7 +311,7 @@ describe(describeString, () => {
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
     expect(entry.value.constraints[0].path).to.be.empty;
-    expect(entry.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+    expect(entry.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/shr/test/vs/Coded');
     expect(entry.value.constraints[0].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });
@@ -796,7 +799,7 @@ describe(describeString, () => {
     expectPrimitiveValue(coded.value, 'concept');
     expect(coded.value.constraints).to.have.length(1);
     expect(coded.value.constraints[0]).to.be.instanceof(ValueSetConstraint);
-    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/test/vs/Coded');
+    expect(coded.value.constraints[0].valueSet).to.equal('http://standardhealthrecord.org/shr/test/vs/Coded');
     expect(coded.value.constraints[0].bindingStrength).to.equal(REQUIRED);
     if(phase2) testCIMPL6Export(specifications);
   });

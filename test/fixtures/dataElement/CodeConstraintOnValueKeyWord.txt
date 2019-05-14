@@ -11,4 +11,4 @@ Parent:   BaseElement
 Value[CodedElement] = FOO#bar "FooBar"
 
 Element:   CodedElement
-Value:     concept from http://standardhealthrecord.org/test/vs/Coded (required)
+Value:     concept from http://standardhealthrecord.org/shr/test/vs/Coded (required)
