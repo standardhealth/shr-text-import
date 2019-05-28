@@ -88,10 +88,14 @@ function expectField(element, fieldIndex, expectedNamespace, expectedName, expec
   expectValue(sptEl, expectedNamespace, expectedName);
 }
 
-function expectConcept(concept, system, code, display='') {
+function expectConcept(concept, system, code, display) {
   expect(concept.system).equals(system);
   expect(concept.code).equals(code);
-  expect(concept.display).equals(display);
+  if (display !== undefined) {
+    expect(concept.display).equals(display);
+  } else {
+    expect(concept.display).to.be.undefined;
+  }
 }
 
 function expectIdentifier(identifier, expectedNamespace, expectedName) {
