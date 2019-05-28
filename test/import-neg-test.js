@@ -1,5 +1,3 @@
-const fs = require('fs');
-const {expect} = require('chai');
 const {setLogger} = require('../index');
 const {importFixture, importFixtureFolder } = require('../test/import-helper');
 const err = require('shr-test-helpers/errors');
@@ -7,7 +5,7 @@ const err = require('shr-test-helpers/errors');
 // Set the logger -- this is needed for detecting and checking errors
 setLogger(err.logger());
 
-const dir = "/fixtures/dataElement/";
+const dir = '/fixtures/dataElement/';
 
 describe('#importDataElementNegatives', () => {
   beforeEach(function() {
@@ -28,7 +26,7 @@ describe('#importDataElementNegatives', () => {
 
   it('Neg4: should produce an error message (not a traceback) when there is a duplicate element name', () => {
     importFixture('InvalidDuplicateElementDefinition', dir, true);
-   });
+  });
 
   it('Neg5: should produce an error message (not a traceback) when a class defines a property twice.', () => {
     importFixture('InvalidDuplicatePropertyDefinition', dir, true);

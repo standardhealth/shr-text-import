@@ -116,22 +116,22 @@ function expectNoConstraints(value) {
   }
 }
 const testConfig = {
-    "projectName":"Test Project",
-    "projectShorthand":"TEST",
-    "projectURL":"http://standardhealthrecord.org",
-    "fhirURL": "http://standardhealthrecord.org/fhir",
-    "implementationGuide": {
-      "npmName": "basic",
-      "version": "1.2.3",
-      "indexContent": "basicindexcontent.html"
-    },
-    "publisher":"Test Publisher",
-    "contact":[{
-        "telecom":[{
-          "system":"url",
-          "value":"http://test.org"
-        }]
+  'projectName':'Test Project',
+  'projectShorthand':'TEST',
+  'projectURL':'http://standardhealthrecord.org',
+  'fhirURL': 'http://standardhealthrecord.org/fhir',
+  'implementationGuide': {
+    'npmName': 'basic',
+    'version': '1.2.3',
+    'indexContent': 'basicindexcontent.html'
+  },
+  'publisher':'Test Publisher',
+  'contact':[{
+    'telecom':[{
+      'system':'url',
+      'value':'http://test.org'
     }]
+  }]
 };
 function importFixture(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`, testConfig);
@@ -166,10 +166,6 @@ function checkImportErrors(hasExpectedErrors) {
     expect(true, 'Negative Test Failed: No error was reported').to.be.false;
   } else if (!hasExpectedErrors && errors.length > 0) {
     expect(false, `Import Errors: ${errors.map(e => e.msg).join('; ')}`).to.be.true;
-  } else if (hasExpectedErrors) {
-    // Expectation of getting an error was met. But let's print the error messsage to make sure it is an accurate description of the error.
-    const message = `    The following test passed, error message:  ${errors.map(e => e.msg).join('; ')}`;
-    console.log(message);
   }
 }
 

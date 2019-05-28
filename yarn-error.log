@@ -1,14 +1,14 @@
 Arguments: 
-  /usr/local/Cellar/node/11.11.0/bin/node /usr/local/bin/yarn install
+  /usr/local/Cellar/node/12.3.1/bin/node /usr/local/bin/yarn install
 
 PATH: 
-  /Users/achakraborty/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/local/opt/curl/bin:/Users/achakraborty/.rvm/gems/ruby-2.4.1/bin:/Users/achakraborty/.rvm/gems/ruby-2.4.1@global/bin:/Users/achakraborty/.rvm/rubies/ruby-2.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/achakraborty/.rvm/bin
+  /Users/achakraborty/anaconda3/bin:/Users/achakraborty/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/local/opt/curl/bin:/Users/achakraborty/.rvm/gems/ruby-2.4.1/bin:/Users/achakraborty/.rvm/gems/ruby-2.4.1@global/bin:/Users/achakraborty/.rvm/rubies/ruby-2.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/achakraborty/.rvm/bin
 
 Yarn version: 
   1.7.0
 
 Node version: 
-  11.11.0
+  12.3.1
 
 Platform: 
   darwin x64
@@ -20,12 +20,12 @@ Trace:
       at Generator.next (<anonymous>)
       at step (/usr/local/lib/node_modules/yarn/lib/cli.js:98:30)
       at /usr/local/lib/node_modules/yarn/lib/cli.js:109:13
-      at processTicksAndRejections (internal/process/next_tick.js:81:5)
+      at processTicksAndRejections (internal/process/task_queues.js:89:5)
 
 npm manifest: 
   {
     "name": "shr-text-import",
-    "version": "5.5.1",
+    "version": "5.7.1",
     "description": "Imports Standard Health Record (SHR) elements from their custom grammar to the SHR models",
     "author": "",
     "license": "Apache-2.0",
