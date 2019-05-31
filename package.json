@@ -17,8 +17,7 @@
     "lint:fix": "./node_modules/.bin/eslint . --fix"
   },
   "dependencies": {
-    "antlr4": "~4.6.0",
-    "dtrace-provider": "^0.8.7"
+    "antlr4": "~4.6.0"
   },
   "devDependencies": {
     "bunyan": "^1.8.9",
