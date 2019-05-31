@@ -1,5 +1,5 @@
 Grammar:    DataElement 6.0
-Namespace:  vsConstraintOnValueWithBindingStrength
+Namespace:  vSConstraintOnValueWithBindingStrength
 
 Element: RequiredVSConstraintOnValue
 Value:   concept from http://standardhealthrecord.org/shr/test/vs/Coded (required)

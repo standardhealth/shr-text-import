@@ -175,8 +175,8 @@ function testImportExport(phase2, importDir, describeString) {
 
   // Constraints
 
-    it('Import12: should correctly import an entry with a valueset constraint on the value, file = vsConstraintOnValue', () => {
-      const nspace  = 'vsConstraintOnValue';
+    it('Import12: should correctly import an entry with a valueset constraint on the value, file = vSConstraintOnValue', () => {
+      const nspace  = 'vSConstraintOnValue';
       const specifications = importFixture(nspace, importDir);
       const entry = expectAndGetElement(specifications, nspace, 'VSConstraintOnValue');
       expect(entry.description).to.equal('It is an entry with a valueset constraint on the value');
@@ -192,8 +192,8 @@ function testImportExport(phase2, importDir, describeString) {
     });
 
 
-    it('Import13: should correctly import an entry with a valueset constraint on the child\'s value, file = vsConstraintOnValueChild', () => {
-      const nspace  = 'vsConstraintOnValueChild' ;
+    it('Import13: should correctly import an entry with a valueset constraint on the child\'s value, file = vSConstraintOnValueChild', () => {
+      const nspace  = 'vSConstraintOnValueChild' ;
       const specifications = importFixture(nspace, importDir);
       const entry = expectAndGetElement(specifications, nspace, 'VSConstraintOnValueChild');
       expectCardOne(entry.value);
@@ -213,8 +213,8 @@ function testImportExport(phase2, importDir, describeString) {
     });
 
 
-    it('Import14: should correctly import a group with a valueset constraint on a field, file = vsConstraintOnField', () => {
-      const nspace  = 'vsConstraintOnField';
+    it('Import14: should correctly import a group with a valueset constraint on a field, file = vSConstraintOnField', () => {
+      const nspace  = 'vSConstraintOnField';
       const specifications = importFixture(nspace, importDir);
       const group = expectAndGetEntry(specifications, nspace, 'VSConstraintOnField');
       expect(group.value).to.be.undefined;
@@ -230,8 +230,8 @@ function testImportExport(phase2, importDir, describeString) {
     });
 
 
-    it('Import15: should correctly import a group with a valueset constraint on a field\'s child, file = vsConstraintOnFieldChild', () => {
-      const nspace  = 'vsConstraintOnFieldChild';
+    it('Import15: should correctly import a group with a valueset constraint on a field\'s child, file = vSConstraintOnFieldChild', () => {
+      const nspace  = 'vSConstraintOnFieldChild';
       const specifications = importFixture(nspace, importDir);
       const group = expectAndGetEntry(specifications, nspace, 'VSConstraintOnFieldChild');
       expect(group.value).to.be.undefined;
@@ -251,8 +251,8 @@ function testImportExport(phase2, importDir, describeString) {
       if(phase2) testCIMPL6Export(specifications);
     });
 
-    it('Import16: should correctly import entries with valueset constraints on value with a binding strength, file = vsConstraintOnValueWithBindingStrength', () => {
-      const nspace  = 'vsConstraintOnValueWithBindingStrength' ;
+    it('Import16: should correctly import entries with valueset constraints on value with a binding strength, file = vSConstraintOnValueWithBindingStrength', () => {
+      const nspace  = 'vSConstraintOnValueWithBindingStrength' ;
       const specifications = importFixture(nspace, importDir);
       const answerKey = {
         'RequiredVSConstraintOnValue': REQUIRED,
@@ -275,8 +275,8 @@ function testImportExport(phase2, importDir, describeString) {
     });
 
 
-    it('Import17: should correctly import entries with a valueset constraint on a field with a binding strength, file = vsConstraintOnFieldWithBindingStrength', () => {
-      const nspace  = 'vsConstraintOnFieldWithBindingStrength';
+    it('Import17: should correctly import entries with a valueset constraint on a field with a binding strength, file = vSConstraintOnFieldWithBindingStrength', () => {
+      const nspace  = 'vSConstraintOnFieldWithBindingStrength';
       const specifications = importFixture(nspace, importDir);
       const answerKey = {
         'RequiredVSConstraintOnField': REQUIRED,
@@ -300,8 +300,8 @@ function testImportExport(phase2, importDir, describeString) {
     });
 
 
-    it('Import18: should correctly import an entry with a valueset constraint on inherited value, file = vsConstraintOnValueKeyWord', () => {
-      const nspace  = 'vsConstraintOnValueKeyWord' ;
+    it('Import18: should correctly import an entry with a valueset constraint on inherited value, file = vSConstraintOnValueKeyWord', () => {
+      const nspace  = 'vSConstraintOnValueKeyWord' ;
       const specifications = importFixture(nspace, importDir);
       const entry = expectAndGetElement(specifications, nspace, 'ChildElement');
       expect(entry.fields).to.be.empty;

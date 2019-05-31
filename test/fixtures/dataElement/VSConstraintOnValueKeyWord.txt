@@ -1,5 +1,5 @@
 Grammar:     DataElement 6.0
-Namespace:   vsConstraintOnValueKeyWord
+Namespace:   vSConstraintOnValueKeyWord
 
 Element:    BaseElement
 Value:    CodedElement
