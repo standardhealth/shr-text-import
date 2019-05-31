@@ -77,7 +77,8 @@ describe('#preprocessFile', () => {
 
 function importFixture(name) {
   const preprocessor = new Preprocessor();
-  preprocessor.preprocessFile(`${__dirname}/fixtures/dataElement/${name}.txt`);
+  const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
+  preprocessor.preprocessFile(`${__dirname}/fixtures/dataElement/${nameCapitalized}.txt`);
   expect(err.hasErrors()).to.be.false;
   return preprocessor.data;
 }
