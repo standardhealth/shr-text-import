@@ -138,17 +138,17 @@ const testConfig = {
   }]
 };
 function importFixture(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
-  const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
+  const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`, testConfig);
-  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}.txt`, testConfig, dependencies);
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${nameCapitalized}.txt`, testConfig, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
 
 function importFixtureFolder(name, dir = '/fixtures/dataElement/', hasExpectedErrors = false) {
-  const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1)
+  const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
   const dependencies = importFromFilePath(`${__dirname}/fixtures/dataElement/_dependencies`, testConfig);
-  const specifications = importFromFilePath(`${__dirname}`+dir+`${name}`, testConfig, dependencies);
+  const specifications = importFromFilePath(`${__dirname}`+dir+`${nameCapitalized}`, testConfig, dependencies);
   checkImportErrors(hasExpectedErrors);
   return specifications;
 }
