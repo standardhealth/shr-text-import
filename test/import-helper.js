@@ -1,7 +1,7 @@
 const fs = require('fs');
 const {expect} = require('chai');
 const {importFromFilePath, importConfigFromFilePath, importCIMCOREFromFilePath} = require('../index');
-const {DataElement, Value, RefValue, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, toCIMPL6} = require('shr-models');
+const {DataElement, Value, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, toCIMPL6} = require('shr-models');
 const err = require('shr-test-helpers/errors');
 const {expand} = require('shr-expand');
 
@@ -39,11 +39,6 @@ function expectValue(value, expectedNamespace, expectedName) {
 function expectPrimitiveValue(value, expectedName) {
   expect(value).to.be.instanceof(Value);
   expectPrimitiveIdentifier(value.identifier, expectedName);
-}
-
-function expectRefValue(value, expectedNamespace, expectedName) {
-  expect(value).to.be.instanceof(RefValue);
-  expectIdentifier(value.identifier, expectedNamespace, expectedName);
 }
 
 function expectChoiceValue(value, size) {
@@ -293,4 +288,4 @@ function convertSpecsToCimcore(configSpecifications, expSpecifications) {
   return cimcoreSpecifications;
 }
 
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectRefValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export, /*emptyThenRmdir,*/ importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, convertSpecsToCimcore };
+module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export, /*emptyThenRmdir,*/ importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, convertSpecsToCimcore };
