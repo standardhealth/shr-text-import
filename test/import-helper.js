@@ -1,9 +1,8 @@
 const fs = require('fs');
 const {expect} = require('chai');
 const {importFromFilePath, importConfigFromFilePath, importCIMCOREFromFilePath} = require('../index');
-const {DataElement, Value, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality, toCIMPL6} = require('shr-models');
+const {DataElement, Value, ChoiceValue, Identifier, PrimitiveIdentifier, Cardinality} = require('shr-models');
 const err = require('shr-test-helpers/errors');
-const {expand} = require('shr-expand');
 
 // Shorthand Identifier constructor for more concise code
 function id(namespace, name) {
@@ -169,36 +168,6 @@ function checkImportErrors(hasExpectedErrors) {
   }
 }
 
-function testCIMPL6Export(specifications, exportDir = '/build/dataElementExports/') {
-  specifications = expand(specifications);
-  const expandErrors = err.errors();
-  if(expandErrors.length > 0) expect(false, `shr-expand: ${expandErrors.map(e => e.msg).join('; ')}`).to.be.true;
-  specifications.toCIMPL6(`${__dirname}`+exportDir);
-  const exportErrors = err.errors();
-  if(exportErrors.length > 0) expect(false, `shr-CIMPL6-export: ${exportErrors.map(e => e.msg).join('; ')}`).to.be.true;
-}
-
-/**
- * Remove directory recursively
- * @param {string} dir_path
- * @see https://stackoverflow.com/a/42505874/3027390
- */
-/* NOT YET TESTED
-function emptyThenRmdir(dir_path) {
-  if (fs.existsSync(dir_path)) {
-      fs.readdirSync(dir_path).forEach(function(entry) {
-          var entry_path = path.join(dir_path, entry);
-          if (fs.lstatSync(entry_path).isDirectory()) {
-            emptyThenRmdir(entry_path);
-          } else {
-              fs.unlinkSync(entry_path);
-          }
-      });
-      fs.rmdirSync(dir_path);
-  }
-}
-*/
-
 function importCimcoreNSFile(namespace, numExpectedErrors = 0) {
   namespace = namespace.replace(/\./g,'-');
   const configuration = fs.readFileSync(`${__dirname}/fixtures/cimcore/${namespace}/${namespace}.json`, 'utf8');
@@ -288,4 +257,4 @@ function convertSpecsToCimcore(configSpecifications, expSpecifications) {
   return cimcoreSpecifications;
 }
 
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, toCIMPL6, testCIMPL6Export, /*emptyThenRmdir,*/ importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, convertSpecsToCimcore };
+module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, convertSpecsToCimcore };
