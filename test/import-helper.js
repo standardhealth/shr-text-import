@@ -15,17 +15,27 @@ function pid(name) {
 }
 
 function expectAndGetElement(specs, expectedNamespace, expectedName) {
-  return expectAndGetDataElement(specs, expectedNamespace, expectedName, false);
+  return expectAndGetDataElement(specs, expectedNamespace, expectedName);
+}
+
+function expectAndGetGroup(specs, expectedNamespace, expectedName) {
+  return expectAndGetDataElement(specs, expectedNamespace, expectedName, false, false, true);
+}
+
+function expectAndGetAbstract(specs, expectedNamespace, expectedName) {
+  return expectAndGetDataElement(specs, expectedNamespace, expectedName, false, true);
 }
 
 function expectAndGetEntry(specs, expectedNamespace, expectedName) {
   return expectAndGetDataElement(specs, expectedNamespace, expectedName, true);
 }
 
-function expectAndGetDataElement(specs, expectedNamespace, expectedName, isEntry) {
+function expectAndGetDataElement(specs, expectedNamespace, expectedName, isEntry=false, isAbstract=false, isGroup=false) {
   const def = specs.dataElements.find(expectedNamespace, expectedName);
   expect(def).to.be.instanceof(DataElement);
   expect(def.isEntry).to.equal(isEntry);
+  expect(def.isAbstract).to.equal(isAbstract);
+  expect(def.isGroup).to.equal(isGroup);
   expectIdentifier(def.identifier, expectedNamespace, expectedName);
   return def;
 }
@@ -257,4 +267,4 @@ function convertSpecsToCimcore(configSpecifications, expSpecifications) {
   return cimcoreSpecifications;
 }
 
-module.exports = {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, convertSpecsToCimcore };
+module.exports = {id, pid, expectAndGetElement, expectAndGetAbstract, expectAndGetGroup, expectAndGetEntry, expectAndGetDataElement, expectValue, expectPrimitiveValue, expectChoiceValue, expectMinMax, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder, importConfiguration, importConfigurationFolder, checkImportErrors, importCimcoreNSFile, importCimcoreDEFile, importCimcoreVSFile, importCimcoreMapFile, importCimcoreProjectFile, importCimcoreFolder, convertSpecsToCimcore };

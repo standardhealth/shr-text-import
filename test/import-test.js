@@ -1,6 +1,6 @@
 const {expect} = require('chai');
 const {setLogger} = require('../index');
-const {id, pid, expectAndGetElement, expectAndGetEntry, expectValue, expectPrimitiveValue, expectChoiceValue, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder } = require('../test/import-helper');
+const {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetAbstract, expectAndGetGroup, expectValue, expectPrimitiveValue, expectChoiceValue, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder } = require('../test/import-helper');
 const {Version, IncompleteValue, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
 const err = require('shr-test-helpers/errors');
 const shrexpand = require('shr-expand');
@@ -55,8 +55,7 @@ describe('#importDataElement', () => {
   it('Import04: should correctly import a simple abstract element, file = simpleAbstractElement', () => {
     const nspace  = 'simpleAbstractElement';
     const specifications = importFixture(nspace, importDir);
-    const simple = expectAndGetElement(specifications, nspace, 'Simple');
-    expect(simple.isAbstract).to.be.true;
+    const simple = expectAndGetAbstract(specifications, nspace, 'Simple');
     expect(simple.concepts).to.have.length(1);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar');
     expect(simple.description).to.equal('It is an abstract entry');
@@ -109,7 +108,7 @@ describe('#importDataElement', () => {
   it('Import10: should correctly import an entry with multiple properties, file = groupPropertiesOnly', () => {
     const nspace  = 'groupPropertiesOnly';
     const specifications = importFixture(nspace, importDir);
-    const group = expectAndGetElement(specifications, nspace, 'GroupPropertiesOnly');
+    const group = expectAndGetGroup(specifications, nspace, 'GroupPropertiesOnly');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(4);
     expectField(group, 0, nspace, 'Simple', 0, 1);
@@ -564,7 +563,7 @@ describe('#importDataElement', () => {
   it('Import38: should correctly import a group with a type constraint on a field\'s value, file = typeConstraintOnFieldValue', () => {
     const nspace  = 'typeConstraintOnFieldValue' ;
     const specifications = importFixture(nspace, importDir);
-    const group = expectAndGetEntry(specifications, nspace, 'TypeConstraintOnFieldValue');
+    const group = expectAndGetGroup(specifications, nspace, 'TypeConstraintOnFieldValue');
     expect(group.basedOn).to.have.length(1);
     expectIdentifier(group.basedOn[0], nspace, 'Group2');
     expect(group.value).to.be.undefined;
@@ -786,7 +785,7 @@ does not support multiple options.
   it('Import55: should correctly import a group with a cardinality constraint on a substituted element, file = substituteOnReferenceName', () => {
     const nspace = 'substituteOnReferenceName' ;
     const specifications = importFixture(nspace, importDir);
-    const group = expectAndGetElement(specifications, nspace, 'TypeConstraintOnField');
+    const group = expectAndGetGroup(specifications, nspace, 'TypeConstraintOnField');
     expect(group.basedOn).to.have.length(1);
     expectIdentifier(group.basedOn[0], nspace, 'GroupBase');
     expect(group.value).to.be.undefined;
@@ -880,6 +879,51 @@ does not support multiple options.
     expectChoiceOption(child.value, 0, nspace, 'ValueChild2');
     expectChoiceOption(child.value, 1, nspace, 'ValueChild4');
     expectChoiceOption(child.value, 2, nspace, 'ValueChild5');
+  });
+
+  it('Import63: should correctly allow an Entry to declare another Entry as parent.', () => {
+    const nspace = 'entryWithParentEntry' ;
+    const specifications = importFixture(nspace, importDir);
+    expectAndGetEntry(specifications, nspace, 'ParentEntry');
+    const child = expectAndGetEntry(specifications, nspace, 'ChildEntry');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ParentEntry');
+  });
+
+  it('Import64: should correctly allow an Entry to declare an Abstract as parent.', () => {
+    const nspace = 'entryWithParentAbstract' ;
+    const specifications = importFixture(nspace, importDir);
+    expectAndGetAbstract(specifications, nspace, 'ParentAbstract');
+    const child = expectAndGetEntry(specifications, nspace, 'ChildEntry');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ParentAbstract');
+  });
+
+  it('Import65: should correctly allow an Abstract to declare another Abstract as parent.', () => {
+    const nspace = 'abstractWithParentAbstract' ;
+    const specifications = importFixture(nspace, importDir);
+    expectAndGetAbstract(specifications, nspace, 'ParentAbstract');
+    const child = expectAndGetAbstract(specifications, nspace, 'ChildAbstract');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ParentAbstract');
+  });
+
+  it('Import66: should correctly allow a Group to declare a Group as parent.', () => {
+    const nspace = 'groupWithParentGroup' ;
+    const specifications = importFixture(nspace, importDir);
+    expectAndGetGroup(specifications, nspace, 'ParentGroup');
+    const child = expectAndGetGroup(specifications, nspace, 'ChildGroup');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ParentGroup');
+  });
+
+  it('Import67: should correctly allow an Element to declare another Element as parent.', () => {
+    const nspace = 'elementWithParentElement' ;
+    const specifications = importFixture(nspace, importDir);
+    expectAndGetElement(specifications, nspace, 'ParentElement');
+    const child = expectAndGetElement(specifications, nspace, 'ChildElement');
+    expect(child.basedOn).to.have.length(1);
+    expectIdentifier(child.basedOn[0], nspace, 'ParentElement');
   });
 
 });
