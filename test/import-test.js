@@ -118,22 +118,6 @@ describe('#importDataElement', () => {
     expectNoConstraints(group.fields);
   });
 
-
-  it('Import11: For backwards compatibility ONLY, it should correctly import a group with both a value and properties, file = groupValueAndProperties', () => {
-    const nspace  = 'groupValueAndProperties';
-    const specifications = importFixture(nspace, importDir);
-    const group = expectAndGetEntry(specifications, nspace, 'GroupValueAndProperties');
-    expectCardOne(group.value);
-    expectPrimitiveValue(group.value, 'concept');
-    expectNoConstraints(group.value);
-    expect(group.fields).to.have.length(4);
-    expectField(group, 0, nspace, 'Simple', 0, 1);
-    expectField(group, 1, nspace, 'Coded', 0);
-    expectField(group, 2, nspace, 'Simple2', 1);
-    expectField(group, 3, nspace, 'Thing', 1, 1);
-    expectNoConstraints(group.fields);
-  });
-
 // Constraints
 
   it('Import12: should correctly import an entry with a valueset constraint on the value, file = vSConstraintOnValue', () => {
@@ -470,7 +454,7 @@ describe('#importDataElement', () => {
     expectValue(entry.value, nspace, 'SimpleBoolean');
     expect(entry.value.constraints).to.have.length(1);
     expect(entry.value.constraints[0]).to.be.instanceof(BooleanConstraint);
-    expect(entry.value.constraints[0].path).to.eql([pid('boolean')]);
+    expect(entry.value.constraints[0].path).to.be.empty;
     expect(entry.value.constraints[0].value).to.be.false;
   });
 
@@ -734,7 +718,7 @@ does not support multiple options.
   it('Import52: should correctly resolve URL, URN, and URN OID vocabularies, file = vocabularies', () => {
     const nspace  = 'vocabularies';
     const specifications = importFixture(nspace, importDir);
-    const simple = expectAndGetEntry(specifications, nspace, 'Simple');
+    const simple = expectAndGetElement(specifications, nspace, 'Simple');
     expect(simple.concepts).to.have.length(3);
     expectConcept(simple.concepts[0], 'http://foo.org', 'bar', 'Foobar');
     expectConcept(simple.concepts[1], 'urn:iso:std:iso:4217', 'baz', 'Foobaz');

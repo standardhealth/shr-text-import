@@ -200,5 +200,25 @@ describe('#importDataElementNegatives', () => {
     importFixture('InvalidGroupWithParentElement', dir, true);
   });
 
+  it('Neg45: should produce an error message (not a traceback) when an Element declares a Property.', () => {
+    importFixture('InvalidElementWithProperty', dir, true);
+  });
+
+  it('Neg45: should produce an error message (not a traceback) when an Element constrains a Property.', () => {
+    importFixture('InvalidElementWithPropertyConstraint', dir, true);
+  });
+
+  it('Neg46: should produce an error message (not a traceback) when an Abstract declares a Value.', () => {
+    importFixture('InvalidAbstractWithValue', dir, true);
+  });
+
+  it('Neg46: should produce an error message (not a traceback) when an Entry declares a Value.', () => {
+    importFixture('InvalidEntryWithValue', dir, true);
+  });
+
+  it('Neg46: should produce an error message (not a traceback) when a Group declares a Value.', () => {
+    importFixture('InvalidGroupWithValue', dir, true);
+  });
+
 // end of negative examples
 });
