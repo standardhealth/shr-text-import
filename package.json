@@ -25,7 +25,7 @@
     "eslint": "^3.6.1",
     "mocha": "^3.5.3",
     "shr-expand": "^6.0.0",
-    "shr-models": "^6.0.0",
+    "shr-models": "standardhealth/shr-models#element-type-enforcement",
     "shr-test-helpers": "^6.0.0"
   },
   "peerDependencies": {
