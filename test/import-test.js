@@ -1,7 +1,7 @@
 const {expect} = require('chai');
 const {setLogger} = require('../index');
 const {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetAbstract, expectAndGetGroup, expectValue, expectPrimitiveValue, expectChoiceValue, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder } = require('../test/import-helper');
-const {Version, IncompleteValue, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, TypeConstraint, CardConstraint, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
+const {Version, IncompleteValue, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, FixedValueConstraint, TypeConstraint, CardConstraint, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
 const err = require('shr-test-helpers/errors');
 const shrexpand = require('shr-expand');
 const errorLogger = err.logger();
@@ -908,6 +908,58 @@ does not support multiple options.
     const child = expectAndGetElement(specifications, nspace, 'ChildElement');
     expect(child.basedOn).to.have.length(1);
     expectIdentifier(child.basedOn[0], nspace, 'ParentElement');
+  });
+
+  it('Import68: should correctly import an entry with a fixed string constraint on the value, file = fixedStringConstraintOnValue', () => {
+    const nspace  = 'fixedStringConstraintOnValue' ;
+    const specifications = importFixture(nspace, importDir);
+    const entry = expectAndGetElement(specifications, nspace, 'FixedStringConstraintOnValue');
+    expectCardOne(entry.value);
+    expectPrimitiveValue(entry.value, 'string');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(FixedValueConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].onValue).to.be.undefined;
+    expect(entry.value.constraints[0].value).to.equal('foo bar');
+  });
+
+  it('Import69: should correctly import an entry with a fixed string constraint on the value (alternate syntax), file = fixedStringConstraintOnValue2', () => {
+    const nspace  = 'fixedStringConstraintOnValue2' ;
+    const specifications = importFixture(nspace, importDir);
+    const entry = expectAndGetElement(specifications, nspace, 'FixedStringConstraintOnValue');
+    expectCardOne(entry.value);
+    expectPrimitiveValue(entry.value, 'string');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(FixedValueConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].onValue).to.be.undefined;
+    expect(entry.value.constraints[0].value).to.equal('foo bar');
+  });
+
+  it('Import70: should correctly import an entry with a fixed string constraint on the value\'s child, file = fixedStringConstraintOnValueChild', () => {
+    const nspace  = 'fixedStringConstraintOnValueChild' ;
+    const specifications = importFixture(nspace, importDir);
+    const entry = expectAndGetElement(specifications, nspace, 'FixedStringConstraintOnValueChild');
+    expectCardOne(entry.value);
+    expectValue(entry.value, nspace, 'SimpleString');
+    expect(entry.value.constraints).to.have.length(1);
+    expect(entry.value.constraints[0]).to.be.instanceof(FixedValueConstraint);
+    expect(entry.value.constraints[0].path).to.be.empty;
+    expect(entry.value.constraints[0].value).to.equal('foo bar');
+  });
+
+  it('Import71: should correctly import a group with a fixed string constraint on a field\'s child, file = fixedStringConstraintOnFieldChild', () => {
+    const nspace  = 'fixedStringConstraintOnFieldChild' ;
+    const specifications = importFixture(nspace, importDir);
+    const group = expectAndGetEntry(specifications, nspace, 'FixedStringConstraintOnFieldChild');
+    expect(group.value).to.be.undefined;
+    expect(group.fields).to.have.length(1);
+    expectField(group, 0, nspace, 'SimpleString', 0, 1);
+    const el = group.fields[0];
+    expect(el.constraints).to.have.length(1);
+    expect(el.constraints[0]).to.be.instanceof(FixedValueConstraint);
+    expect(el.constraints[0].path).to.eql([pid('string')]);
+    expect(el.constraints[0].value).to.equal('foo bar');
   });
 
 });
