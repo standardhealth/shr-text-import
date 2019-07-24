@@ -340,12 +340,12 @@ describe('#importDataElement', () => {
     const specifications = importFixture(nspace, importDir);
     const entry = expectAndGetElement(specifications, nspace, 'UnitConstraintOnValue');
     expectCardOne(entry.value);
-    expectValue(entry.value, 'shr.core', 'Quantity');
+    expectValue(entry.value, 'obf.datatype', 'Quantity');
     expect(entry.value.constraints).to.have.length(1); // fails here
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-//   expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
+//   expect(entry.value.constraints[0].path).to.eql([id('obf.datatype','Units'), id('obf.datatype','concept')]);
     expect(entry.value.constraints[0].path).to.have.length(2);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core','Units'), id('primitive', 'concept')]);
+    expect(entry.value.constraints[0].path).to.eql([id('obf.datatype','Units'), id('primitive', 'concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -358,9 +358,9 @@ describe('#importDataElement', () => {
     expectValue(entry.value, nspace, 'Volume');
     expect(entry.value.constraints).to.have.length(1);  // fails here
     expect(entry.value.constraints[0]).to.be.instanceof(CodeConstraint);
-  // expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
+  // expect(entry.value.constraints[0].path).to.eql([id('obf.datatype', 'Quantity'), id('obf.datatype', 'Units'), id('obf.datatype', 'concept')]);
     expect(entry.value.constraints[0].path).to.have.length(3);
-    expect(entry.value.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('primitive', 'concept')]);
+    expect(entry.value.constraints[0].path).to.eql([id('obf.datatype', 'Quantity'), id('obf.datatype', 'Units'), id('primitive', 'concept')]);
     expectConcept(entry.value.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -373,12 +373,12 @@ describe('#importDataElement', () => {
     expect(group.description).to.equal('It is a group entry with a unit constraint on a field');
     expect(group.value).to.be.undefined;
     expect(group.fields).to.have.length(1);
-    expectField(group, 0, 'shr.core', 'Quantity', 0, 1);
+    expectField(group, 0, 'obf.datatype', 'Quantity', 0, 1);
     const el = group.fields[0];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
-//    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), id('shr.core','concept')]);
-    expect(el.constraints[0].path).to.eql([id('shr.core','Units'), pid('concept')]);
+//    expect(el.constraints[0].path).to.eql([id('obf.datatype','Units'), id('obf.datatype','concept')]);
+    expect(el.constraints[0].path).to.eql([id('obf.datatype','Units'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
@@ -394,8 +394,8 @@ describe('#importDataElement', () => {
     const el = group.fields[0];
     expect(el.constraints).to.have.length(1);
     expect(el.constraints[0]).to.be.instanceof(CodeConstraint);
-//    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), id('shr.core', 'concept')]);
-    expect(el.constraints[0].path).to.eql([id('shr.core', 'Quantity'), id('shr.core', 'Units'), pid('concept')]);
+//    expect(el.constraints[0].path).to.eql([id('obf.datatype', 'Quantity'), id('obf.datatype', 'Units'), id('obf.datatype', 'concept')]);
+    expect(el.constraints[0].path).to.eql([id('obf.datatype', 'Quantity'), id('obf.datatype', 'Units'), pid('concept')]);
     expectConcept(el.constraints[0].code, 'http://unitsofmeasure.org', 'dl', 'DeciLiter');
   });
 
