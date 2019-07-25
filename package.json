@@ -25,7 +25,7 @@
     "eslint": "^3.6.1",
     "mocha": "^3.5.3",
     "shr-expand": "^6.0.0",
-    "shr-models": "standardhealth/shr-models#add-fixed-value-constraint",
+    "shr-models": "standardhealth/shr-models#cm_sprint_41",
     "shr-test-helpers": "^6.0.0"
   },
   "peerDependencies": {
