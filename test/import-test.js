@@ -3,10 +3,8 @@ const {setLogger} = require('../index');
 const {id, pid, expectAndGetElement, expectAndGetEntry, expectAndGetAbstract, expectAndGetGroup, expectValue, expectPrimitiveValue, expectChoiceValue, expectCardOne, expectChoiceOption, expectField, expectConcept, expectIdentifier, expectPrimitiveIdentifier, expectNoConstraints, importFixture, importFixtureFolder } = require('../test/import-helper');
 const {Version, IncompleteValue, ValueSetConstraint, CodeConstraint, IncludesCodeConstraint, BooleanConstraint, FixedValueConstraint, TypeConstraint, CardConstraint, REQUIRED, EXTENSIBLE, PREFERRED, EXAMPLE} = require('shr-models');
 const err = require('shr-test-helpers/errors');
-const shrexpand = require('shr-expand');
 const errorLogger = err.logger();
 
-shrexpand.setLogger(errorLogger);
 // Set the logger -- this is needed for detecting and checking errors
 setLogger(errorLogger);
 
@@ -1085,7 +1083,7 @@ does not support multiple options.
     expect(entry.value.constraints[0].value).to.equal(-1.2e12);
     entry = expectAndGetElement(specifications, nspace, 'FixedDecimalNegativeScientificNegative');
     expect(entry.value.constraints[0].value).to.equal(-1.2e-12);
-    
+
   });
 
 });
