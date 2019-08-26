@@ -3,4 +3,4 @@ Namespace: shr.test
 
 Element:         InvalidSystemlessCode
 Description:    "Can't have a code without a code system."
-Value:          concept = #bar
+Value:          concept = FOO#bar
