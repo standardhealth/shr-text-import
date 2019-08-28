@@ -42,6 +42,7 @@ Number, Message, Solution, deduplicationKeys
 11012, 'Only default path definitions are allowed in ValueSet files. Path definition ignored.', 'Use one of the preset path definitions defined in the documentation.', 'errorNumber'
 11015, '${message}', 'This is usually a typo issue. Investigate keywords and missing colons around the specificed text input.', 'errorNumber'
 11016, '${message}', 'This is usually a typo issue. Investigate spelling and keywords used around the specificied text input.', 'errorNumber'
+11017, '${message}', 'This is usually a typo issue. Investigate spelling and keywords used around the specificied text input.', 'errorNumber'
 11020, 'Failed to resolve vocabulary for ${name}.', 'Unknown', 'errorNumber'
 11023, '${message}', 'This is usually a typo issue. Investigate spelling and keywords used around the specificied text input.', 'errorNumber'
 11025, 'Fields cannot be constrained to type ${value} ', 'Unknown', 'errorNumber'

@@ -216,9 +216,7 @@ describe('#importDataElementNegatives', () => {
     importFixture('InvalidEntryWithValue', dir, true);
   });
 
-  // Skipping this for now. Was not actually producing an error message
-  // Error message was coming from Antlr and not being caught
-  it.skip('Neg46: should produce an error message (not a traceback) when a Group declares a Value.', () => {
+  it('Neg46: should produce an error message (not a traceback) when a Group declares a Value.', () => {
     importFixture('InvalidGroupWithValue', dir, true);
   });
 
