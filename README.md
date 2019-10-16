@@ -1,3 +1,11 @@
+> # Content Has Moved!
+>
+> **The shr-text-import repo has been integrated into the**
+> **[shr-tools](https://github.com/standardhealth/shr-tools) monorepo.  All further development**
+> **will be in [shr-tools/packages/shr-text-import](https://github.com/standardhealth/shr-tools/tree/master/packages/shr-text-import).**
+>
+> **Current releases can be found at [shr-tools/releases](https://github.com/standardhealth/shr-tools/releases).**
+
 # SHR Text Import
 
 The Standard Health Record (SHR) initiative is working to create a single, high-quality health record for every individual in the United States.  For more information, see [standardhealthrecord.org](http://standardhealthrecord.org/).
